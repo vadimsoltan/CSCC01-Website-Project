@@ -8,4 +8,4 @@
     - utorid: houxiny1
 
 - Minqi Wang
-    - utorid: wangmi56
+    - utorid: wangmi56
