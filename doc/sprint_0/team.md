@@ -9,3 +9,6 @@
 
 - Minqi Wang
     - utorid: wangmi56
+    
+- Haitao Zhu
+    - utorid: zhuhaita
