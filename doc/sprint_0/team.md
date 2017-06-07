@@ -6,3 +6,6 @@
 
 - Xinyi Hou
     - utorid: houxiny1
+
+- Minqi Wang
+    - utorid: wangmi56
