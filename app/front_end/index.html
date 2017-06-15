@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Webshop</title>
+</head>
+
+<body>
+	
+    <header>
+	<h1 id="title">Webshop</h1>
+    </header>
+    <button type="button" onclick="document.getElementById('loginForm').style.display='block';document.getElementById('registerForm').style.display='none'">Login</button>
+    <button type="button" onclick="document.getElementById('registerForm').style.display='block';document.getElementById('loginForm').style.display='none'">Register</button>
+
+    <form id="loginForm" style="display:none">
+      <h1>Login</h1>
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" id="loginUsername" required>
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="loginPassword" required>
+      <input type="submit">
+    </form>
+
+    <form id="registerForm" style="display:none">
+      <h1>Register</h1>
+      <label><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" id="registerUsername" required>
+      <label><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="registerPassword" required>
+        
+      <input type="submit">
+    </form>
+		
+	    
+
+      
+    <script src="js/view.js"></script>
+    <script src="js/model.js"></script>
+    <script src="js/controller.js"></script>
+  </body>
+</html
