@@ -59,6 +59,19 @@ var Books = (function(){
     }
 }());
 
+// Posts constructor, return a newly created post object(json) based on bookinfo, which will be stored into the user relation
+var Post = (function(){
+    // bookInfo will be passed from the XMLHttpRequest
+    return function Post(postInfo){
+        this.title = postInfo.title;
+        this.description = postInfo.description;
+        this.tags = postInfo.tags; // the tag list
+        // need further discussion on the image
+        this.image = postInfo.image;
+        this.date = postInfo.date;
+    }
+}());
+
 var checkPassword = function(user, password){
         var hash = crypto.createHmac('sha512', user.salt);
         hash.update(password);
@@ -91,6 +104,20 @@ app.put('/api/users/', function (req, res, next) {
             return next();
         }
         
+    });
+});
+
+// create new post
+app.post('/api/posts/', function (req, res, next) {
+
+    var newPost = new Post(req.body);
+    // insert newly created post into the relation of posts
+    posts.insert(newPost, function (err, newPost) {
+    // error checking for db aciton
+    if (err) return res.status(500).send("Database error");
+    // return the new created comment to frontend
+    res.json(null); 
+    return next();
     });
 });
 
