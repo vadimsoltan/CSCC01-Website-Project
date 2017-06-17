@@ -63,6 +63,7 @@ var Books = (function(){
 var Post = (function(){
     // bookInfo will be passed from the XMLHttpRequest
     return function Post(postInfo){
+	this.postId = postInfo.postId;
         this.title = postInfo.title;
         this.description = postInfo.description;
         this.tags = postInfo.tags; // the tag list
@@ -128,6 +129,22 @@ app.post('/api/posts/', function (req, res, next) {
     	// return the new created comment to frontend
     	res.json(null); 
     	return next();
+    });
+});
+
+// update a post with given id
+app.post('/api/posts/:postId', function (req, res, next) {
+
+    var id = req.params.postId;
+    posts.find({"postId": id}, function(err, postId){
+        if(postId == null) return res.json("Post doesn't exist");
+        else{
+            posts.insert(req.body, function(err, post){
+                if (err) return res.status(500).send("Database error");
+            });
+            res.json(req.body);
+            return next();
+        }
     });
 });
 
