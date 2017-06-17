@@ -12,6 +12,11 @@
       var data = e.detail;
       // forwards it to the model
       model.login(data);
+    });
+
+    document.addEventListener('signOut', function(e){
+      // get data from the view
+      model.signOut();
     }); 
 
 

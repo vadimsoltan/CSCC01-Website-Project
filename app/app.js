@@ -39,6 +39,12 @@ var Users = (function(){
         
         this.salt = salt;
         this.saltedHash = hash.digest('base64');
+        this.firstName = null;
+        this.lastName = null;
+        this.location = null;
+        this.email = null;
+        this.phone = null;
+        this.preferences = [];
     }
 }());
 
@@ -47,7 +53,7 @@ var Books = (function(){
 
 
     // return the new create book object
-    return function User(bookInfo){
+    return function Book(bookInfo){
         this.bookname  = userInfo.bookname;
         this.description = userInfo.description;
     }
@@ -87,9 +93,9 @@ app.put('/api/users/', function (req, res, next) {
         
     });
 });
+
 // sign in
 app.post('/signIn/', function (req, res, next) {
-    console.log("__");
     users.findOne({username: req.body.username}, function(err, user){
         if (user == null) {
             return res.json("notRegistered");
@@ -103,11 +109,29 @@ app.post('/signIn/', function (req, res, next) {
 });
 
 //signout
-app.delete('/signout/', function (req, res, next) {
+app.delete('/signOut/', function (req, res, next) {
+    res.cookie('username',null);
     req.session.destroy(function(err) {
         if (err) return res.status(500).end(err);
         return res.end();
     });
+});
+
+//update user
+app.put('/api/:username/profile/', function (req, res, next) {
+	var username = req.params.username;
+	console.log(username);
+	var firstName = req.body.firstName;
+	var lastName = req.body.lastName;
+	var location = req.body.location;
+	var email = req.body.email;
+	var phone = req.body.phone;
+	var preferences = req.body.preferences;
+	users.update({ "username": username }, { $set: { "firstName":firstName,"lastName": lastName, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
+		console.log(numReplaced);
+		return res.json(numReplaced);
+	});
+
 });
 
 app.use(function (req, res, next){

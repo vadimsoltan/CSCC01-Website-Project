@@ -30,6 +30,7 @@ var model = (function(){
             if(newData === null) {
                 alert("Username has already existed.");
             }
+            console.log(document.cookie);
         })
     }
     model.login = function(newData) {
@@ -39,8 +40,42 @@ var model = (function(){
             } else if(newData === "wrong") {
                 alert("The password is not correct.");
             }
+            console.log(document.cookie);
         })
     }
+
+    model.signOut = function() {
+        doAjax('DELETE','http://localhost:3000/signOut/',null,false, function(err,newData) {
+        })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     return model;
 }());

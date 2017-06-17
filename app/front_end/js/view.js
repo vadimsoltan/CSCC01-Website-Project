@@ -17,6 +17,12 @@ var view = (function(){
     	document.dispatchEvent(new CustomEvent('register',{detail: data}));
         e.target.reset();
     }
+    document.getElementById("signOut").onclick = function(e) {
+        document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
+    }
+    window.onload = function() {
+
+    }
 
 
 
