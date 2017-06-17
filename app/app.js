@@ -113,11 +113,11 @@ app.post('/api/posts/', function (req, res, next) {
     var newPost = new Post(req.body);
     // insert newly created post into the relation of posts
     posts.insert(newPost, function (err, newPost) {
-    // error checking for db aciton
-    if (err) return res.status(500).send("Database error");
-    // return the new created comment to frontend
-    res.json(null); 
-    return next();
+    	// error checking for db aciton
+    	if (err) return res.status(500).send("Database error");
+    	// return the new created comment to frontend
+    	res.json(null); 
+    	return next();
     });
 });
 
