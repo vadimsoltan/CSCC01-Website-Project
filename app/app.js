@@ -72,6 +72,16 @@ var Post = (function(){
     }
 }());
 
+// Message constructor
+var Message = (function() {
+	return function Message(msgInfo) {
+		this.sender = msgInfo.sender;
+		this.receiver = msgInfo.receiver;
+		this.content = msgInfo.content;
+	}
+}());
+
+
 var checkPassword = function(user, password){
         var hash = crypto.createHmac('sha512', user.salt);
         hash.update(password);
@@ -120,6 +130,46 @@ app.post('/api/posts/', function (req, res, next) {
     return next();
     });
 });
+
+//send message
+app.post('/api/messages/', function (req, res, next) {
+	
+	var newMsg = new Message(req.body);
+	users.findOne({username: newMsg.sender}, function(err, user) {
+		if (user == null) return res.json("wrong receiver");
+		else {
+			messages.insert(newMsg,function(err, newMsg) {
+				if (err) return res.status(500).send("Database error");
+			});
+		}
+		res.json(null);
+		return next();
+	});
+});
+
+//get received messages
+app.get('/api/messages/', function (req, res, next) {
+	
+	var rec = req.body.receiver;
+	messages.find({receiver: rec}, function(err, msgs) {
+		if (err) return res.status(500).send("Database error");
+		res.json(msgs);
+		return next();
+	});
+});
+
+//get send messages
+app.get('/api/messages/', function (req, res, next) {
+	
+	var send = req.body.sender;
+	messages.find({sender: send}, function(err, msgs) {
+		if (err) return res.status(500).send("Database error");
+		res.json(msgs);
+		return next();
+	});
+});
+		
+	
 
 // sign in
 app.post('/signIn/', function (req, res, next) {
