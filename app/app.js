@@ -131,7 +131,16 @@ app.put('/api/:username/profile/', function (req, res, next) {
 		console.log(numReplaced);
 		return res.json(numReplaced);
 	});
+});
 
+//get profile of user
+app.get('/api/:username/', function (req, res, next) {
+    console.log("here");
+    var username = req.params.username;
+    users.findOne({ "username": username }, function (err, userinfo) {
+        console.log(userinfo);
+        return res.json(userinfo);
+    });
 });
 
 app.use(function (req, res, next){
