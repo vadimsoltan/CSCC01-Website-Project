@@ -16,8 +16,8 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 var users = new Datastore({ filename: 'db/users.db', autoload: true, timestampData : true});
-var DB = new Datastore({ filename: 'db/DB.db', autoload: true, timestampData : true});
-
+var books = new Datastore({ filename: 'db/books.db', autoload: true, timestampData : true});
+var messages = new Datastore({ filename: 'db/messages.db', autoload: true, timestampData : true});
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -148,10 +148,10 @@ app.post('/api/messages/', function (req, res, next) {
 });
 
 //get received messages
-app.get('/api/messages/', function (req, res, next) {
+app.get('/api/messagesReceiver/:receiver/', function (req, res, next) {
 	
-	var rec = req.body.receiver;
-	messages.find({receiver: rec}, function(err, msgs) {
+	var rec = req.params.receiver;
+	messages.find({"receiver": rec}, function(err, msgs) {
 		if (err) return res.status(500).send("Database error");
 		res.json(msgs);
 		return next();
@@ -159,10 +159,10 @@ app.get('/api/messages/', function (req, res, next) {
 });
 
 //get send messages
-app.get('/api/messages/', function (req, res, next) {
+app.get('/api/messagesSender/:sender/', function (req, res, next) {
 	
-	var send = req.body.sender;
-	messages.find({sender: send}, function(err, msgs) {
+	var send = req.params.sender;
+	messages.find({"sender": send}, function(err, msgs) {
 		if (err) return res.status(500).send("Database error");
 		res.json(msgs);
 		return next();
