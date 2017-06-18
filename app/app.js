@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 
 var users = new Datastore({ filename: 'db/users.db', autoload: true, timestampData : true});
-var books = new Datastore({ filename: 'db/books.db', autoload: true, timestampData : true});
+var posts = new Datastore({ filename: 'db/posts.db', autoload: true, timestampData : true});
 var messages = new Datastore({ filename: 'db/messages.db', autoload: true, timestampData : true});
 app.use(session({
     secret: 'keyboard cat',
@@ -48,22 +48,10 @@ var Users = (function(){
     }
 }());
 
-// Books constructor
-var Books = (function(){
-
-
-    // return the new create book object
-    return function Book(bookInfo){
-        this.bookname  = userInfo.bookname;
-        this.description = userInfo.description;
-    }
-}());
-
 // Posts constructor, return a newly created post object(json) based on bookinfo, which will be stored into the user relation
 var Post = (function(){
     // bookInfo will be passed from the XMLHttpRequest
     return function Post(postInfo){
-	this.postId = postInfo.postId;
         this.title = postInfo.title;
         this.description = postInfo.description;
         this.tags = postInfo.tags; // the tag list
@@ -120,6 +108,7 @@ app.put('/api/users/', function (req, res, next) {
 
 // create new post
 app.post('/api/posts/', function (req, res, next) {
+	console.log(req.body);
 
     var newPost = new Post(req.body);
     // insert newly created post into the relation of posts
@@ -133,19 +122,18 @@ app.post('/api/posts/', function (req, res, next) {
 });
 
 // update a post with given id
-app.post('/api/posts/:postId', function (req, res, next) {
+app.put('/api/updatePosts/:id/', function (req, res, next) {
 
-    var id = req.params.postId;
-    posts.find({"postId": id}, function(err, postId){
-        if(postId == null) return res.json("Post doesn't exist");
-        else{
-            posts.insert(req.body, function(err, post){
-                if (err) return res.status(500).send("Database error");
-            });
-            res.json(req.body);
-            return next();
-        }
-    });
+    var id = req.params.id;
+    var title = req.body.title;
+    var description = req.body.description;
+    var tags = req.body.tags;
+    var image = req.body.image;
+    var date = req.body.date;
+    posts.update({"_id": id}, { $set: { "title":title,"description": description, "tags": tags, "image": image,"date" : date} }, {}, function (err, numReplaced) {
+		console.log(numReplaced);
+		return res.json(numReplaced);
+	});
 });
 
 //send message
@@ -187,9 +175,9 @@ app.get('/api/messagesSender/:sender/', function (req, res, next) {
 });
 
 //delete message
-app.delete('/api/messages/', function (req, res, next) {
+app.delete('/api/messages/:id/', function (req, res, next) {
 	
-	var id = req.params._id;
+	var id = req.params.id;
 	messages.remove({_id: id}, {}, function(err, numRemove) {
 		if (err) return res.status(500).send("Database error");
 		res.json(null);
