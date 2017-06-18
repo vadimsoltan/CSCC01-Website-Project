@@ -185,6 +185,17 @@ app.get('/api/messagesSender/:sender/', function (req, res, next) {
 		return next();
 	});
 });
+
+//delete message
+app.delete('/api/messages/', function (req, res, next) {
+	
+	var id = req.params._id;
+	messages.remove({_id: id}, {}, function(err, numRemove) {
+		if (err) return res.status(500).send("Database error");
+		res.json(null);
+		return next();
+	});
+});
 		
 	
 
