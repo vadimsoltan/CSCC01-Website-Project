@@ -22,4 +22,4 @@ Specifically, the meeting was related to the following features/user-stories:
 
 ## July 18 Meeting online from 3:15 PM – 3:20 PM
 
-- Everyone reported what they accomplished so far and we decide to complete our sprint1.md and edit it for the due date.
+- Everyone reported what they accomplished so far and we decide to complete our sprint1.md as well as RPM.md and edit them for the due date.
