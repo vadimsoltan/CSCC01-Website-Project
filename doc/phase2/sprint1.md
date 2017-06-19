@@ -2,7 +2,7 @@
 
 - We all talked about the front-end design to get a better pictured about how we should approach the general idea of the project. We settled on the fact that since it will be a user run webstore, we should start off with the users. 
 Specifically, the meeting was related to the following feature/user-story:
-- As Alan Yang, a buyer, I want to have an account so that I can login to use functions such as comment and bookmark.
+    - As Alan Yang, a buyer, I want to have an account so that I can login to use functions such as comment and bookmark.
 So, we created a login and register form for the user on the front end.
 
 ## July 14 Meeting online 11:13 AM – 11:24 AM
