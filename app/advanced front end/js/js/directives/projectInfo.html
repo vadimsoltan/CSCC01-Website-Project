@@ -1,0 +1,81 @@
+ <table class="profile-table table" >
+                    
+                    <tr>
+                        <th>Project Name</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.name}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.name"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.description}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.description"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Date of Publishing</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.publishDate|date:'yyyy-MM-dd'}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input type="date" ng-model="project.publishDate"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Publisher</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.publisher}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.publisher"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.email}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.email"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Payment</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.payment}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.payment"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Required Skill</th>
+                        <td ng-show="projectCtrl.isSelected(0)"><span ng-show="projectCtrl.isSelected(0)" ng-repeat="skill in project.requiredSkills">{{skill}}{{$last ? '' : ', '}} </span></td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.name"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Due Date</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.dueDate|date:'yyyy-MM-dd'}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input type="date" ng-model="project.dueDate" placeholder="yyyy-MM-dd" min="new Date()"></input>
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Special Requirement</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.specialRequirement}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.specialRequirement"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td ng-show="projectCtrl.isSelected(0)">{{project.status}}</td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.status"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Tag</th>
+                        <td ng-show="projectCtrl.isSelected(0)"><span ng-repeat="tag in project.tags">{{tag}}{{$last ? '' : ', '}} </span></td>
+                        <td ng-show="projectCtrl.isSelected(1)">
+                            <input ng-model="project.name"></input>
+                        </td>
+                    </tr>
+                </table>

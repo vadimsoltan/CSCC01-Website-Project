@@ -1,0 +1,354 @@
+/*reset*/
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p,a, 
+blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr,iframe {
+    // margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align:baseline;
+    // font: inherit;
+    text-decoration:none;
+    list-style:none;
+}
+
+html{
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+body{
+    padding-top: 70px;
+}
+// #toTop {
+//     display: none;
+//     text-decoration: none;
+//     position: fixed;
+//     bottom: 40px;
+//     right: 15px;
+//     overflow: hidden;
+//     width: 40px;
+//     height: 21px;
+//     border: none;
+//     text-indent: 100%;
+//     background: url("../images/to-top2.png") no-repeat 0px 0px;
+
+// }
+/* navbar start*/
+.navbar-form,.navbar-form .input-group{
+    width: 100%;
+}
+
+.search-dropdown{
+    background-color: white;
+}
+@media screen and (min-width:768px) {
+
+    .search-dropdown{
+    width:81.5%;
+}
+}
+@media screen and (max-width:767px) {
+
+    .search-dropdown{
+    width:94%;
+}
+}
+/*navbar end*/
+/* index.html start */
+.modal{
+    top:60px;
+    width: 80vw;
+    height:95vh;
+    margin:0 auto;
+}  
+.modal-content{
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/*----sap-----*/
+.modal .sap_tabs {
+  margin: 0 auto;
+  /*  padding-top: 10px;
+   padding-bottom: 5px;
+   padding:30px 0px; */
+  text-align: center;
+  -webkit-appearance: none;
+ }
+ 
+.modal .facts{
+  padding: 7% 0% 0% 0%;
+}
+
+.modal .resp-tab-item{
+  border:none;
+  background:rgba(2, 2, 2, 0.60);
+  color: white;
+  font-size: 24px;
+  font-family:Nunito-Light;
+  cursor: pointer;
+  padding:5px 30px;
+  margin:5px;
+  display: inline-block;
+  list-style: none;
+  outline: none;
+  border:2px solid #fff;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -khtml-border-radius: 3px;
+  border-radius: 6px;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  -webkit-appearance: none;
+}
+
+.modal .resp-tab-item:hover {
+    border:2px solid #d8cc52;
+    background: #d8cc52;
+    text-shadow: none;
+    color: #fff;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+.modal .resp-tab-active {
+    border:2px solid #d8cc52;
+
+    text-shadow: none;
+    color: #fff;
+    background: #d8cc52;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.modal h2.resp-accordion {
+  cursor: pointer;
+  padding: 5px;
+  display: none;
+}
+
+.modal .resp-tab-content {
+  display: none;
+}
+.modal .resp-content-active, .resp-accordion-active {
+   display: block;
+}
+
+/*---------*/
+.modal .register input[type="text"],.register input[type="password"] {
+    outline: none;
+    font-size:16px;
+    font-family:Nunito-Light;
+    color: #fff;
+    padding: 15px 10px;
+    border:none;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+    width: 80%;
+    margin: 0 0 10px 0 ;
+    background:rgba(2, 2, 2, 0.60);
+}
+
+
+
+.modal .sign-up input[type="submit"] {
+    background:rgba(2, 2, 2, 0.60);
+    color: #fff;
+    border: 2px solid #fff;
+    font-size: 18px;
+    font-family:Nunito-Light;
+    padding: 8px 10px 8px 15px;
+    width: 85%;
+    cursor: pointer;
+    outline: none;
+    display: inline-block;
+    margin-top:24px;
+    margin-bottom: 5px;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    border-radius: 3px;
+}
+.modal .sign-up input[type="submit"]:hover{
+    color: #fff;
+    background:#d8cc52;
+}
+
+.modal .sign-up a{
+    margin: 5px 0;
+    font-size: 18px;
+    padding: 8px 5px 8px 15px;
+    width:85%;
+
+}
+
+.modal  ::-webkit-input-placeholder{
+    color:#fff;
+}
+
+.modal :-moz-placeholder { /* Firefox 18- */
+   color: #fff; 
+}
+
+.modal ::-moz-placeholder {  /* Firefox 19+ */
+   color: #fff;  
+}
+
+.modal :-ms-input-placeholder {  
+   color: #fff;  
+}
+
+.modal h3{
+    padding-top:35px;
+    padding-bottom: 20px;
+}
+
+.modal .register a{
+    color:#fbfbdd;
+    font-size: 18px;
+    font-family:Nunito-Light;
+}
+.modal .forget-password:hover{
+    color:#55ACEE; /* twitter blue */
+}
+.modal .close {
+    color:#fff;
+    opacity: 1;
+
+}
+.modal .close:hover{
+    color: #d8cc52;
+    opacity: 1;
+}
+
+/* index.html end */
+
+/*Main Page*/
+.InnerSection{
+    width:95%;
+    padding:15px;
+    margin:40px auto;
+    position:relative;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.InnerSection h2 {
+    background: lightblue;
+    padding: 15px 5px;
+    font-weight: 400;
+    font-size: 24px;
+    color: #2d2d2d;
+}
+.table {
+    display: table;
+    width: 100%;
+    border: 0;
+}
+.table .heading {
+    display: table-row;
+    text-align: center;
+    background-color: #354B61;
+}
+.table .cell {
+    display: table-cell;
+    padding: 15px 5px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.table .row {
+    display: table-row;
+    -webkit-transition: background-color 0.2s ease-in;
+    transition: background-color 0.2s ease-in;
+}
+.table .row:nth-child(2n) {
+    background: #eff0f1;
+}
+.table .row:hover,.table .row:nth-child(2n):hover {
+    background-color: rgba(112, 186, 230, 0.4);
+}
+
+/*Main Page END*/
+
+/* create project */
+.create-project .row{
+    margin-right: 0px;
+    margin-left: 0px;
+}
+/* create project end */
+/*for profile*/
+*[role="complementary"]{
+    padding-top: 80px;
+}
+.profile-table {
+    width: 80%;
+}
+
+.profile-table th{
+    width:18%;
+    height:42px;
+}
+.profile-table td{
+    width:50%;
+    height:42px;
+}
+.profile-table input{
+    width:100%;
+}
+.profile-table ul{
+    padding-left:20px ;
+}
+.profile-table th, .profile-table td { 
+     border-top: none !important; 
+ }
+/*profile*/
+
+
+.discussion span{
+    float:right;
+}
+.bottom{
+    margin-top: 50px;
+    background:#2d2d2d;
+    padding:20px 10%;
+}
+
+.bottom p {
+    float: left;
+    font-size: 13px;
+    color:#666666;
+    
+}
+
+.bottom p span {
+    color: #f5f5f5;
+}
+
+/*for form validation*/
+/* when valid, green border */
+form .ng-valid.ng-dirty{
+    border-color: #78FA89;
+}
+/* when invalid, red border */
+form .ng-invalid.ng-dirty{
+    border-color: #FA787E;
+}
+
+
+ 
+/* solve template appears problem */
+[ng:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+display: none !important;
+
+
+}
