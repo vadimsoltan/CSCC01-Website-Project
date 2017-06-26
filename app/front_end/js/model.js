@@ -35,6 +35,7 @@ var model = (function(){
     }
     model.login = function(newData) {
         doAjax('POST','http://localhost:3000/signIn/',newData, true, function(err,newData) {
+            console.log(newData);
             if(newData === "notRegistered") {
                 alert("Username has not be registered.");
             } else if(newData === "wrong") {
@@ -48,13 +49,6 @@ var model = (function(){
         doAjax('DELETE','http://localhost:3000/signOut/',null,false, function(err,newData) {
         })
     }
-
-
-
-
-
-
-
 
 
 

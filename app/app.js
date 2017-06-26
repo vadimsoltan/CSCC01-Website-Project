@@ -52,6 +52,7 @@ var Users = (function(){
 var Post = (function(){
     // bookInfo will be passed from the XMLHttpRequest
     return function Post(postInfo){
+        this.username = postInfo.username;
         this.title = postInfo.title;
         this.description = postInfo.description;
         this.tags = postInfo.tags; // the tag list
@@ -78,6 +79,7 @@ var checkPassword = function(user, password){
         return (user.saltedHash === value);
 };
 
+// User
 // create new user 
 app.put('/api/users/', function (req, res, next) {
 
@@ -103,6 +105,41 @@ app.put('/api/users/', function (req, res, next) {
             return next();
         }
         
+    });
+});
+
+//signout
+app.delete('/signOut/', function (req, res, next) {
+    res.cookie('username',null);
+    req.session.destroy(function(err) {
+        if (err) return res.status(500).end(err);
+        return res.end();
+    });
+});
+
+//update user
+app.put('/api/:username/profile/', function (req, res, next) {
+    var username = req.params.username;
+    console.log(username);
+    var firstName = req.body.firstName;
+    var lastName = req.body.lastName;
+    var location = req.body.location;
+    var email = req.body.email;
+    var phone = req.body.phone;
+    var preferences = req.body.preferences;
+    users.update({ "username": username }, { $set: { "firstName":firstName,"lastName": lastName, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
+        console.log(numReplaced);
+        return res.json(numReplaced);
+    });
+});
+
+//get profile of user
+app.get('/api/:username/', function (req, res, next) {
+    console.log("here");
+    var username = req.params.username;
+    users.findOne({ "username": username }, function (err, userinfo) {
+        console.log(userinfo);
+        return res.json(userinfo);
     });
 });
 
@@ -136,18 +173,19 @@ app.put('/api/updatePosts/:id/', function (req, res, next) {
 	});
 });
 
-//send message
+//create message
 app.post('/api/messages/', function (req, res, next) {
 	
 	var newMsg = new Message(req.body);
-	users.findOne({username: newMsg.sender}, function(err, user) {
+    console.log(req.body);
+	users.findOne({username: newMsg.receiver}, function(err, user) {
 		if (user == null) return res.json("wrong receiver");
 		else {
 			messages.insert(newMsg,function(err, newMsg) {
 				if (err) return res.status(500).send("Database error");
 			});
 		}
-		res.json(null);
+        res.end();
 		return next();
 	});
 });
@@ -198,41 +236,6 @@ app.post('/signIn/', function (req, res, next) {
         req.session.user = user;
         res.cookie('username', user.username);
         return res.json(user.username);
-    });
-});
-
-//signout
-app.delete('/signOut/', function (req, res, next) {
-    res.cookie('username',null);
-    req.session.destroy(function(err) {
-        if (err) return res.status(500).end(err);
-        return res.end();
-    });
-});
-
-//update user
-app.put('/api/:username/profile/', function (req, res, next) {
-	var username = req.params.username;
-	console.log(username);
-	var firstName = req.body.firstName;
-	var lastName = req.body.lastName;
-	var location = req.body.location;
-	var email = req.body.email;
-	var phone = req.body.phone;
-	var preferences = req.body.preferences;
-	users.update({ "username": username }, { $set: { "firstName":firstName,"lastName": lastName, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
-		console.log(numReplaced);
-		return res.json(numReplaced);
-	});
-});
-
-//get profile of user
-app.get('/api/:username/', function (req, res, next) {
-    console.log("here");
-    var username = req.params.username;
-    users.findOne({ "username": username }, function (err, userinfo) {
-        console.log(userinfo);
-        return res.json(userinfo);
     });
 });
 
