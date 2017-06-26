@@ -1,0 +1,58 @@
+
+    <!-- header -->
+    <!-- <nav-header></nav-header> -->
+    <!-- /header -->
+    <!-- body -->
+    <div class="InnerSection" ng-controller="ProjectListController as projLstCtrl">
+        <h2>Personal Profile</h2>
+        <div class="table project-list">
+            <div class="row" style="background-color:lightblue">
+                <div class="cell">
+                    <p>NAME</p>
+                </div>
+                <div class="cell">
+                    <p>PHONE NUMBER</p>
+                </div>
+                <div class="cell">
+                    <p>INTERESTED AREA</p>
+                </div>
+                <div class="cell">
+                    <p>Favourate books</p>
+                </div>
+            </div>
+            <div class="row" ng-repeat="project in projects">
+                <div class="cell">
+                <p>Your current book list</p>
+                    <a ui-sref="project_detail({projectId:project.id})" ng-bind="project.name"></a>
+                </div>
+                <div class="cell">
+                    <p ng-bind="project.status"></p>
+                </div>
+                <div class="cell">
+                    <a href="profile_business.html" ng-bind="project.publisher"></a>
+                </div>
+                <div class="cell">
+                    <p ng-bind="project.publishDate|date:'short'"></p>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
