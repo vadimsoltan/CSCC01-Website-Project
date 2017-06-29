@@ -14,6 +14,11 @@
       model.login(data);
     });
 
+    document.addEventListener('login_', function(e){
+
+      view.login();
+    });
+
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();

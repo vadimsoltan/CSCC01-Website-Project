@@ -48,9 +48,11 @@
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav" data-0="margin-top:20px;" data-300="margin-top:5px;">
 						<li class="active"><a href="index.html">Home</a></li>
-						<li><a href="#section-sign">Sign In/ Sign Up</a></li>
+						<li id="sign" data-toggle="modal" data-target="#myModal"><a>Sign In/ Sign Up</a></li>
+						<li id="signOut" style="display: none"><a>Sign Out</a></li>
 						<li><a href="#section-book">Our Books</a></li>
 						<li><a href="#section-contact">Contact</a></li>
+						<li><a id="currentUser"></a></li>
 					</ul>
 				</div><!--/.navbar-collapse -->
 			</div>
@@ -85,7 +87,7 @@
 					<div class="align-center">
 						<i class="fa fa-code fa-5x mar-bot20"></i>
 						<buttion type="button" class="text-bold" data-toggle="modal" data-target="#userProfile">Have your own profile</h4>
-						<p>By having an account with Integrow, you can upload your own profile to let others know yow better.
+						<p>By having an account with Integrow, you can upload your own profile to let others know you better.
 						</p>
 					</div>
 				</div>
@@ -140,9 +142,6 @@
 <center>	
 		<section id="section-sign" class="section appear clearfix">
 		<div class="content">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-  		Sign in / Sign up
-		</button>
         <!-- Offer-Starts-Here -->
         <!-- //Offer-Ends-Here -->
         <!-- Modal-Starts-Here -->
@@ -184,7 +183,7 @@
                                                 <input placeholder="Username" class="mail" type="text" id="loginUsername" required="">
                                                 <input placeholder="Password" class="lock" type="password" id="loginPassword" required="">
                                                 <div class="sign-up">
-                                                    <input type="submit" value="Sign in">
+                                                    <input type="submit" value="Sign in"> 
                                                     <a href="find_project.html" class=" btn btn-blockbtn-social btn-facebook">
                                                         <span class="fa fa-facebook"></span> Sign In with facebook
                                                     </a>

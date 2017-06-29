@@ -41,14 +41,20 @@ var model = (function(){
                 alert("Username has not be registered.");
             } else if(newData === "wrong") {
                 alert("The password is not correct.");
+            } else {
+                console.log(document.cookie);
+                console.log(document.cookie.substr(9));
+                // document.dispatchEvent(new CustomEvent('login_'));
+                document.getElementById("sign").style.display = 'none';
+                document.getElementById("signOut").style.display = 'block';
+                document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
             }
-            console.log(document.cookie);
-            console.log(document.cookie.substr(9));
         })
     }
 
     model.signOut = function() {
         doAjax('DELETE','http://localhost:3000/signOut/',null,false, function(err,newData) {
+            location.reload();
         })
     }
 

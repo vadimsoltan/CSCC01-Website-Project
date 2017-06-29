@@ -22,12 +22,14 @@ var view = (function(){
             e.target.reset();
         }
     }
-    // document.getElementById("signOut").onclick = function(e) {
-    //     document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
-    // }
-    // window.onload = function() {
+    document.getElementById("signOut").onclick = function(e) {
+        document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
+    }
+    window.onload = function() {
+        document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        console.log(document.cookie);
+    }
 
-    // }
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
     	e.preventDefault();
@@ -39,6 +41,13 @@ var view = (function(){
     	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
         e.target.reset();
     }
+
+
+
+    // view.login = function() {
+    //     document.getElementById("sign").style.display = 'none';
+    //     document.getElementById("signOut").style.display = 'block';
+    // }
 
 
 
