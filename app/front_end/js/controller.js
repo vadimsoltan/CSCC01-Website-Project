@@ -17,6 +17,12 @@
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();
+    });
+
+    document.addEventListener('updateUserProfile', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.updateUserProfile(data);
     }); 
 
 

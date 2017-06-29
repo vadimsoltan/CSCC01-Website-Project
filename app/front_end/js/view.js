@@ -2,7 +2,6 @@ var view = (function(){
 	
     document.getElementById("loginForm").onsubmit = function(e) {
     	e.preventDefault();
-        console.log("here");
     	var data = {};
     	data.username = document.getElementById("loginUsername").value;
     	data.password = document.getElementById("loginPassword").value;
@@ -29,6 +28,17 @@ var view = (function(){
     // window.onload = function() {
 
     // }
+
+    document.getElementById("userProfileForm").onsubmit = function(e) {
+    	e.preventDefault();
+    	var data = {};
+    	data.name = document.getElementById("userName").value;
+    	data.location = document.getElementById("userLocation").value;
+    	data.email = document.getElementById("userEmail").value;
+    	data.phone = document.getElementById("userPhone").value;
+    	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
+        e.target.reset();
+    }
 
 
 

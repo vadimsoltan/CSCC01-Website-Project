@@ -84,7 +84,7 @@
 				<div class="col-lg-4" >
 					<div class="align-center">
 						<i class="fa fa-code fa-5x mar-bot20"></i>
-						<h4 class="text-bold">Have your own profile</h4>
+						<buttion type="button" class="text-bold" data-toggle="modal" data-target="#userProfile">Have your own profile</h4>
 						<p>By having an account with Integrow, you can upload your own profile to let others know yow better.
 						</p>
 					</div>
@@ -112,6 +112,29 @@
 
 		</div>
 
+	<div class="modal fade" id="userProfile" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <div>Update Profile of User</div>
+					<div class="facts">
+						<div class="register">
+							<form id="userProfileForm">
+								<input placeholder="Name" type="text" id="userName">
+								<input placeholder="Location" type="text" id="userLocation">
+								<input placeholder="Email" type="text" id="userEmail">
+								<input placeholder="Phone" type="text" id="userPhone">
+								<input type="submit" value="Update">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 		<!--the sign in and sign up window-->
 <center>	

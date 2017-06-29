@@ -34,6 +34,7 @@ var model = (function(){
         })
     }
     model.login = function(newData) {
+        console.log("here");
         doAjax('POST','http://localhost:3000/signIn/',newData, true, function(err,newData) {
             console.log(newData);
             if(newData === "notRegistered") {
@@ -42,6 +43,7 @@ var model = (function(){
                 alert("The password is not correct.");
             }
             console.log(document.cookie);
+            console.log(document.cookie.substr(9));
         })
     }
 
@@ -50,6 +52,13 @@ var model = (function(){
         })
     }
 
+    model.updateUserProfile = function(newData) {
+        console.log(document.cookie);
+        var username = document.cookie.substr(9);
+        //var username = newData.
+        doAjax('PUT','http://localhost:3000/api/' + username + '/profile/',newData,true, function(err,newData) {
+        })
+    }
 
 
 
