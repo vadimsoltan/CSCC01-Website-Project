@@ -50,7 +50,7 @@
 						<li class="active"><a href="index.html">Home</a></li>
 						<li id="sign" data-toggle="modal" data-target="#myModal"><a>Sign In/ Sign Up</a></li>
 						<li id="signOut" style="display: none"><a>Sign Out</a></li>
-						<li><a href="#section-book">Our Books</a></li>
+						<li><a href="#section-book">Books List</a></li>
 						<li><a href="#section-contact">Contact</a></li>
 						<li><a id="currentUser"></a></li>
 					</ul>
@@ -85,7 +85,8 @@
 			<div class="row mar-bot40">
 				<div class="col-lg-4" >
 					<div class="align-center">
-						<i class="fa fa-code fa-5x mar-bot20"></i>
+						<image src="https://png.icons8.com/color/1600/upload-to-cloud" style="width:250px;height:200px;" data-toggle="modal" data-target="#userProfile">
+<!-- 						<i class="fa fa-code fa-5x mar-bot20"></i> -->
 						<h4 type="button" class="text-bold" data-toggle="modal" data-target="#userProfile">Update your profile</h4>
 						<p>By having an account with Integrow, you can upload your own profile to let others know you better.
 						</p>
@@ -94,7 +95,8 @@
 					
 				<div class="col-lg-4" >
 					<div class="align-center">
-						<i class="fa fa-terminal fa-5x mar-bot20"></i>
+						<image src="https://png.icons8.com/color/1600/upload-to-cloud" style="width:250px;height:200px;">
+<!-- 						<i class="fa fa-terminal fa-5x mar-bot20"></i> -->
 						<h4 class="text-bold">Posts</h4>
 						<p>You can make your own posts by login with Integrow account.
 						</p>
@@ -103,7 +105,8 @@
 			
 				<div class="col-lg-4" >
 					<div class="align-center">
-						<i class="fa fa-bolt fa-5x mar-bot20"></i>
+						<image src="https://png.icons8.com/color/1600/upload-to-cloud" style="width:250px;height:200px;">
+<!-- 						<i class="fa fa-bolt fa-5x mar-bot20"></i> -->
 						<h4 class="text-bold">Have your own book lists</h4>
 						<p>You can add books you interested in into a list after login with your account .
 						</p>
@@ -123,13 +126,13 @@
                     </button>
                     <div class="text-bold">Update Profile of User</div>
 					<div class="facts">
-						<div>
+						<div class="sign-up">
 							<form id="userProfileForm" class="register">
 								<input placeholder="Name" type="text" id="userName">
 								<input placeholder="Location" type="text" id="userLocation">
 								<input placeholder="Email" type="text" id="userEmail">
 								<input placeholder="Phone" type="text" id="userPhone">
-								<input type="submit" value="Update Profile">
+								<input type="submit" value="Update Profile" >
 							</form>
 						</div>
 					</div>
@@ -166,7 +169,7 @@
                                         <div class="register">
                                             <form id="registerForm">
                                                 <input placeholder="Username" type="text" id="registerUsername" required="">
-                                                <input placeholder="Email Address" type="text" id="email" required="">
+                                                <input placeholder="Email Address" type="email" id="email" required="">
                                                 <input placeholder="Password" type="password" id="registerPassword" required="">
                                                 <input placeholder="Confirm Password" type="password" id="confirmedPassword" required="">
                                                 <input type="submit" value="Create Account">

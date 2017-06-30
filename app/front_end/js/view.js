@@ -52,14 +52,6 @@ var view = (function(){
 
 
 
-    // view.login = function() {
-    //     document.getElementById("sign").style.display = 'none';
-    //     document.getElementById("signOut").style.display = 'block';
-    // }
-
-
-
-
 
 
 
