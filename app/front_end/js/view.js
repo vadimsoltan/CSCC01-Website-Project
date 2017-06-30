@@ -26,20 +26,28 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
     }
     window.onload = function() {
+        console.log(document.getElementById("currentUser").textContent == "");
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         console.log(document.cookie);
     }
 
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
-    	e.preventDefault();
-    	var data = {};
-    	data.name = document.getElementById("userName").value;
-    	data.location = document.getElementById("userLocation").value;
-    	data.email = document.getElementById("userEmail").value;
-    	data.phone = document.getElementById("userPhone").value;
-    	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
-        e.target.reset();
+
+        e.preventDefault();
+        console.log(document.getElementById("currentUser").textContent);
+        if (document.getElementById("currentUser").textContent == "") {
+            alert("Please login first!");
+            document.getElementById("close2").click();
+        } else {
+        	var data = {};
+        	data.name = document.getElementById("userName").value;
+        	data.location = document.getElementById("userLocation").value;
+        	data.email = document.getElementById("userEmail").value;
+        	data.phone = document.getElementById("userPhone").value;
+        	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
+            e.target.reset();
+        }
     }
 
 

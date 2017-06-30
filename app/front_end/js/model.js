@@ -29,8 +29,12 @@ var model = (function(){
         doAjax('PUT','http://localhost:3000/api/users/',newData, true, function(err,newData) {
             if(newData === null) {
                 alert("Username has already existed.");
+            } else {
+                document.getElementById("sign").style.display = 'none';
+                document.getElementById("signOut").style.display = 'block';
+                document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
+                document.getElementById("close1").click();
             }
-            console.log(document.cookie);
         })
     }
     model.login = function(newData) {
@@ -48,6 +52,7 @@ var model = (function(){
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
                 document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
+                document.getElementById("close1").click();
             }
         })
     }
@@ -63,6 +68,7 @@ var model = (function(){
         var username = document.cookie.substr(9);
         //var username = newData.
         doAjax('PUT','http://localhost:3000/api/' + username + '/profile/',newData,true, function(err,newData) {
+            console.log(newData);
         })
     }
 

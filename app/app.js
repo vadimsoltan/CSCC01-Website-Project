@@ -79,6 +79,21 @@ var checkPassword = function(user, password){
 };
 
 // User
+
+// sign in
+app.post('/signIn/', function (req, res, next) {
+    users.findOne({username: req.body.username}, function(err, user){
+        if (user == null) {
+            return res.json("notRegistered");
+        } else if (checkPassword(user, req.body.password) == false){
+            return res.json("wrong");
+        }
+        req.session.user = user;
+        res.cookie('username', user.username);
+        return res.json(user.username);
+    });
+});
+
 // create new user 
 app.put('/api/users/', function (req, res, next) {
 
@@ -90,14 +105,15 @@ app.put('/api/users/', function (req, res, next) {
             var newUser = new Users(req.body);
 
             // insert new created user into db
-            users.insert(newUser, function (err, newuser) {
+            users.insert(newUser, function (err, newUser) {
 
                 // error checking for db aciton
                 if (err) return res.status(500).send("Database error");
 
                 // return the new created comment to frontend
-                res.json(newuser); 
-                return next();
+                req.session.user = newUser;
+        		res.cookie('username', newUser.username);
+                return res.json(newUser.username);
             });
         }else{
             res.json(null);
@@ -127,7 +143,6 @@ app.put('/api/:username/profile/', function (req, res, next) {
     var phone = req.body.phone;
     var preferences = req.body.preferences;
     users.update({ "username": username }, { $set: { "firstName":firstName,"lastName": lastName, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
-        console.log(numReplaced);
         return res.json(numReplaced);
     });
 });
@@ -223,20 +238,6 @@ app.delete('/api/messages/:id/', function (req, res, next) {
 });
 		
 	
-
-// sign in
-app.post('/signIn/', function (req, res, next) {
-    users.findOne({username: req.body.username}, function(err, user){
-        if (user == null) {
-            return res.json("notRegistered");
-        } else if (checkPassword(user, req.body.password) == false){
-            return res.json("wrong");
-        }
-        req.session.user = user;
-        res.cookie('username', user.username);
-        return res.json(user.username);
-    });
-});
 
 app.use(function (req, res, next){
     console.log("HTTP request", req.method, req.url);
