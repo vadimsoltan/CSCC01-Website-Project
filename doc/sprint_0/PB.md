@@ -19,3 +19,4 @@ priority from 1 to 10
 13. As Amber Sun, an administrator, I want to check my inbox to see if there is any report sent by users, so that I can judge if disciplines should be given. |8|1|
 14. As Amber Sun, an administrator, the comment I leave in a post would have special mark to show it’s an admin comment.|10|2|
 15. As Amber Sun, an administrator, I want to sort to have a list of the most viewed books and label the top 10 as "HOT" to help attracting buyers. |10|3|
+16. As a user, I want a contact US form to contact the administrator so that he can receive my advice.|10|2|
