@@ -34,7 +34,7 @@
       var data = e.detail;
       // get data from the view
       model.contactUs(data);
-    }); 
+    });
 
 
-}(model,view)); 
+}(model,view));
