@@ -72,6 +72,13 @@ var model = (function(){
         })
     }
 
+    model.contactUs = function(newData) {
+        console.log("model")
+        doAjax('POST','http://localhost:3000/api/contactUs/',newData,true, function(err,newData) {
+            console.log(newData);
+        })
+    }
+
 
 
 

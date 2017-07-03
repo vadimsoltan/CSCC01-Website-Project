@@ -28,6 +28,12 @@
       var data = e.detail;
       // get data from the view
       model.updateUserProfile(data);
+    });
+
+    document.addEventListener('contactForm', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.contactUs(data);
     }); 
 
 

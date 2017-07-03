@@ -236,8 +236,80 @@ app.delete('/api/messages/:id/', function (req, res, next) {
 		return next();
 	});
 });
-		
-	
+
+//send email
+app.post('/api/contactUs/',function(req,res,next) {
+	sendMail(req.body);
+})
+
+
+
+function sendMail(formData) {
+
+//   var Sendgrid = require('sendgrid')(
+//     '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'
+//   );
+
+//   var request = Sendgrid.emptyRequest({
+//     method: 'POST',
+//     path: '/v3/mail/send',
+//     body: JSON.stringify({
+//       personalizations: [{
+//         to: [{
+//           email: 'chenliyang1024@gmail.com'
+//         }],
+//         subject: 'Sendgrid test email from Node.js'
+//       }],
+//       from: {
+//         email: 'chenliyang1024@gmail.com'
+//       },
+//       content: [{
+//         type: 'text/plain',
+//         value: 'helllllloooooo testing'
+//       }]
+//     })
+// });
+
+
+
+// Sendgrid.API(request, function(error, response) {
+//     if (error) {
+//       console.log('Mail not sent; see error message below.');
+//     } else {
+//       console.log('Mail sent successfully!');
+//     }
+//     console.log(response);
+// });
+	var name = formData.name;
+	var email = formData.email;
+	var subject_ = formData.subject;
+	var message = formData.message;
+	var str = "Name: " + name + ",      " + "Email: " + email + ",      " + "Subject: " + subject_ + ",      " + "Comment: " + message + ".";
+	var helper = require('sendgrid').mail;
+	var fromEmail = new helper.Email('vickershhh@gmail.com');
+	var toEmail = new helper.Email('haitao.zhu@mail.utoronto.ca');
+	var subject = 'Sending with SendGrid is Fun';
+	var content = new helper.Content('text/plain', str);
+	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+	var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+	var request = sg.emptyRequest({
+	  method: 'POST',
+	  path: '/v3/mail/send',
+	  body: mail.toJSON()
+	});
+
+	sg.API(request, function (error, response) {
+	  if (error) {
+	    console.log('Error response received');
+	  }
+	  console.log(response);
+	  console.log(response.statusCode);
+	  console.log(response.body);
+	  console.log(response.headers);
+	});
+}
+
 
 app.use(function (req, res, next){
     console.log("HTTP request", req.method, req.url);

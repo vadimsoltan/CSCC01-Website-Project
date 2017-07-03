@@ -50,6 +50,17 @@ var view = (function(){
         }
     }
 
+    document.getElementById("contactForm").onsubmit = function(e) {
+        e.preventDefault();
+        var data = {};
+        data.name = document.getElementById("contactName").value;
+        data.email = document.getElementById("contactEmail").value;
+        data.subject = document.getElementById("contactSubject").value;
+        data.message = document.getElementById("contactMessage").value;
+        document.dispatchEvent(new CustomEvent('contactForm',{detail: data}));
+        e.target.reset();
+    }
+
 
 
 
