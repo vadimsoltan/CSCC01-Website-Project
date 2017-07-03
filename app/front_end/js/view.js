@@ -17,9 +17,7 @@ var view = (function(){
         	var data = {};
         	data.username = document.getElementById("registerUsername").value;
         	data.password = document.getElementById("registerPassword").value;
-          data.email = document.getElementById("registerEmail").value;
-					data.email = document.getElementById("registerLocation").value;
-					data.email = document.getElementById("registerPhone").value;
+            data.email = document.getElementById("registerEmail").value;
         	document.dispatchEvent(new CustomEvent('register',{detail: data}));
             e.target.reset();
         }
