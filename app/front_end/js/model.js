@@ -40,15 +40,11 @@ var model = (function(){
     model.login = function(newData) {
         console.log("here");
         doAjax('POST','http://localhost:3000/signIn/',newData, true, function(err,newData) {
-            console.log(newData);
             if(newData === "notRegistered") {
                 alert("Username has not be registered.");
             } else if(newData === "wrong") {
                 alert("The password is not correct.");
             } else {
-                console.log(document.cookie);
-                console.log(document.cookie.substr(9));
-                // document.dispatchEvent(new CustomEvent('login_'));
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
                 document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
@@ -64,18 +60,29 @@ var model = (function(){
     }
 
     model.updateUserProfile = function(newData) {
-        console.log(document.cookie);
         var username = document.cookie.substr(9);
-        //var username = newData.
         doAjax('PUT','http://localhost:3000/api/' + username + '/profile/',newData,true, function(err,newData) {
             console.log(newData);
+            if (newData == 1) {
+                document.getElementById("close2").click();
+            } else {
+                alert("Some errors exist");
+            }
         })
     }
 
     model.contactUs = function(newData) {
-        console.log("model")
         doAjax('POST','http://localhost:3000/api/contactUs/',newData,true, function(err,newData) {
             console.log(newData);
+        })
+    }
+
+    model.showUserProfile = function() {
+        doAjax('GET','http://localhost:3000/api/' + document.cookie.substr(9) + '/',null,true, function(err,newData) {
+            document.getElementById("userName").value = newData.name;
+            document.getElementById("userLocation").value = newData.location;
+            document.getElementById("userEmail").value = newData.email;
+            document.getElementById("userPhone").value = newData.phone;
         })
     }
 

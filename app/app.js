@@ -136,13 +136,12 @@ app.delete('/signOut/', function (req, res, next) {
 app.put('/api/:username/profile/', function (req, res, next) {
     var username = req.params.username;
     console.log(username);
-    var firstName = req.body.firstName;
-    var lastName = req.body.lastName;
+    var name = req.body.name;
     var location = req.body.location;
     var email = req.body.email;
     var phone = req.body.phone;
     var preferences = req.body.preferences;
-    users.update({ "username": username }, { $set: { "firstName":firstName,"lastName": lastName, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
+    users.update({ "username": username }, { $set: { "name":name, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
         return res.json(numReplaced);
     });
 });
@@ -246,40 +245,6 @@ app.post('/api/contactUs/',function(req,res,next) {
 
 function sendMail(formData) {
 
-//   var Sendgrid = require('sendgrid')(
-//     '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'
-//   );
-
-//   var request = Sendgrid.emptyRequest({
-//     method: 'POST',
-//     path: '/v3/mail/send',
-//     body: JSON.stringify({
-//       personalizations: [{
-//         to: [{
-//           email: 'chenliyang1024@gmail.com'
-//         }],
-//         subject: 'Sendgrid test email from Node.js'
-//       }],
-//       from: {
-//         email: 'chenliyang1024@gmail.com'
-//       },
-//       content: [{
-//         type: 'text/plain',
-//         value: 'helllllloooooo testing'
-//       }]
-//     })
-// });
-
-
-
-// Sendgrid.API(request, function(error, response) {
-//     if (error) {
-//       console.log('Mail not sent; see error message below.');
-//     } else {
-//       console.log('Mail sent successfully!');
-//     }
-//     console.log(response);
-// });
 	var name = formData.name;
 	var email = formData.email;
 	var subject_ = formData.subject;
@@ -292,7 +257,7 @@ function sendMail(formData) {
 	var content = new helper.Content('text/plain', str);
 	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
-	var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
+	var sg = require('sendgrid')('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');
 	var request = sg.emptyRequest({
 	  method: 'POST',
 	  path: '/v3/mail/send',

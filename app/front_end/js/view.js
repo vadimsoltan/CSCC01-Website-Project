@@ -26,16 +26,13 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
     }
     window.onload = function() {
-        console.log(document.getElementById("currentUser").textContent == "");
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        console.log(document.cookie);
     }
 
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
 
         e.preventDefault();
-        console.log(document.getElementById("currentUser").textContent);
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
             document.getElementById("close2").click();
@@ -59,6 +56,9 @@ var view = (function(){
         data.message = document.getElementById("contactMessage").value;
         document.dispatchEvent(new CustomEvent('contactForm',{detail: data}));
         e.target.reset();
+    }
+    document.getElementById("postImg").onclick = function(e) {
+        document.dispatchEvent(new CustomEvent('showUserProfile',{detail: null}));
     }
 
 

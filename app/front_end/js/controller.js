@@ -36,5 +36,9 @@
       model.contactUs(data);
     });
 
+    document.addEventListener('showUserProfile', function(e){
+      model.showUserProfile();
+    });
+
 
 }(model,view));
