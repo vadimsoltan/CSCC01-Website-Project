@@ -19,10 +19,10 @@ var model = (function(){
         xhttp.open(method, url, true);
         if (json && body){
             xhttp.setRequestHeader('Content-Type', 'application/json');
-            xhttp.send(JSON.stringify(body));  
+            xhttp.send(JSON.stringify(body));
         }else{
-            xhttp.send(body);  
-        }        
+            xhttp.send(body);
+        }
     };
 
     model.register = function(newData) {
@@ -83,6 +83,19 @@ var model = (function(){
             document.getElementById("userLocation").value = newData.location;
             document.getElementById("userEmail").value = newData.email;
             document.getElementById("userPhone").value = newData.phone;
+        })
+    }
+
+    model.miniShowUserProfile = function() {
+        var username = document.cookie.substr(9);
+        console.log(username);
+        doAjax('GET','http://localhost:3000/api/' + username + '/',null,true, function(err,newData) {
+            console.log(newData);
+            document.getElementById("currUserName").textContent = newData.username;
+            document.getElementById("currName").textContent = newData.name;
+            document.getElementById("currUserEmail").textContent = newData.email;
+            document.getElementById("currUserPhone").textContent = newData.phone;
+            document.getElementById("currUserLocation").textContent = newData.location;
         })
     }
 

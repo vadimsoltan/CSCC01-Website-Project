@@ -83,7 +83,7 @@ body{
   background:rgba(2, 2, 2, 0.60);
   color: white;
   font-size: 24px;
-  font-family:Nunito-Light;
+  font-family:Helvetica;
   cursor: pointer;
   padding:5px 30px;
   margin:5px;
@@ -142,7 +142,7 @@ body{
 .modal .register input[type="text"],.register input[type="password"], .register input[type="email"] {
     outline: none;
     font-size:16px;
-    font-family:Nunito-Light;
+    font-family:Helvetica;
     color: #fff;
     padding: 15px 10px;
     border:none;
@@ -162,7 +162,7 @@ body{
     color: #fff;
     border: 2px solid #fff;
     font-size: 18px;
-    font-family:Nunito-Light;
+    font-family:Helvetica;
     padding: 8px 10px 8px 15px;
     width: 85%;
     cursor: pointer;
@@ -217,7 +217,7 @@ body{
 .modal .register a{
     color:#fbfbdd;
     font-size: 18px;
-    font-family:Nunito-Light;
+    font-family:Helvetica;
 }
 .modal .forget-password:hover{
     color:#55ACEE; /* twitter blue */

@@ -61,6 +61,11 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('showUserProfile',{detail: null}));
     }
 
+    document.getElementById("currentUser").onclick = function(e) {
+        document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
+    }
+
+
 
 
 

@@ -40,5 +40,8 @@
       model.showUserProfile();
     });
 
+    document.addEventListener('miniShowUserProfile', function(e){
+      model.miniShowUserProfile();
+    });
 
 }(model,view));
