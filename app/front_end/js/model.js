@@ -102,6 +102,12 @@ var model = (function(){
         })
     }
 
+    model.createPost = function(){
+        doAjax("POST", "http://localhost:3000/api/posts/", null, true, function(err, newData){
+            document.getElementById("close3").click();
+        })
+    }
+
 
 
 

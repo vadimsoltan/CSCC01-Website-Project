@@ -66,6 +66,27 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
     }
 
+    document.getElementById("makePostForm").onsubmit = function(e){
+        e.preventDefault();
+        var data = {};
+        if (document.getElementById("currentUser").textContent == ""){
+            data.username = "guest";
+        }
+        else{
+            data.username = document.getElementById("currentUser").textContent;
+        }
+        data.title = document.getElementById("title").value;
+        data.description = document.getElementById("description").value;
+        data.tags = [document.getElementById("type").value, document.getElementById("subject").value];
+        data.date = Date();
+        // deal with the image, not done yet
+        //if(document.getElementById("image").value != "default"){
+
+        //}
+        data.image = "";
+        document.dispatchEvent(new CustomEvent("createNewPost",{detail: data}));
+        e.target.reset();
+    }
 
 
 
