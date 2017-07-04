@@ -53,7 +53,7 @@
           <li id="signOut" style="display: none"><a>Sign Out</a></li>
           <li><a href="#section-book">Books List</a></li>
           <li><a href="#section-contact">Contact</a></li>
-          <li><a id="currentUser" id="postImg" data-toggle="modal" data-target="#viewUserProfile"></a></li>
+          <li><a id="currentUser" data-toggle="modal" data-target="#viewUserProfile" style="display: none"></a></li>
         </ul>
       </div>
       <!--/.navbar-collapse -->
@@ -122,13 +122,13 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close2">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                       </button>
-          <div class="text-bold">View Profile of User</div>
+          <div class="text-bold">Profile of User</div>
           <div class="facts">
             <div class="sign-up">
-              <form id="userProfileForm" class="register">
+              <form class="register">
                 <ul>
                   <li><span font-weight="bold">Username: </span><span id="currUserName"></span></li>
                   <li><span>Name: </span><span id="currName"></span></li>

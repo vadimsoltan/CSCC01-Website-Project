@@ -32,6 +32,7 @@ var model = (function(){
             } else {
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
+                document.getElementById("currentUser").style.display ='block';
                 document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
                 document.getElementById("close1").click();
             }
@@ -47,6 +48,7 @@ var model = (function(){
             } else {
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
+                document.getElementById("currentUser").style.display ='block';
                 document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
                 document.getElementById("close1").click();
             }
@@ -64,6 +66,7 @@ var model = (function(){
         doAjax('PUT','http://localhost:3000/api/' + username + '/profile/',newData,true, function(err,newData) {
             console.log(newData);
             if (newData == 1) {
+                console.log("close");
                 document.getElementById("close2").click();
             } else {
                 alert("Some errors exist");

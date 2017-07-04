@@ -31,7 +31,7 @@ var view = (function(){
 
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
-
+        console.log("view");
         e.preventDefault();
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
@@ -42,6 +42,7 @@ var view = (function(){
         	data.location = document.getElementById("userLocation").value;
         	data.email = document.getElementById("userEmail").value;
         	data.phone = document.getElementById("userPhone").value;
+            console.log(data);
         	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
             e.target.reset();
         }
