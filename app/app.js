@@ -157,8 +157,7 @@ app.get('/api/:username/', function (req, res, next) {
 });
 
 // create new post
-app.post('/api/posts/', function (req, res, next) {
-	console.log(req.body);
+app.post('/api/posts/', function (req, res, next) {x
 
     var newPost = new Post(req.body);
     // insert newly created post into the relation of posts
@@ -166,8 +165,7 @@ app.post('/api/posts/', function (req, res, next) {
     	// error checking for db aciton
     	if (err) return res.status(500).send("Database error");
     	// return the new created comment to frontend
-    	res.json(null); 
-    	return next();
+    	return res.json(newPost);
     });
 });
 

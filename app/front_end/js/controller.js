@@ -44,4 +44,10 @@
       model.miniShowUserProfile();
     });
 
+    document.addEventListener('createNewPost', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.createPost(data);
+    });
+
 }(model,view));

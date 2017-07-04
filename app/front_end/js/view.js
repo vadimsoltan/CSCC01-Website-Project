@@ -68,24 +68,43 @@ var view = (function(){
 
     document.getElementById("makePostForm").onsubmit = function(e){
         e.preventDefault();
-        var data = {};
-        if (document.getElementById("currentUser").textContent == ""){
-            data.username = "guest";
-        }
-        else{
-            data.username = document.getElementById("currentUser").textContent;
-        }
-        data.title = document.getElementById("title").value;
-        data.description = document.getElementById("description").value;
-        data.tags = [document.getElementById("type").value, document.getElementById("subject").value];
-        data.date = Date();
-        // deal with the image, not done yet
-        //if(document.getElementById("image").value != "default"){
+        // var data = {};
+        // if (document.getElementById("currentUser").textContent == ""){
+        //     data.username = "guest";
+        // }
+        // else{
+        //     data.username = document.getElementById("currentUser").textContent;
+        // }
 
-        //}
-        data.image = "";
-        document.dispatchEvent(new CustomEvent("createNewPost",{detail: data}));
-        e.target.reset();
+        // data.image = "";
+        // document.dispatchEvent(new CustomEvent("createNewPost",{detail: data}));
+        // e.target.reset();
+        if (document.getElementById("currentUser").textContent == "") {
+            alert("Please login first!");
+            document.getElementById("close3").click();
+        } else {
+            var reader = new FileReader();
+            var fileURL = document.getElementById("uploadImage").files[0];
+            if (fileURL == undefined) {
+                alert("Please add image!");
+            } else {
+                // get data when reader onloading
+                reader.onload = function(){
+                    var data = {};
+                    var dataURL = reader.result;
+                    data.username = document.cookie.substr(9);
+                    data.title = document.getElementById("title").value;
+                    data.description = document.getElementById("description").value;
+                    data.tags = [document.getElementById("type").value, document.getElementById("subject").value];
+                    data.image = dataURL;
+                    document.getElementById("makePostForm").reset();
+                    document.dispatchEvent(new CustomEvent('createNewPost',{detail: data}));
+                };
+                // display the image
+                reader.readAsDataURL(fileURL);
+            }
+        }
+        document.getElementById("close3").click();
     }
 
 
