@@ -1,5 +1,5 @@
 /*reset*/
-html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p,a,
+html, body, div, section, article, aside, header, hgroup, footer, nav, h1, h2, h3, h4, h5, h6, p,a, 
 blockquote, address, time, span, em, strong, img, ol, ul, li, figure, canvas, video, th, td, tr,iframe {
     // margin: 0;
     padding: 0;
@@ -59,7 +59,7 @@ body{
     width: 80vw;
     height:95vh;
     margin:0 auto;
-}
+}  
 .modal-content{
     background-color: rgba(0, 0, 0, 0.7);
 }
@@ -73,7 +73,7 @@ body{
   text-align: center;
   -webkit-appearance: none;
  }
-
+ 
 .modal .facts{
   padding: 7% 0% 0% 0%;
 }
@@ -83,7 +83,7 @@ body{
   background:rgba(2, 2, 2, 0.60);
   color: white;
   font-size: 24px;
-  font-family:Helvetica;
+  font-family:Nunito-Light;
   cursor: pointer;
   padding:5px 30px;
   margin:5px;
@@ -139,10 +139,10 @@ body{
 }
 
 /*---------*/
-.modal .register input[type="text"],.register input[type="password"], .register input[type="email"] {
+.modal .register input[type="text"],.register input[type="password"] {
     outline: none;
     font-size:16px;
-    font-family:Helvetica;
+    font-family:Nunito-Light;
     color: #fff;
     padding: 15px 10px;
     border:none;
@@ -162,7 +162,7 @@ body{
     color: #fff;
     border: 2px solid #fff;
     font-size: 18px;
-    font-family:Helvetica;
+    font-family:Nunito-Light;
     padding: 8px 10px 8px 15px;
     width: 85%;
     cursor: pointer;
@@ -198,15 +198,15 @@ body{
 }
 
 .modal :-moz-placeholder { /* Firefox 18- */
-   color: #fff;
+   color: #fff; 
 }
 
 .modal ::-moz-placeholder {  /* Firefox 19+ */
-   color: #fff;
+   color: #fff;  
 }
 
-.modal :-ms-input-placeholder {
-   color: #fff;
+.modal :-ms-input-placeholder {  
+   color: #fff;  
 }
 
 .modal h3{
@@ -217,7 +217,7 @@ body{
 .modal .register a{
     color:#fbfbdd;
     font-size: 18px;
-    font-family:Helvetica;
+    font-family:Nunito-Light;
 }
 .modal .forget-password:hover{
     color:#55ACEE; /* twitter blue */
@@ -308,8 +308,8 @@ body{
 .profile-table ul{
     padding-left:20px ;
 }
-.profile-table th, .profile-table td {
-     border-top: none !important;
+.profile-table th, .profile-table td { 
+     border-top: none !important; 
  }
 /*profile*/
 
@@ -327,7 +327,7 @@ body{
     float: left;
     font-size: 13px;
     color:#666666;
-
+    
 }
 
 .bottom p span {
@@ -345,7 +345,7 @@ form .ng-invalid.ng-dirty{
 }
 
 
-
+ 
 /* solve template appears problem */
 [ng:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 display: none !important;
