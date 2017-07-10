@@ -1,11 +1,11 @@
 var view = (function(){
 
     document.getElementById("loginForm").onsubmit = function(e) {
-        e.preventDefault();
-        var data = {};
-        data.username = document.getElementById("loginUsername").value;
-        data.password = document.getElementById("loginPassword").value;
-        document.dispatchEvent(new CustomEvent('login',{detail: data}));
+    	e.preventDefault();
+    	var data = {};
+    	data.username = document.getElementById("loginUsername").value;
+    	data.password = document.getElementById("loginPassword").value;
+    	document.dispatchEvent(new CustomEvent('login',{detail: data}));
         e.target.reset();
     }
 
@@ -14,11 +14,11 @@ var view = (function(){
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
             alert("password not same");
         } else {
-            var data = {};
-            data.username = document.getElementById("registerUsername").value;
-            data.password = document.getElementById("registerPassword").value;
+        	var data = {};
+        	data.username = document.getElementById("registerUsername").value;
+        	data.password = document.getElementById("registerPassword").value;
             data.email = document.getElementById("registerEmail").value;
-            document.dispatchEvent(new CustomEvent('register',{detail: data}));
+        	document.dispatchEvent(new CustomEvent('register',{detail: data}));
             e.target.reset();
         }
     }
@@ -37,13 +37,13 @@ var view = (function(){
             alert("Please login first!");
             document.getElementById("close2").click();
         } else {
-            var data = {};
-            data.name = document.getElementById("userName").value;
-            data.location = document.getElementById("userLocation").value;
-            data.email = document.getElementById("userEmail").value;
-            data.phone = document.getElementById("userPhone").value;
+        	var data = {};
+        	data.name = document.getElementById("userName").value;
+        	data.location = document.getElementById("userLocation").value;
+        	data.email = document.getElementById("userEmail").value;
+        	data.phone = document.getElementById("userPhone").value;
             console.log(data);
-            document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
+        	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
             e.target.reset();
         }
     }
