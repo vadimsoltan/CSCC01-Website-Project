@@ -1,5 +1,6 @@
 var view = (function(){
 
+    var view = {};
     document.getElementById("loginForm").onsubmit = function(e) {
     	e.preventDefault();
     	var data = {};
@@ -27,6 +28,7 @@ var view = (function(){
     }
     window.onload = function() {
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        document.dispatchEvent(new CustomEvent('createList'));
     }
 
 
@@ -82,6 +84,7 @@ var view = (function(){
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
             document.getElementById("close3").click();
+            document.getElementById("sign").click();
         } else {
             var reader = new FileReader();
             var fileURL = document.getElementById("uploadImage").files[0];
@@ -105,6 +108,55 @@ var view = (function(){
             }
         }
         document.getElementById("close3").click();
+    }
+
+    view.createList = function(data) {
+        console.log(data);
+        document.getElementById("postsList").innerHTML="";
+        for (var i=0;i < data.length;i++) {
+            var title = data[i].title;
+            var author = data[i].username;
+            var description = data[i].description;
+            var date = data[i].createdAt.split("T",1);
+            var price = "100";
+            var grey = "#BEBEBE";
+            var lightgrey = "#DCDCDC";
+            var color;
+            if (i % 2 == 0) {
+                color = grey;
+            }else {
+                color = lightgrey;
+            }
+            var e;
+            e = document.createElement('div');
+            e.id = data[i]._id;
+            e.innerHTML = `<div>
+                            <li><table width="100%" border="0" cellspacing="0" cellpadding="0" > 
+                                <tbody><tr bgcolor=${color}>
+                                    <td width="14%" valign="top" height="50">
+                                      <p style="color:black;">${title}</p>
+                                    </td>
+                                    <td width="14%" valign="top">
+                                      <p style="color:black;">${author}</p>
+                                    </td>
+                                    <td width="36%" valign="top">
+                                      <p style="color:black;">${description}</p>
+                                    </td>
+                                    <td width="12%" valign="top">
+                                      <p style="color:black;">${date}</p>
+                                    </td>
+                                    <td width="10%" valign="top">
+                                      <p style="color:black;">20.00</p>
+                                    </td>
+                                    <td width="12%" valign="top">
+                                      <p style="color:black;"> <a class="login-window" href="#login-box">Contact</a></p>
+                                    </td>
+                                </tr></tbody>
+                            </table><ul class="inner-content" style="display: none;"></li>
+                        </div>`
+            document.getElementById("postsList").appendChild(e);
+
+        }
     }
 
 

@@ -105,6 +105,13 @@ var model = (function(){
     model.createPost = function(data){
         doAjax("POST", "http://localhost:3000/api/posts/", data, true, function(err, newData){
             console.log(newData);
+            model.createList();
+        })
+    }
+
+    model.createList = function() {
+        doAjax("GET", "http://localhost:3000/api/posts/all/", null, true, function(err, newData){
+            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
         })
     }
 

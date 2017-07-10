@@ -148,7 +148,6 @@ app.put('/api/:username/profile/', function (req, res, next) {
 
 //get profile of user
 app.get('/api/:username/', function (req, res, next) {
-    console.log("here");
     var username = req.params.username;
     users.findOne({ "username": username }, function (err, userinfo) {
         console.log(userinfo);
@@ -156,8 +155,18 @@ app.get('/api/:username/', function (req, res, next) {
     });
 });
 
+//get profile of all posts
+app.get('/api/posts/all/',function (req, res, next) {
+    console.log("-------------");
+    posts.find({}).limit(10).exec(function(err,data) {
+        console.log("-------------")
+        console.log(data);
+        return res.json(data);
+    })
+})
+
 // create new post
-app.post('/api/posts/', function (req, res, next) {x
+app.post('/api/posts/', function (req, res, next) {
 
     var newPost = new Post(req.body);
     // insert newly created post into the relation of posts

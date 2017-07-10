@@ -14,11 +14,6 @@
       model.login(data);
     });
 
-    document.addEventListener('login_', function(e){
-
-      view.login();
-    });
-
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();
@@ -49,5 +44,16 @@
       // get data from the view
       model.createPost(data);
     });
+
+    document.addEventListener('createList', function(e){
+
+      model.createList();
+    });
+
+    document.addEventListener('createList_', function(e){
+      var data = e.detail;
+      view.createList(data);
+    });
+
 
 }(model,view));
