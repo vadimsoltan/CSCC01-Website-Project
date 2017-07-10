@@ -129,4 +129,8 @@ var model = (function(){
 
 
     return model;
+<<<<<<< Updated upstream
 }());
+=======
+}());
+>>>>>>> Stashed changes

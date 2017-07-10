@@ -50,4 +50,8 @@
       model.createPost(data);
     });
 
+<<<<<<< Updated upstream
 }(model,view));
+=======
+}(model,view));
+>>>>>>> Stashed changes
