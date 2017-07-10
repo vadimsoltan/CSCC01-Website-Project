@@ -41,7 +41,7 @@ var Users = (function(){
         this.saltedHash = hash.digest('base64');
         this.name = null;
         this.location = null;
-        this.email = null;
+        this.email = userInfo.email;
         this.phone = null;
         this.preferences = [];
     }
