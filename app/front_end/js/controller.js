@@ -14,10 +14,40 @@
       model.login(data);
     });
 
+    document.addEventListener('login_', function(e){
+
+      view.login();
+    });
+
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();
-    }); 
+    });
 
+    document.addEventListener('updateUserProfile', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.updateUserProfile(data);
+    });
 
-}(model,view)); 
+    document.addEventListener('contactForm', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.contactUs(data);
+    });
+
+    document.addEventListener('showUserProfile', function(e){
+      model.showUserProfile();
+    });
+
+    document.addEventListener('miniShowUserProfile', function(e){
+      model.miniShowUserProfile();
+    });
+
+    document.addEventListener('createNewPost', function(e){
+      var data = e.detail;
+      // get data from the view
+      model.createPost(data);
+    });
+
+}(model,view));
