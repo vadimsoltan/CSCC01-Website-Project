@@ -51,7 +51,7 @@
           <li class="active"><a href="index.html">Home</a></li>
           <li id="sign" data-toggle="modal" data-target="#myModal"><a>Sign In/ Sign Up</a></li>
           <li id="signOut" style="display: none"><a>Sign Out</a></li>
-          <li><a href="#section-book">Books List</a></li>
+          <li><a href="#section-book" id="postList">Posts List</a></li>
           <li><a href="#section-contact">Contact</a></li>
           <li><a id="currentUser" data-toggle="modal" data-target="#viewUserProfile" style="display: none"></a></li>
         </ul>
@@ -88,7 +88,7 @@
         <div class="align-center" id="postImg" data-toggle="modal" data-target="#userProfile">
           <image src="https://png.icons8.com/color/1600/upload-to-cloud" id = "test" style="width:250px;height:200px;">
 <!--            <i class=" fa fa-code fa-5x mar-bot20 "></i> -->
-            <h4 type="button " class="text-bold ">Update your profile</h4>
+            <h4 type="button" class="text-bold ">Update your profile</h4>
             <p>By having an account with Integrow, you can upload your own profile to let others know you better.
             </p>
           </div>
@@ -105,10 +105,10 @@
       </div>
 
       <div class="col-lg-4">
-        <div class="align-center">
+        <div class="align-center" id="myPosts">
           <image src="https://png.icons8.com/color/1600/upload-to-cloud" style="width:250px;height:200px;">
             <!--            <i class="fa fa-bolt fa-5x mar-bot20"></i> -->
-            <h4 class="text-bold">Have your own book lists</h4>
+            <h4 class="text-bold">My own posts</h4>
             <p>You can add books you interested in into a list after login with your account .
             </p>
         </div>
@@ -117,6 +117,8 @@
     </div>
 
   </div>
+
+  <div id="myPosts"></div>
 
   <div class="modal fade" id="viewUserProfile" role="dialog">
     <div class="modal-dialog" role="document">
@@ -310,7 +312,7 @@
           </div>
         </div>
       </div>
-
+      <button id="returnAll" style="display: none">Return to all Posts</button>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody><tr bgcolor="#2b5f8e">
             <td width="14%" height="25" align="left" valign="middle">
@@ -347,6 +349,12 @@
     </tbody></table>
 
     <div id="postsList"></div>
+
+    <div class="row mar-bot40">
+    	<button id="previous">previous</button>
+    	<button id="next">next</button>
+    	<p id="showResult"></p>
+    </div>
 
     </div>
   </section>

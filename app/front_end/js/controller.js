@@ -55,5 +55,19 @@
       view.createList(data);
     });
 
+    document.addEventListener('showMyPosts', function(e){
+      model.showMyPosts();
+    });
+
+    document.addEventListener('next', function(e){
+      var data = e.detail;
+      model.next(data);
+    });
+
+    document.addEventListener('previous', function(e){
+      var data = e.detail;
+      model.previous(data);
+    });
+
 
 }(model,view));

@@ -58,6 +58,8 @@ var Post = (function(){
         // need further discussion on the image
         this.image = postInfo.image;
         this.date = postInfo.date;
+        this.author = postInfo.author;
+        this.price  = postInfo.price
     }
 }());
 
@@ -157,9 +159,17 @@ app.get('/api/:username/', function (req, res, next) {
 
 //get profile of all posts
 app.get('/api/posts/all/',function (req, res, next) {
-    console.log("-------------");
-    posts.find({}).limit(10).exec(function(err,data) {
-        console.log("-------------")
+    posts.find({}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+        console.log(data);
+        return res.json(data);
+    })
+})
+
+// get posts of a user
+
+app.get('/api/posts/:username/',function (req, res, next) {
+    var username = req.params.username;
+    posts.find({"username":username}).sort({createdAt:-1}).exec(function(err,data) {
         console.log(data);
         return res.json(data);
     })
@@ -192,6 +202,33 @@ app.put('/api/updatePosts/:id/', function (req, res, next) {
 		return res.json(numReplaced);
 	});
 });
+//get next page posts
+app.get('/api/posts/next/:id/',function (req, res, next) {
+    var id = req.params.id;
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$lt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
+            res.json(data)
+        })
+    })
+})
+
+//get previous page posts
+app.get('/api/posts/previous/:id/',function (req, res, next) {
+    var id = req.params.id;
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
+            res.json(data)
+        })
+    })
+})
+
+// Count all posts
+app.get('/api/countPosts/all/',function (req, res, next) {
+    posts.count({},function(err,data) {
+        console.log(data);
+        return res.json(data);
+    })
+})
 
 //create message
 app.post('/api/messages/', function (req, res, next) {
@@ -246,6 +283,7 @@ app.delete('/api/messages/:id/', function (req, res, next) {
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
 	sendMail(req.body);
+    return next();
 })
 
 

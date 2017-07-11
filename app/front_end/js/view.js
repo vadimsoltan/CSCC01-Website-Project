@@ -68,19 +68,23 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
     }
 
+    document.getElementById("myPosts").onclick = function(e) {
+        if (document.getElementById("currentUser").textContent == "") {
+            alert("Please login first!");
+        } else {
+            document.dispatchEvent(new CustomEvent('showMyPosts'));
+            document.getElementById("postList").click();
+            document.getElementById("returnAll").style.display = "block";
+        }
+    }
+
+    document.getElementById("returnAll").onclick = function(e) {
+        document.getElementById("returnAll").style.display = "none";
+        document.dispatchEvent(new CustomEvent('createList'));
+    }
+
     document.getElementById("makePostForm").onsubmit = function(e){
         e.preventDefault();
-        // var data = {};
-        // if (document.getElementById("currentUser").textContent == ""){
-        //     data.username = "guest";
-        // }
-        // else{
-        //     data.username = document.getElementById("currentUser").textContent;
-        // }
-
-        // data.image = "";
-        // document.dispatchEvent(new CustomEvent("createNewPost",{detail: data}));
-        // e.target.reset();
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
             document.getElementById("close3").click();
@@ -96,6 +100,8 @@ var view = (function(){
                     var data = {};
                     var dataURL = reader.result;
                     data.username = document.cookie.substr(9);
+                    data.author = document.getElementById("author").value;
+                    data.price = document.getElementById("price").value;
                     data.title = document.getElementById("title").value;
                     data.description = document.getElementById("description").value;
                     data.tags = [document.getElementById("type").value, document.getElementById("subject").value];
@@ -115,10 +121,10 @@ var view = (function(){
         document.getElementById("postsList").innerHTML="";
         for (var i=0;i < data.length;i++) {
             var title = data[i].title;
-            var author = data[i].username;
+            var author = data[i].author;
             var description = data[i].description;
             var date = data[i].createdAt.split("T",1);
-            var price = "100";
+            var price = data[i].price;
             var grey = "#BEBEBE";
             var lightgrey = "#DCDCDC";
             var color;
@@ -146,7 +152,7 @@ var view = (function(){
                                       <p style="color:black;">${date}</p>
                                     </td>
                                     <td width="10%" valign="top">
-                                      <p style="color:black;">20.00</p>
+                                      <p style="color:black;">${price}</p>
                                     </td>
                                     <td width="12%" valign="top">
                                       <p style="color:black;"> <a class="login-window" href="#login-box">Contact</a></p>
@@ -155,10 +161,17 @@ var view = (function(){
                             </table><ul class="inner-content" style="display: none;"></li>
                         </div>`
             document.getElementById("postsList").appendChild(e);
-
         }
     }
+    document.getElementById("next").onclick = function() {
+        var lastId = document.getElementById("postsList").lastChild.id
+        document.dispatchEvent(new CustomEvent("next",{detail:lastId}));
+    }
 
+        document.getElementById("previous").onclick = function() {
+        var firstId = document.getElementById("postsList").firstChild.id
+        document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
+    }
 
 
 

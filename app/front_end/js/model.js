@@ -113,6 +113,33 @@ var model = (function(){
         doAjax("GET", "http://localhost:3000/api/posts/all/", null, true, function(err, newData){
             document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
         })
+
+    }
+
+    model.showMyPosts = function() {
+        var userName = document.cookie.substr(9);
+        doAjax("GET", "http://localhost:3000/api/posts/" + userName + "/", null, true, function(err, newData){
+            console.log(newData);
+            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+        })
+    }
+
+    model.next = function(data) {
+        console.log(data);
+        doAjax("GET", "http://localhost:3000/api/posts/next/" + data + "/", null, true, function(err, newData){
+            console.log(newData);
+            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+            document.getElementById("postList").click();
+        })
+    }
+
+    model.previous = function(data) {
+        console.log(data);
+        doAjax("GET", "http://localhost:3000/api/posts/previous/" + data + "/", null, true, function(err, newData){
+            console.log(newData);
+            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+            document.getElementById("postList").click();
+        })
     }
 
 
