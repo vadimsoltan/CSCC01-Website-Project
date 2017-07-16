@@ -174,8 +174,14 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
     }
 
-
-    
+    // For post_profile.html, sending message
+    document.getElementById("sendMessageForm").onsubmit = function(e) {
+        e.preventDefault();
+        var data = {};
+        data.description = document.getElementById("description").value;
+        document.dispatchEvent(new CustomEvent('sendMessage',{detail: data}));
+        e.target.reset();
+    }
 
 
 

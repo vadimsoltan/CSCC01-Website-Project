@@ -166,7 +166,9 @@ var model = (function(){
         })
     }
 
-
+    model.sendMessage = function(data){
+        doAjax("POST", "http://localhost:3000/api/messages/", data, true, null)
+    }
 
 
 

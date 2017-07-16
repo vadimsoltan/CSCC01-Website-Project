@@ -1,4 +1,6 @@
 {"_id":"0nZd9j30647XRlA5","createdAt":{"$$date":1500160703025},"updatedAt":{"$$date":1500160703025}}
+{"username":"qweqweqweqweqw","salt":"d+/Ldwi0l/pgWg4FaiMitw==","saltedHash":"L8wY/DzmwOE6Fbi3CLjckXYTu9sA7/2fWcdximJBVbfxNrQhMf0GQcHXAWBFhRcUsBkgaiFIVHB0bG90wlNgBg==","name":null,"location":null,"email":"382515054@qq.com","phone":null,"preferences":[],"_id":"41LgmDLkif9jzA5J","createdAt":{"$$date":1500171900929},"updatedAt":{"$$date":1500171900929}}
+{"username":"123qweadasd","salt":"RAcsGrBO3uXZOab7Jtv0Qg==","saltedHash":"SmEgmcJYzXjHQa+05leN+7nqdLslQfU9K0OgEfD4am7UankiBXmT07RRfkPjMhtvG4Bab1r8TJtj8Uq1+9L6sg==","name":null,"location":null,"email":"382515054@qq.com","phone":null,"preferences":[],"_id":"DnW9lBKoeceCNwfJ","createdAt":{"$$date":1500171926846},"updatedAt":{"$$date":1500171926846}}
 {"_id":"FlGCaeEvJ0qbVbtA","createdAt":{"$$date":1500160848738},"updatedAt":{"$$date":1500160848738}}
 {"_id":"Ge7XcEjct6KhbWwf","createdAt":{"$$date":1500160798334},"updatedAt":{"$$date":1500160798334}}
 {"_id":"Ljb5gXPyylVwSnxV","createdAt":{"$$date":1500160740616},"updatedAt":{"$$date":1500160740616}}
@@ -10,5 +12,3 @@
 {"_id":"bV39OZQcdWPZnaTa","createdAt":{"$$date":1500160746705},"updatedAt":{"$$date":1500160746705}}
 {"username":"123ssssqwe","salt":"geCrZIkluYUDv6YJyWOubw==","saltedHash":"BxhpU4J3zeexKfofFfPzvgApeVKPN3K91OfqFQhrb6pqBkTLveoRC4qRnPiIN5UessdUIkm4wgPVXC3G+LuEUA==","name":null,"location":null,"email":"382515054@qq.com","phone":null,"preferences":[],"_id":"dw3VcZywEn2Aq6GB","createdAt":{"$$date":1500171609698},"updatedAt":{"$$date":1500171609698}}
 {"username":"1960851220870664","name":"Haitao Zhu","email":"382515054@qq.com","_id":"ygqRlIsEmiuX5XaM","createdAt":{"$$date":1500160217770},"updatedAt":{"$$date":1500160217770}}
-{"username":"qweqweqweqweqw","salt":"d+/Ldwi0l/pgWg4FaiMitw==","saltedHash":"L8wY/DzmwOE6Fbi3CLjckXYTu9sA7/2fWcdximJBVbfxNrQhMf0GQcHXAWBFhRcUsBkgaiFIVHB0bG90wlNgBg==","name":null,"location":null,"email":"382515054@qq.com","phone":null,"preferences":[],"_id":"41LgmDLkif9jzA5J","createdAt":{"$$date":1500171900929},"updatedAt":{"$$date":1500171900929}}
-{"username":"123qweadasd","salt":"RAcsGrBO3uXZOab7Jtv0Qg==","saltedHash":"SmEgmcJYzXjHQa+05leN+7nqdLslQfU9K0OgEfD4am7UankiBXmT07RRfkPjMhtvG4Bab1r8TJtj8Uq1+9L6sg==","name":null,"location":null,"email":"382515054@qq.com","phone":null,"preferences":[],"_id":"DnW9lBKoeceCNwfJ","createdAt":{"$$date":1500171926846},"updatedAt":{"$$date":1500171926846}}

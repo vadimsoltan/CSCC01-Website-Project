@@ -19,7 +19,7 @@
 		<div class="col-md-2">
 			<img alt="Bootstrap Image Preview" src="img/team/member1.jpg" class="img-thumbnail">
 			<p> Poster uesername </p>
-			<button type="button" class="btn btn-default">
+			<button type="button" class="btn btn-default" data-toggle="modal" data-target="#sendMessage">
 				Message
 			</button>
 		</div>
@@ -193,6 +193,30 @@
 	</div>
 </div>
 
+<!-- the window for sending a message-->
+  <div class="modal fade" id="sendMessage" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close4">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          <div class="facts">
+            <div class="sign-up">
+              <form id="sendMessageForm" class="register">
+                    <textarea rows="10" cols="60" name="description" id="description" form="sendMessageForm" style="background-color: white" placeholder="Enter message here..."></textarea>
+                    <input type="submit" value="Send message">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+	<script src="js/view.js"></script>
+  	<script src="js/model.js"></script>
+  	<script src="js/controller.js"></script>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>

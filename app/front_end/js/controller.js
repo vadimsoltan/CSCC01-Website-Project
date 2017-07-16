@@ -76,6 +76,11 @@
       model.facebookLogin(data);
     });
 
+    document.addEventListener("sendMessage", function(e){
+      var data = e.detail;
+      model.sendMessage(data);
+    });
+
 
 
 }(model,view));
