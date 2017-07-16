@@ -47,6 +47,20 @@ var Users = (function(){
     }
 }());
 
+var FacebookUser = (function(){
+
+
+    // return the new create user object
+    return function FacebookUser(userInfo){
+        this.username  = userInfo.username;
+        this.name = userInfo.name;
+        this.email = userInfo.email;
+        this.location = null;
+        this.phone = null;
+        this.preferences = [];
+    }
+}());
+
 // Posts constructor, return a newly created post object(json) based on bookinfo, which will be stored into the user relation
 var Post = (function(){
     // bookInfo will be passed from the XMLHttpRequest
@@ -84,6 +98,7 @@ var checkPassword = function(user, password){
 
 // sign in
 app.post('/signIn/', function (req, res, next) {
+	console.log("signin")
     users.findOne({username: req.body.username}, function(err, user){
         if (user == null) {
             return res.json("notRegistered");
@@ -93,6 +108,33 @@ app.post('/signIn/', function (req, res, next) {
         req.session.user = user;
         res.cookie('username', user.username);
         return res.json(user.username);
+    });
+});
+
+// facebook sign in
+app.post('/facebookLogin/', function (req, res, next) {
+	var username = req.body.username;
+	var newUser = new FacebookUser(req.body);
+	console.log(newUser);
+	users.findOne({username: username }, function(err, user) { 
+
+        if(user == null){
+        	console.log("-------")
+            // insert new created user into db
+            users.insert(newUser, function (err, newUser) {
+
+                // error checking for db aciton
+                if (err) return res.status(500).send("Database error");
+
+                // return the new created comment to frontend
+                req.session.user = newUser;
+        		res.cookie('username', newUser.username);
+                return res.json(newUser);
+            });
+        }else{
+            return res.json(newUser);
+        }
+        
     });
 });
 
@@ -160,7 +202,6 @@ app.get('/api/:username/', function (req, res, next) {
 //get profile of all posts
 app.get('/api/posts/all/',function (req, res, next) {
     posts.find({}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
-        console.log(data);
         return res.json(data);
     })
 })
@@ -169,7 +210,7 @@ app.get('/api/posts/all/',function (req, res, next) {
 
 app.get('/api/posts/:username/',function (req, res, next) {
     var username = req.params.username;
-    posts.find({"username":username}).sort({createdAt:-1}).exec(function(err,data) {
+    posts.find({"username":username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
         console.log(data);
         return res.json(data);
     })
@@ -180,12 +221,18 @@ app.post('/api/posts/', function (req, res, next) {
 
     var newPost = new Post(req.body);
     // insert newly created post into the relation of posts
-    posts.insert(newPost, function (err, newPost) {
-    	// error checking for db aciton
-    	if (err) return res.status(500).send("Database error");
-    	// return the new created comment to frontend
-    	return res.json(newPost);
-    });
+    posts.count({username:req.session.user.username},function(err,count) {
+    	if (count >= 0) {
+    		return res.json("Max");
+    	} else {
+    		posts.insert(newPost, function (err, newPost) {
+	    		// error checking for db aciton
+	    		if (err) return res.status(500).send("Database error");
+	    		// return the new created comment to frontend
+	    		return res.json(newPost);
+    		});
+    	};
+    })
 });
 
 // update a post with given id
@@ -206,8 +253,8 @@ app.put('/api/updatePosts/:id/', function (req, res, next) {
 app.get('/api/posts/next/:id/',function (req, res, next) {
     var id = req.params.id;
     posts.findOne({"_id":id},function (err, date) {
-        posts.find({createdAt:{$lt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
-            res.json(data)
+        posts.find({createdAt:{$lt: date.createdAt}}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+            return res.json(data)
         })
     })
 })
@@ -216,8 +263,32 @@ app.get('/api/posts/next/:id/',function (req, res, next) {
 app.get('/api/posts/previous/:id/',function (req, res, next) {
     var id = req.params.id;
     posts.findOne({"_id":id},function (err, date) {
-        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
-            res.json(data)
+        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+            return res.json(data)
+        })
+    })
+})
+
+//get next page Myposts
+app.get('/api/posts/Mynext/:id/',function (req, res, next) {
+	console.log(req.session.user.username);
+    var id = req.params.id;
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$lt: date.createdAt} , username:req.session.user.username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+        	console.log(data);
+            return res.json(data)
+        })
+    })
+})
+
+//get previous page Myposts
+app.get('/api/posts/Myprevious/:id/',function (req, res, next) {
+	console.log(req.session.user.username);
+    var id = req.params.id;
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$gt: date.createdAt} , username:req.session.user.username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+        	console.log(data);
+            return res.json(data)
         })
     })
 })

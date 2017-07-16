@@ -33,13 +33,13 @@ var model = (function(){
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
                 document.getElementById("currentUser").style.display ='block';
-                document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
+                document.getElementById("currentUser").textContent = "current user: " + newData;
+                document.getElementById("currentUser1").textContent = newData;
                 document.getElementById("close1").click();
             }
         })
     }
     model.login = function(newData) {
-        console.log("here");
         doAjax('POST','http://localhost:3000/signIn/',newData, true, function(err,newData) {
             if(newData === "notRegistered") {
                 alert("Username has not be registered.");
@@ -49,21 +49,42 @@ var model = (function(){
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
                 document.getElementById("currentUser").style.display ='block';
-                document.getElementById("currentUser").textContent = "current user: " + document.cookie.substr(9);
+                document.getElementById("currentUser").textContent = "current user: " + newData;
+                document.getElementById("currentUser1").textContent = newData;
                 document.getElementById("close1").click();
             }
         })
     }
 
+    model.facebookLogin = function(data) {
+        doAjax('POST','http://localhost:3000/facebookLogin/',data,true, function(err,newData) {
+            console.log(newData);
+            document.getElementById("sign").style.display = 'none';
+            document.getElementById("signOut").style.display = 'block';
+            document.getElementById("currentUser").style.display ='block';
+            document.getElementById("currentUser").textContent = "current user: " + newData.name;
+            document.getElementById("currentUser1").textContent = newData.username;
+            document.getElementById("close1").click();
+
+        })
+    }
+
     model.signOut = function() {
         doAjax('DELETE','http://localhost:3000/signOut/',null,false, function(err,newData) {
+            if (document.getElementById("currentUser").textContent.substr(14) != document.getElementById("currentUser1").textContent) {
+
+                FB.logout(function(response) {
+                    console.log(response)
+                    console.log("logout")
+                    document.cookie = 'fblo_250762055426977=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                });
+            }
             location.reload();
         })
     }
 
     model.updateUserProfile = function(newData) {
-        var username = document.cookie.substr(9);
-        doAjax('PUT','http://localhost:3000/api/' + username + '/profile/',newData,true, function(err,newData) {
+        doAjax('PUT','http://localhost:3000/api/' + document.getElementById("currentUser1").textContent + '/profile/',newData,true, function(err,newData) {
             console.log(newData);
             if (newData == 1) {
                 console.log("close");
@@ -81,7 +102,7 @@ var model = (function(){
     }
 
     model.showUserProfile = function() {
-        doAjax('GET','http://localhost:3000/api/' + document.cookie.substr(9) + '/',null,true, function(err,newData) {
+        doAjax('GET','http://localhost:3000/api/' + document.getElementById("currentUser1").textContent + '/',null,true, function(err,newData) {
             document.getElementById("userName").value = newData.name;
             document.getElementById("userLocation").value = newData.location;
             document.getElementById("userEmail").value = newData.email;
@@ -90,9 +111,7 @@ var model = (function(){
     }
 
     model.miniShowUserProfile = function() {
-        var username = document.cookie.substr(9);
-        console.log(username);
-        doAjax('GET','http://localhost:3000/api/' + username + '/',null,true, function(err,newData) {
+        doAjax('GET','http://localhost:3000/api/' + document.getElementById("currentUser1").textContent+ '/',null,true, function(err,newData) {
             console.log(newData);
             document.getElementById("currUserName").textContent = newData.username;
             document.getElementById("currName").textContent = newData.name;
@@ -104,8 +123,11 @@ var model = (function(){
 
     model.createPost = function(data){
         doAjax("POST", "http://localhost:3000/api/posts/", data, true, function(err, newData){
-            console.log(newData);
-            model.createList();
+            if (newData == "Max") {
+                alert("One user can only have 10 posts at same time")
+            } else {
+                model.createList();
+            }
         })
     }
 
@@ -117,31 +139,32 @@ var model = (function(){
     }
 
     model.showMyPosts = function() {
-        var userName = document.cookie.substr(9);
-        doAjax("GET", "http://localhost:3000/api/posts/" + userName + "/", null, true, function(err, newData){
-            console.log(newData);
+        doAjax("GET", "http://localhost:3000/api/posts/" + document.getElementById("currentUser1").textContent + "/", null, true, function(err, newData){
             document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
         })
     }
 
     model.next = function(data) {
-        console.log(data);
         doAjax("GET", "http://localhost:3000/api/posts/next/" + data + "/", null, true, function(err, newData){
-            console.log(newData);
-            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
-            document.getElementById("postList").click();
+            if (newData.length == 0) {
+                alert("This is the last page");
+            } else {
+                document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+                document.getElementById("postList").click();
+            }
         })
     }
 
     model.previous = function(data) {
-        console.log(data);
         doAjax("GET", "http://localhost:3000/api/posts/previous/" + data + "/", null, true, function(err, newData){
-            console.log(newData);
-            document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
-            document.getElementById("postList").click();
+            if (newData.length == 0) {
+                alert("This is the first page");
+            } else {
+                document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+                document.getElementById("postList").click();
+            }
         })
     }
-
 
 
 

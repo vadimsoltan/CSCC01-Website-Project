@@ -33,7 +33,6 @@ var view = (function(){
 
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
-        console.log("view");
         e.preventDefault();
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
@@ -44,7 +43,6 @@ var view = (function(){
         	data.location = document.getElementById("userLocation").value;
         	data.email = document.getElementById("userEmail").value;
         	data.phone = document.getElementById("userPhone").value;
-            console.log(data);
         	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
             e.target.reset();
         }
@@ -75,11 +73,15 @@ var view = (function(){
             document.dispatchEvent(new CustomEvent('showMyPosts'));
             document.getElementById("postList").click();
             document.getElementById("returnAll").style.display = "block";
+            document.getElementById("previous").style.display = "none";
+            document.getElementById("next").style.display = "none";
         }
     }
 
     document.getElementById("returnAll").onclick = function(e) {
         document.getElementById("returnAll").style.display = "none";
+        document.getElementById("previous").style.display = "block";
+        document.getElementById("next").style.display = "block";
         document.dispatchEvent(new CustomEvent('createList'));
     }
 
@@ -117,7 +119,6 @@ var view = (function(){
     }
 
     view.createList = function(data) {
-        console.log(data);
         document.getElementById("postsList").innerHTML="";
         for (var i=0;i < data.length;i++) {
             var title = data[i].title;
@@ -168,10 +169,14 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent("next",{detail:lastId}));
     }
 
-        document.getElementById("previous").onclick = function() {
+    document.getElementById("previous").onclick = function() {
         var firstId = document.getElementById("postsList").firstChild.id
         document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
     }
+
+
+    
+
 
 
 

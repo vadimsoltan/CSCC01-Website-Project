@@ -64,10 +64,18 @@
       model.next(data);
     });
 
+
     document.addEventListener('previous', function(e){
       var data = e.detail;
       model.previous(data);
     });
+
+    document.addEventListener('facebookLogin', function(e){
+      var data = e.detail;
+      console.log(data);
+      model.facebookLogin(data);
+    });
+
 
 
 }(model,view));
