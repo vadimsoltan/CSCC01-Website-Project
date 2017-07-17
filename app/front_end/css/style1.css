@@ -18,42 +18,46 @@ html{
 body{
     padding-top: 10px;
 }
-// #toTop {
-//     display: none;
-//     text-decoration: none;
-//     position: fixed;
-//     bottom: 40px;
-//     right: 15px;
-//     overflow: hidden;
-//     width: 40px;
-//     height: 21px;
-//     border: none;
-//     text-indent: 100%;
-//     background: url("../images/to-top2.png") no-repeat 0px 0px;
 
-// }
 /* navbar start*/
-
-.navbar {
+  .navbar-custom {
 	line-height: 100px;
 	height: 100px;
-	background-color: rgba(0,0,0,0.3);
+	background-color: #808080;
+	color: #FFFFFF ;
 	display: block;
 	vertical-align: middle;
 	text-align: center;
 	margin-bottom: 0;
 	padding-bottom:0;
 }
+.navbar-custom .navbar-nav > li > a {
+    display: table-cell;
+	height: 100%;
+	line-height: 100%;
+	vertical-align: middle;
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 13px;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+
+.navbar-custom .navbar-nav > .active > a {
+    color: #ffffff;
+}
+
+.navbar-custom .navbar-brand {
+    color:#eeeeee;
+}
+
 .navbar-brand {
 	padding: 0;
 	display: table-cell;
 	vertical-align: middle;
-	line-height: 90px;
+	line-height: 65px;
 }
 
-.navbar-brand img {
-	vertical-align: middle;
-}
 
 /*navbar end*/
 /* index.html start */
