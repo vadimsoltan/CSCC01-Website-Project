@@ -39,14 +39,25 @@ var view = (function(){
             alert("Please login first!");
             document.getElementById("close2").click();
         } else {
-            var data = {};
-            data.name = document.getElementById("userName").value;
-            data.location = document.getElementById("userLocation").value;
-            data.email = document.getElementById("userEmail").value;
-            data.phone = document.getElementById("userPhone").value;
-            document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
-            e.target.reset();
+            var reader = new FileReader();
+            var fileURL = document.getElementById("selfie").files[0];
+            if (fileURL == undefined) {
+                alert("Please add image!");
+            } else {
+                reader.onload = function(){
+                    var data = {};
+                    data.name = document.getElementById("userName").value;
+                    data.location = document.getElementById("userLocation").value;
+                    data.email = document.getElementById("userEmail").value;
+                    data.phone = document.getElementById("userPhone").value;
+                    data.image = reader.result;
+                    document.getElementById("userProfileForm").reset();
+                    document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
+                };
+                reader.readAsDataURL(fileURL);
+            }
         }
+        document.getElementById("close2").click();
     }
 
     document.getElementById("contactForm").onsubmit = function(e) {
