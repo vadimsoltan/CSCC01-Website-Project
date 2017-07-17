@@ -72,13 +72,17 @@
 
     document.addEventListener('facebookLogin', function(e){
       var data = e.detail;
-      console.log(data);
       model.facebookLogin(data);
     });
 
-    document.addEventListener("sendMessage", function(e){
+    // document.addEventListener("sendMessage", function(e){
+    //   var data = e.detail;
+    //   model.sendMessage(data);
+    // });
+
+    document.addEventListener('search', function(e){
       var data = e.detail;
-      model.sendMessage(data);
+      model.search(data);
     });
 
 

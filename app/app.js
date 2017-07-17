@@ -36,6 +36,7 @@ var Users = (function(){
         var salt = crypto.randomBytes(16).toString('base64');
         var hash = crypto.createHmac('sha512', salt);
         hash.update(userInfo.password);
+        console.log(userInfo.password)
         
         this.salt = salt;
         this.saltedHash = hash.digest('base64');
@@ -52,6 +53,7 @@ var FacebookUser = (function(){
 
     // return the new create user object
     return function FacebookUser(userInfo){
+        console.log(userInfo.password)
         this.username  = userInfo.username;
         this.name = userInfo.name;
         this.email = userInfo.email;
@@ -210,7 +212,7 @@ app.get('/api/posts/all/',function (req, res, next) {
 
 app.get('/api/posts/:username/',function (req, res, next) {
     var username = req.params.username;
-    posts.find({"username":username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+    posts.find({username:username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
         console.log(data);
         return res.json(data);
     })
@@ -218,10 +220,12 @@ app.get('/api/posts/:username/',function (req, res, next) {
 
 // create new post
 app.post('/api/posts/', function (req, res, next) {
-
+    console.log(req.session.user)
     var newPost = new Post(req.body);
+    var username = req.session.user.username
+    console.log(username);
     // insert newly created post into the relation of posts
-    posts.count({username:req.session.user.username},function(err,count) {
+    posts.count({username:username},function(err,count) {
     	if (count >= 0) {
     		return res.json("Max");
     	} else {
@@ -234,6 +238,17 @@ app.post('/api/posts/', function (req, res, next) {
     	};
     })
 });
+
+// get posts by id
+
+app.get('/api/postsId/:id/',function (req, res, next) {
+    var id = req.params.id;
+    posts.findOne({_id:id}, function(err,data) {
+        console.log(data);
+        return res.json(data);
+    })
+})
+
 
 // update a post with given id
 app.put('/api/updatePosts/:id/', function (req, res, next) {
@@ -269,37 +284,40 @@ app.get('/api/posts/previous/:id/',function (req, res, next) {
     })
 })
 
-//get next page Myposts
-app.get('/api/posts/Mynext/:id/',function (req, res, next) {
-	console.log(req.session.user.username);
-    var id = req.params.id;
-    posts.findOne({"_id":id},function (err, date) {
-        posts.find({createdAt:{$lt: date.createdAt} , username:req.session.user.username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
-        	console.log(data);
-            return res.json(data)
-        })
-    })
-})
-
-//get previous page Myposts
-app.get('/api/posts/Myprevious/:id/',function (req, res, next) {
-	console.log(req.session.user.username);
-    var id = req.params.id;
-    posts.findOne({"_id":id},function (err, date) {
-        posts.find({createdAt:{$gt: date.createdAt} , username:req.session.user.username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
-        	console.log(data);
-            return res.json(data)
-        })
-    })
-})
-
-// Count all posts
-app.get('/api/countPosts/all/',function (req, res, next) {
-    posts.count({},function(err,data) {
-        console.log(data);
+app.get('/api/search/:info/',function (req, res, next) {
+    var info = req.params.info;
+    var data = [];
+    posts.find({}).sort({createdAt:-1}).exec(function(err,data) {
+        
         return res.json(data);
     })
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //create message
 app.post('/api/messages/', function (req, res, next) {

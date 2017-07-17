@@ -185,9 +185,8 @@
                 </select>
                 <select id="subject">
                   <option value="None">None</option>
-                    <option value="History">History</option>
-                    <option value="Math">Math</option>
-                    <option value="Computer Science">Computer Science</option>
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
                 </select>
                 <br></br>Select image to upload:
                 <input type="file" value="fileUpload" id="uploadImage" accept="image/gif, image/jpeg, image/png">
@@ -302,7 +301,13 @@
           </div>
         </div>
       </div>
+      <div id="status" style="display: none">all</div>
       <button id="returnAll" style="display: none">Return to all Posts</button>
+      <div class="search">
+          <input id="txtBookSearch" type="text" class="textfield" placeholder="Search Ads">
+                    
+          <button id="search">Search</button>
+      </div>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tbody><tr bgcolor="#2b5f8e">
             <td width="14%" height="25" align="left" valign="middle">
@@ -462,7 +467,6 @@
       testAPI();
     }
   }
-
   // This function is called when someone finishes with the Login
   // Button.  See the onlogin handler attached to it in the sample
   // code below.
@@ -471,7 +475,6 @@
       statusChangeCallback(response);
     });
   }
-
   window.fbAsyncInit = function() {
   FB.init({
     appId      : '250762055426977',
@@ -480,7 +483,6 @@
     xfbml      : true,  // parse social plugins on this page
     version    : 'v2.8' // use graph api version 2.8
   });
-
   // Now that we've initialized the JavaScript SDK, we call 
   // FB.getLoginStatus().  This function gets the state of the
   // person visiting this page and can return one of three states to
@@ -492,14 +494,10 @@
   //    your app or not.
   //
   // These three cases are handled in the callback function.
-
   FB.getLoginStatus(function(response) {
     statusChangeCallback(response);
   });
-
   };
-
-
   // Load the SDK asynchronously
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -508,7 +506,6 @@
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
-
   // Here we run a very simple test of the Graph API after login is
   // successful.  See statusChangeCallback() for when this call is made.
   function testAPI() {

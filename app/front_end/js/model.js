@@ -58,7 +58,6 @@ var model = (function(){
 
     model.facebookLogin = function(data) {
         doAjax('POST','http://localhost:3000/facebookLogin/',data,true, function(err,newData) {
-            console.log(newData);
             document.getElementById("sign").style.display = 'none';
             document.getElementById("signOut").style.display = 'block';
             document.getElementById("currentUser").style.display ='block';
@@ -74,12 +73,11 @@ var model = (function(){
             if (document.getElementById("currentUser").textContent.substr(14) != document.getElementById("currentUser1").textContent) {
 
                 FB.logout(function(response) {
-                    console.log(response)
-                    console.log("logout")
-                    document.cookie = 'fblo_250762055426977=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+                    location.reload();
                 });
+            } else {
+                location.reload();
             }
-            location.reload();
         })
     }
 
@@ -122,6 +120,7 @@ var model = (function(){
     }
 
     model.createPost = function(data){
+        console.log(data);
         doAjax("POST", "http://localhost:3000/api/posts/", data, true, function(err, newData){
             if (newData == "Max") {
                 alert("One user can only have 10 posts at same time")
@@ -166,8 +165,8 @@ var model = (function(){
         })
     }
 
-    model.sendMessage = function(data){
-        doAjax("POST", "http://localhost:3000/api/messages/", data, true, null)
+    model.search = function(data) {
+        
     }
 
 

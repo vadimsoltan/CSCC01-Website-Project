@@ -2,11 +2,11 @@ var view = (function(){
 
     var view = {};
     document.getElementById("loginForm").onsubmit = function(e) {
-    	e.preventDefault();
-    	var data = {};
-    	data.username = document.getElementById("loginUsername").value;
-    	data.password = document.getElementById("loginPassword").value;
-    	document.dispatchEvent(new CustomEvent('login',{detail: data}));
+        e.preventDefault();
+        var data = {};
+        data.username = document.getElementById("loginUsername").value;
+        data.password = document.getElementById("loginPassword").value;
+        document.dispatchEvent(new CustomEvent('login',{detail: data}));
         e.target.reset();
     }
 
@@ -15,11 +15,11 @@ var view = (function(){
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
             alert("password not same");
         } else {
-        	var data = {};
-        	data.username = document.getElementById("registerUsername").value;
-        	data.password = document.getElementById("registerPassword").value;
+            var data = {};
+            data.username = document.getElementById("registerUsername").value;
+            data.password = document.getElementById("registerPassword").value;
             data.email = document.getElementById("registerEmail").value;
-        	document.dispatchEvent(new CustomEvent('register',{detail: data}));
+            document.dispatchEvent(new CustomEvent('register',{detail: data}));
             e.target.reset();
         }
     }
@@ -27,6 +27,7 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
     }
     window.onload = function() {
+        console.log(document.cookie)
         document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
         document.dispatchEvent(new CustomEvent('createList'));
     }
@@ -38,12 +39,12 @@ var view = (function(){
             alert("Please login first!");
             document.getElementById("close2").click();
         } else {
-        	var data = {};
-        	data.name = document.getElementById("userName").value;
-        	data.location = document.getElementById("userLocation").value;
-        	data.email = document.getElementById("userEmail").value;
-        	data.phone = document.getElementById("userPhone").value;
-        	document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
+            var data = {};
+            data.name = document.getElementById("userName").value;
+            data.location = document.getElementById("userLocation").value;
+            data.email = document.getElementById("userEmail").value;
+            data.phone = document.getElementById("userPhone").value;
+            document.dispatchEvent(new CustomEvent('updateUserProfile',{detail: data}));
             e.target.reset();
         }
     }
@@ -101,7 +102,7 @@ var view = (function(){
                 reader.onload = function(){
                     var data = {};
                     var dataURL = reader.result;
-                    data.username = document.cookie.substr(9);
+                    data.username = document.getElementById("currentUser1").textContent;
                     data.author = document.getElementById("author").value;
                     data.price = document.getElementById("price").value;
                     data.title = document.getElementById("title").value;
@@ -127,6 +128,7 @@ var view = (function(){
             var description = data[i].description;
             var date = data[i].createdAt.split("T",1);
             var price = data[i].price;
+            var url = "post_profile.html?id=" + data[i]._id
             var grey = "#BEBEBE";
             var lightgrey = "#DCDCDC";
             var color;
@@ -138,11 +140,11 @@ var view = (function(){
             var e;
             e = document.createElement('div');
             e.id = data[i]._id;
-            e.innerHTML = `<div>
+            e.innerHTML = `<div href>
                             <li><table width="100%" border="0" cellspacing="0" cellpadding="0" > 
                                 <tbody><tr bgcolor=${color}>
                                     <td width="14%" valign="top" height="50">
-                                      <p style="color:black;"><a class="post_profile" href="post_profile.html?id=${id}">${title}</p>
+                                      <p style="color:black;"><a class="post_profile" href="post_profile.html?id=${id}" >${title}</p>
                                     </td>
                                     <td width="14%" valign="top">
                                       <p style="color:black;">${author}</p>
@@ -167,6 +169,7 @@ var view = (function(){
     }
     document.getElementById("next").onclick = function() {
         var lastId = document.getElementById("postsList").lastChild.id
+        console.log(lastId);
         document.dispatchEvent(new CustomEvent("next",{detail:lastId}));
     }
 
@@ -175,14 +178,20 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
     }
 
-    // For post_profile.html, sending message
-    document.getElementById("sendMessageForm").onsubmit = function(e) {
-        e.preventDefault();
-        var data = {};
-        data.description = document.getElementById("description").value;
-        document.dispatchEvent(new CustomEvent('sendMessage',{detail: data}));
-        e.target.reset();
+    document.getElementById("search").onclick = function() {
+        var info = document.getElementById("txtBookSearch").value;
+        if (info === "") {
+            alert("Please enter information of book");
+        } else {
+            document.dispatchEvent(new CustomEvent("search",{detail:info}));
+        }
+
+        //document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
     }
+
+
+
+    
 
 
 

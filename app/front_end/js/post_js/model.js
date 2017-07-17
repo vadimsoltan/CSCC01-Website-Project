@@ -25,19 +25,26 @@ var model = (function(){
         }
     };
 
-	model.getPost() {
-		
-		doAjax("GET", "http://localhost:3000/api/posts/:id", null, true, function(err, newData){
-			console.log(newData);
-			document.getElementById("author").textContent = newData.author;
-			document.getElementById("title").textContent = newData.title;
-			document.getElementById("description").textContent = newData.description;
-			document.getElementById("price").textContent = newData.price;
-			document.getElementById("time").textContent = newData.createdAt.split("T",1);
-		})
-	}
+    model.onload = function(id) {
+        doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
+           console.log(newData)
+           document.getElementById("bookName").textContent = newData.title;
+           document.getElementById("author").textContent = newData.author;
+           document.getElementById("description").textContent = newData.description;
+           document.getElementById("username").textContent = newData.username;
+           document.getElementById("image").src = newData.image;
+           if (newData.tags[0] == "None" && newData.tags[1] == "None") {
+            document.getElementById("tags").textContent = "None";
+           } else if (newData.tags[0] == "None" && newData.tags[1] != "None") {
+            document.getElementById("tags").textContent = newData.tags[1];
+           } else if (newData.tags[1] == "None" && newData.tags[0] != "None") {
+            document.getElementById("tags").textContent = newData.tags[0];
+           } else {
+            document.getElementById("tags").textContent = newData.tags[0] + "     ,     " + newData.tags[1]
+           }
+        })
+    }
 
-	
 
 
 
