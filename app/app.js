@@ -31,35 +31,27 @@ var Users = (function(){
 
     // return the new create user object
     return function User(userInfo){
-        this.username  = userInfo.username;
-        
-        var salt = crypto.randomBytes(16).toString('base64');
-        var hash = crypto.createHmac('sha512', salt);
-        hash.update(userInfo.password);
-        console.log(userInfo.password)
-        
-        this.salt = salt;
-        this.saltedHash = hash.digest('base64');
-        this.name = null;
-        this.location = null;
-        this.email = userInfo.email;
-        this.phone = null;
-        this.preferences = [];
-    }
-}());
-
-var FacebookUser = (function(){
-
-
-    // return the new create user object
-    return function FacebookUser(userInfo){
-        console.log(userInfo.password)
-        this.username  = userInfo.username;
-        this.name = userInfo.name;
-        this.email = userInfo.email;
-        this.location = null;
-        this.phone = null;
-        this.preferences = [];
+        if (userInfo.password == undefined) {
+            this.username  = userInfo.username;
+            this.name = userInfo.name;                
+            this.email = userInfo.email;
+            this.location = null;
+            this.phone = null;
+            this.preferences = [];
+        } else {
+            this.username  = userInfo.username;
+            var salt = crypto.randomBytes(16).toString('base64');
+            var hash = crypto.createHmac('sha512', salt);
+            hash.update(userInfo.password);
+            
+            this.salt = salt;
+            this.saltedHash = hash.digest('base64');
+            this.name = null;
+            this.location = null;
+            this.email = userInfo.email;
+            this.phone = null;
+            this.preferences = [];
+        }
     }
 }());
 
@@ -100,7 +92,6 @@ var checkPassword = function(user, password){
 
 // sign in
 app.post('/signIn/', function (req, res, next) {
-	console.log("signin")
     users.findOne({username: req.body.username}, function(err, user){
         if (user == null) {
             return res.json("notRegistered");
@@ -116,12 +107,10 @@ app.post('/signIn/', function (req, res, next) {
 // facebook sign in
 app.post('/facebookLogin/', function (req, res, next) {
 	var username = req.body.username;
-	var newUser = new FacebookUser(req.body);
-	console.log(newUser);
+	var newUser = new Users(req.body);
 	users.findOne({username: username }, function(err, user) { 
 
         if(user == null){
-        	console.log("-------")
             // insert new created user into db
             users.insert(newUser, function (err, newUser) {
 
@@ -134,7 +123,9 @@ app.post('/facebookLogin/', function (req, res, next) {
                 return res.json(newUser);
             });
         }else{
-            return res.json(newUser);
+            req.session.user = user;
+            res.cookie('username', user.username);
+            return res.json(user);
         }
         
     });
@@ -181,7 +172,6 @@ app.delete('/signOut/', function (req, res, next) {
 //update user
 app.put('/api/:username/profile/', function (req, res, next) {
     var username = req.params.username;
-    console.log(username);
     var name = req.body.name;
     var location = req.body.location;
     var email = req.body.email;
@@ -196,7 +186,6 @@ app.put('/api/:username/profile/', function (req, res, next) {
 app.get('/api/:username/', function (req, res, next) {
     var username = req.params.username;
     users.findOne({ "username": username }, function (err, userinfo) {
-        console.log(userinfo);
         return res.json(userinfo);
     });
 });
@@ -213,20 +202,17 @@ app.get('/api/posts/all/',function (req, res, next) {
 app.get('/api/posts/:username/',function (req, res, next) {
     var username = req.params.username;
     posts.find({username:username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
-        console.log(data);
         return res.json(data);
     })
 })
 
 // create new post
 app.post('/api/posts/', function (req, res, next) {
-    console.log(req.session.user)
     var newPost = new Post(req.body);
     var username = req.session.user.username
-    console.log(username);
     // insert newly created post into the relation of posts
     posts.count({username:username},function(err,count) {
-    	if (count >= 0) {
+    	if (count >= 10) {
     		return res.json("Max");
     	} else {
     		posts.insert(newPost, function (err, newPost) {
