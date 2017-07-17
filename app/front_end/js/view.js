@@ -121,6 +121,7 @@ var view = (function(){
     view.createList = function(data) {
         document.getElementById("postsList").innerHTML="";
         for (var i=0;i < data.length;i++) {
+            var id = data[i]._id;
             var title = data[i].title;
             var author = data[i].author;
             var description = data[i].description;
@@ -141,7 +142,7 @@ var view = (function(){
                             <li><table width="100%" border="0" cellspacing="0" cellpadding="0" > 
                                 <tbody><tr bgcolor=${color}>
                                     <td width="14%" valign="top" height="50">
-                                      <p style="color:black;">${title}</p>
+                                      <p style="color:black;"><a class="post_profile" href="post_profile.html?id=${id}">${title}</p>
                                     </td>
                                     <td width="14%" valign="top">
                                       <p style="color:black;">${author}</p>
