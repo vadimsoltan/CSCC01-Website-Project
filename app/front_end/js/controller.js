@@ -14,6 +14,13 @@
       model.login(data);
     });
 
+    document.addEventListener('stillLogin', function(e){
+      // get data from the view
+      var data = e.detail;
+      // forwards it to the model
+      model.stillLogin(data);
+    });
+
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();

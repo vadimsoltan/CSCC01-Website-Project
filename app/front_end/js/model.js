@@ -56,6 +56,17 @@ var model = (function(){
         })
     }
 
+    model.stillLogin = function(newData) {
+        doAjax('POST','http://localhost:3000/stillLogin/' + newData + "/",null, true, function(err,newData) {
+            document.getElementById("sign").style.display = 'none';
+            document.getElementById("signOut").style.display = 'block';
+            document.getElementById("currentUser").style.display ='block';
+            document.getElementById("currentUser").textContent = "current user: " + newData;                
+            document.getElementById("currentUser1").textContent = newData;
+            document.getElementById("close1").click();
+        })
+    }
+
     model.facebookLogin = function(data) {
         doAjax('POST','http://localhost:3000/facebookLogin/',data,true, function(err,newData) {
             document.getElementById("sign").style.display = 'none';

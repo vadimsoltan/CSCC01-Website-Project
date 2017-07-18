@@ -27,12 +27,13 @@ var model = (function(){
 
     model.onload = function(id) {
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
-           console.log(newData)
+           console.log(newData.userImage)
            document.getElementById("bookName").textContent = newData.title;
            document.getElementById("author").textContent = newData.author;
            document.getElementById("description").textContent = newData.description;
            document.getElementById("username").textContent = newData.username;
            document.getElementById("image").src = newData.image;
+           document.getElementById("userImage").src = newData.userImage;
            if (newData.tags[0] == "None" && newData.tags[1] == "None") {
             document.getElementById("tags").textContent = "None";
            } else if (newData.tags[0] == "None" && newData.tags[1] != "None") {

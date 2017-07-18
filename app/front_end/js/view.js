@@ -24,11 +24,20 @@ var view = (function(){
         }
     }
     document.getElementById("signOut").onclick = function(e) {
-        document.dispatchEvent(new CustomEvent('signOut',{detail: null}));
+        document.dispatchEvent(new CustomEvent('signOut'));
     }
     window.onload = function() {
         console.log(document.cookie)
-        document.cookie = 'username=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        console.log(document.cookie.split(";"))
+        var username;
+        for (var i=0;i < document.cookie.split(";").length; i++) {
+            if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
+                username = document.cookie.split(";")[i].split("=")[1]
+            }
+        }
+        if (username != "j%3Anull") {
+            document.dispatchEvent(new CustomEvent('stillLogin', {detail:username}));
+        }
         document.dispatchEvent(new CustomEvent('createList'));
     }
 

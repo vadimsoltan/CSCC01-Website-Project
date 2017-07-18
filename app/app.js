@@ -38,6 +38,7 @@ var Users = (function(){
             this.location = null;
             this.phone = null;
             this.preferences = [];
+            this.image = "https://lh3.googleusercontent.com/ZZPdzvlpK9r_Df9C3M7j1rNRi7hhHRvPhlklJ3lfi5jk86Jd1s0Y5wcQ1QgbVaAP5Q=w300"
         } else {
             this.username  = userInfo.username;
             var salt = crypto.randomBytes(16).toString('base64');
@@ -51,6 +52,7 @@ var Users = (function(){
             this.email = userInfo.email;
             this.phone = null;
             this.preferences = [];
+            this.image = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
         }
     }
 }());
@@ -98,6 +100,15 @@ app.post('/signIn/', function (req, res, next) {
         } else if (checkPassword(user, req.body.password) == false){
             return res.json("wrong");
         }
+        req.session.user = user;
+        res.cookie('username', user.username);
+        return res.json(user.username);
+    });
+});
+
+//still sign in
+app.post('/stillLogin/:username/', function (req, res, next) {
+    users.findOne({username: req.params.username}, function(err, user){
         req.session.user = user;
         res.cookie('username', user.username);
         return res.json(user.username);
@@ -177,7 +188,7 @@ app.put('/api/:username/profile/', function (req, res, next) {
     var email = req.body.email;
     var phone = req.body.phone;
     var preferences = req.body.preferences;
-    users.update({ "username": username }, { $set: { "name":name, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
+    users.update({ "username": username }, { $set: { image:req.body.image,"name":name, "email": email, "location": location,"phone" : phone,"preferences":preferences} }, {}, function (err, numReplaced) {
         return res.json(numReplaced);
     });
 });
@@ -228,10 +239,19 @@ app.post('/api/posts/', function (req, res, next) {
 // get posts by id
 
 app.get('/api/postsId/:id/',function (req, res, next) {
+    console.log("_________________________________________")
     var id = req.params.id;
     posts.findOne({_id:id}, function(err,data) {
-        console.log(data);
-        return res.json(data);
+        console.log(data.username)
+        console.log("_________________________________________")
+        users.findOne({username:data.username}, function(err,newData) {
+            console.log(newData)
+            console.log("_________________________________________")
+            data.userImage = newData.image
+            console.log("_________________________________________")
+            console.log(data.userImage);
+            return res.json(data);
+        })
     })
 })
 
