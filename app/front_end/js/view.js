@@ -27,8 +27,6 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut'));
     }
     window.onload = function() {
-        console.log(document.cookie)
-        console.log(document.cookie.split(";"))
         var username;
         for (var i=0;i < document.cookie.split(";").length; i++) {
             if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
@@ -131,6 +129,7 @@ var view = (function(){
                     data.image = dataURL;
                     document.getElementById("makePostForm").reset();
                     document.dispatchEvent(new CustomEvent('createNewPost',{detail: data}));
+
                 };
                 // display the image
                 reader.readAsDataURL(fileURL);
@@ -178,28 +177,52 @@ var view = (function(){
                                     <td width="10%" valign="top">
                                       <p style="color:black;">${price}</p>
                                     </td>
-                                    <td width="12%" valign="top">
+                                    <td width="12%" valign="top" id="contact${id}">
                                       <p style="color:black;"> <a class="login-window" href="#login-box">Contact</a></p>
                                     </td>
                                 </tr></tbody>
                             </table><ul class="inner-content" style="display: none;"></li>
                         </div>`
             document.getElementById("postsList").appendChild(e);
+            document.getElementById("contact" + e.id).onclick = function() {
+                if (document.getElementById("currentUser").textContent == "") {
+                    alert("Please login first!");
+                    document.getElementById("close3").click();
+                    document.getElementById("sign").click();
+                } else {
+                    document.dispatchEvent(new CustomEvent("contact",{detail:e.id}));
+                }
+            }
         }
     }
     document.getElementById("next").onclick = function() {
         var lastId = document.getElementById("postsList").lastChild.id
-        console.log(lastId);
-        document.dispatchEvent(new CustomEvent("next",{detail:lastId}));
+        if (document.getElementById("status").textContent == "") {
+            document.dispatchEvent(new CustomEvent("next",{detail:lastId}));
+        } else {
+            data = {}
+            data.lastId = lastId;
+            data.info = document.getElementById("status").textContent;
+            document.dispatchEvent(new CustomEvent("nextSearch",{detail:data}));
+        }
     }
 
     document.getElementById("previous").onclick = function() {
-        var firstId = document.getElementById("postsList").firstChild.id
-        document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
+        var firstId = document.getElementById("postsList").firstChild.id;
+        if (document.getElementById("status").textContent == "") {
+            document.dispatchEvent(new CustomEvent("previous",{detail:firstId}));
+        } else {
+            data = {}
+            data.firstId = firstId;
+            data.info = document.getElementById("status").textContent;
+            document.dispatchEvent(new CustomEvent("previousSearch",{detail:data}));
+        }
     }
 
     document.getElementById("search").onclick = function() {
         var info = document.getElementById("txtBookSearch").value;
+        document.getElementById("returnAll").style.display = "block";
+        document.getElementById("status").textContent = info;
         if (info === "") {
             alert("Please enter information of book");
         } else {

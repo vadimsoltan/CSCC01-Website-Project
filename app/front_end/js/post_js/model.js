@@ -32,6 +32,7 @@ var model = (function(){
            document.getElementById("author").textContent = newData.author;
            document.getElementById("description").textContent = newData.description;
            document.getElementById("username").textContent = newData.username;
+           document.getElementById("price").textContent = newData.price;
            document.getElementById("image").src = newData.image;
            document.getElementById("userImage").src = newData.userImage;
            if (newData.tags[0] == "None" && newData.tags[1] == "None") {

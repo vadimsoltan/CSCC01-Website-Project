@@ -110,7 +110,6 @@ app.post('/signIn/', function (req, res, next) {
 app.post('/stillLogin/:username/', function (req, res, next) {
     users.findOne({username: req.params.username}, function(err, user){
         req.session.user = user;
-        res.cookie('username', user.username);
         return res.json(user.username);
     });
 });
@@ -212,7 +211,7 @@ app.get('/api/posts/all/',function (req, res, next) {
 
 app.get('/api/posts/:username/',function (req, res, next) {
     var username = req.params.username;
-    posts.find({username:username}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
+    posts.find({username:username}).sort({createdAt:-1}).exec(function(err,data) {
         return res.json(data);
     })
 })
@@ -239,17 +238,11 @@ app.post('/api/posts/', function (req, res, next) {
 // get posts by id
 
 app.get('/api/postsId/:id/',function (req, res, next) {
-    console.log("_________________________________________")
     var id = req.params.id;
     posts.findOne({_id:id}, function(err,data) {
-        console.log(data.username)
-        console.log("_________________________________________")
         users.findOne({username:data.username}, function(err,newData) {
-            console.log(newData)
-            console.log("_________________________________________")
-            data.userImage = newData.image
-            console.log("_________________________________________")
-            console.log(data.userImage);
+            data.userImage = newData.image;
+            data.email = newData.email;
             return res.json(data);
         })
     })
@@ -266,10 +259,10 @@ app.put('/api/updatePosts/:id/', function (req, res, next) {
     var image = req.body.image;
     var date = req.body.date;
     posts.update({"_id": id}, { $set: { "title":title,"description": description, "tags": tags, "image": image,"date" : date} }, {}, function (err, numReplaced) {
-		console.log(numReplaced);
 		return res.json(numReplaced);
 	});
 });
+
 //get next page posts
 app.get('/api/posts/next/:id/',function (req, res, next) {
     var id = req.params.id;
@@ -283,41 +276,105 @@ app.get('/api/posts/next/:id/',function (req, res, next) {
 //get previous page posts
 app.get('/api/posts/previous/:id/',function (req, res, next) {
     var id = req.params.id;
+    var dataList = [];
     posts.findOne({"_id":id},function (err, date) {
-        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).limit(10).exec(function(err,data) {
-            return res.json(data)
+        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
+
+            for (var i = data.length -1;i > data.length -11;i--) {
+                dataList.push(data[i])
+            }
+            return res.json(dataList.reverse())
         })
     })
 })
 
 app.get('/api/search/:info/',function (req, res, next) {
     var info = req.params.info;
-    var data = [];
+    var dataList = [];
     posts.find({}).sort({createdAt:-1}).exec(function(err,data) {
+
+        for (var i=0;i < data.length;i++) {
+            if (data[i].title == null) {
+                data[i].title = "";
+            }
+            if (data[i].author == null) {
+                data[i].author = "";
+            }
+            if (data[i].description == null) {
+                data[i].description = "";
+            }
+            if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+                dataList.push(data[i])
+            }
+            if (dataList.length == 10) {
+                return res.json(dataList);
+            }
+        }
         
-        return res.json(data);
+        return res.json(dataList);
     })
 })
 
 
+app.get('/api/posts/nextSearch/:id/:info/',function (req, res, next) {
+    var id = req.params.id;
+    var info = req.params.info;
+    var dataList = [];
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$lt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
 
+            for (var i=0;i < data.length;i++) {
+                if (data[i].title == null) {
+                    data[i].title = "";
+                }
+                if (data[i].author == null) {
+                    data[i].author = "";
+                }
+                if (data[i].description == null) {
+                    data[i].description = "";
+                }
+                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+                    dataList.push(data[i])
+                }
+                if (dataList.length == 10) {
+                    return res.json(dataList);
+                }
+            }
+            
+            return res.json(dataList);
+        })
+    })
+})
 
+app.get('/api/posts/previousSearch/:id/:info/',function (req, res, next) {
+    var id = req.params.id;
+    var info = req.params.info;
+    var dataList = [];
+    posts.findOne({"_id":id},function (err, date) {
+        posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            for (var i=data.length-1;i > -1;i--) {
+                if (data[i].title == null) {
+                    data[i].title = "";
+                }
+                if (data[i].author == null) {
+                    data[i].author = "";
+                }
+                if (data[i].description == null) {
+                    data[i].description = "";
+                }
+                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+                    dataList.push(data[i])
+                }
+                if (dataList.length == 10) {
+                    return res.json(dataList.reverse());
+                }
+            }
+            
+            return res.json(dataList.reverse());
+        })
+    })
+})
 
 
 
@@ -329,7 +386,6 @@ app.get('/api/search/:info/',function (req, res, next) {
 app.post('/api/messages/', function (req, res, next) {
 	
 	var newMsg = new Message(req.body);
-    console.log(req.body);
 	users.findOne({username: newMsg.receiver}, function(err, user) {
 		if (user == null) return res.json("wrong receiver");
 		else {
@@ -408,10 +464,10 @@ function sendMail(formData) {
 	  if (error) {
 	    console.log('Error response received');
 	  }
-	  console.log(response);
-	  console.log(response.statusCode);
-	  console.log(response.body);
-	  console.log(response.headers);
+	  // console.log(response);
+	  // console.log(response.statusCode);
+	  // console.log(response.body);
+	  // console.log(response.headers);
 	});
 }
 
