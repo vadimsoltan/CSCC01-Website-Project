@@ -20,6 +20,12 @@ body{
 }
 
 /* navbar start*/
+
+.search-dropdown{
+   background-color: white;
+ }
+ 
+
   .navbar-custom {
 	line-height: 100px;
 	height: 100px;
@@ -58,9 +64,24 @@ body{
 	line-height: 65px;
 }
 
+a:hover,
+a:focus {
+  color: #2a6496;
+  text-decoration: underline;
+}
+
+a:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
 
 /*navbar end*/
 /* index.html start */
+.hide {
+    display: none !important;
+}
+
 .modal{
     top:60px;
     width: 80vw;
