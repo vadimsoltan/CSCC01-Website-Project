@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="css/post-theme.css">
   <link rel="stylesheet" href="css/style1.css">
   <link href="css/bootstrap.min.css" rel="stylesheet1">
+
+
   </head>
   <body>
     	<div class="navbar navbar-custom" role="navigation">
@@ -20,13 +22,40 @@
 	</div>
     <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-2" data-toggle="modal" data-target="#viewUserProfile" id="poster">
 			<img alt="Bootstrap Image Preview" id="userImage" src="" class="img-thumbnail">
-			<p id="username"></p>
+			<p id="name"></p>
+			<p id= "username" style="display: none"></p>
 			<button type="button" class="btn btn-default">
 				Message
 			</button>
 		</div>
+
+	<div class="modal fade" id="viewUserProfile" role="dialog">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-body">
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                          <span aria-hidden="true">&times;</span>
+	                      </button>
+	          <div class="text-bold">Profile of User</div>
+	          <div class="facts">
+	            <div class="sign-up">
+	              <form class="register">
+	                <ul>
+	                  <li><span font-weight="bold">Username: </span><span id="currUserName"></span></li>
+	                  <li><span>Name: </span><span id="currName"></span></li>
+	                  <li><span>Emai: </span><span id="currUserEmail"></span></li>
+	                  <li><span>Phone: </span><span id="currUserPhone"></span></li>
+	                  <li><span>Location: </span><span id="currUserLocation"></span></li>
+	                </ul>
+	              </form>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	 </div>
 		<div class="col-md-8">
 			 <span class="label label-default" id="title"></span>
 			<table class="table table-striped">

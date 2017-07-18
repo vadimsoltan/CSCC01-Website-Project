@@ -243,6 +243,7 @@ app.get('/api/postsId/:id/',function (req, res, next) {
         users.findOne({username:data.username}, function(err,newData) {
             data.userImage = newData.image;
             data.email = newData.email;
+            data.name = newData.name;
             return res.json(data);
         })
     })

@@ -8,6 +8,10 @@ var view = (function(){
 		console.log(id);
 		document.dispatchEvent(new CustomEvent("onload",{detail:id}));
     }
+
+    document.getElementById("poster").onclick = function(e) {
+        document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
+    }
 	
     
 
