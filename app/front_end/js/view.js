@@ -187,7 +187,7 @@ var view = (function(){
             document.getElementById("postsList").appendChild(e);
             document.getElementById("contact" + e.id).onclick = function() {
                 if (document.getElementById("currentUser").textContent == "") {
-                    alert("Please login first!");
+                    alert("You have to be logged in in order to send email.");
                     document.getElementById("close3").click();
                     document.getElementById("sign").click();
                 } else {

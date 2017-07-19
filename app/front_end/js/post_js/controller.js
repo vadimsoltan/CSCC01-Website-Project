@@ -12,5 +12,10 @@
       model.miniShowUserProfile();
     });
 
+    document.addEventListener('editPost', function(e){
+      var data = e.detail;
+      model.editPost(data);
+    });
+
 
 }(model,view));
