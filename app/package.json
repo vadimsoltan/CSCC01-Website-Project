@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
+    "angular": "^1.6.5",
     "sendgrid": "^5.1.2"
   },
   "devDependencies": {},

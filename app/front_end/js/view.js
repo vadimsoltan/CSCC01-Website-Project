@@ -34,8 +34,6 @@ var view = (function(){
                 username = document.cookie.split(";")[i].split("=")[1]
             }
         }
-        console.log(username);
-        console.log(username != "j%3Anull");
         if (username != "j%3Anull" && username != undefined) {
             document.dispatchEvent(new CustomEvent('stillLogin', {detail:username}));
         }
