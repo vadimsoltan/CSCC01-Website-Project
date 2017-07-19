@@ -54,7 +54,7 @@ var view = (function(){
     }
     document.getElementById("deleteForm").onsubmit = function(e) {
         e.preventDefault();
-        if (document.getElementById("answer").value != 30) {
+        if (document.getElementById("answer").value != "30") {
             alert("Answer is wrong");
             document.getElementById("deleteClose").click();
         } else {
