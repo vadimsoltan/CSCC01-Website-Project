@@ -26,6 +26,7 @@ var model = (function(){
     };
 
     model.onload = function(id) {
+      console.log(id);
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
           var currName;
           for (var i=0;i < document.cookie.split(";").length; i++) {
@@ -97,6 +98,27 @@ var model = (function(){
         document.getElementById("editDescription").value = newData.description;
         document.getElementById("editPrice").value = newData.price;
       })
+    }
+
+    model.delete = function (id){
+      doAjax('DELETE','http://localhost:3000/api/posts/' + id + "/",null, true, function(err,newData) {
+        console.log(newData);
+        if (newData == 1) {
+          alert("Delete successfully!");
+          location.replace("./index.html");
+        } else {
+          alert("Some errors happen. Please try again!");
+          document.getElementById("deleteClose").click();
+        }
+
+      })
+    }
+
+    model.report = function(newData) {
+        alert("Report successfully!");
+        document.getElementById("reportClose").click();
+        doAjax('POST','http://localhost:3000/api/report/',newData,true, function(err,newData) {
+        })
     }
 
 

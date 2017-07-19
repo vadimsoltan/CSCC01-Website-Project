@@ -15,11 +15,8 @@ var view = (function(){
     }
 
     document.getElementById("edit").onclick = function(e) {
-        alert("stop");
-        document.getElementById("close3").click();
         var id = location.href.substring(location.href.lastIndexOf('=')+1);
         document.dispatchEvent(new CustomEvent('editPost',{detail:id}));
-        document.getElementById("close3").click();
     }
 	
     document.getElementById("editPostForm").onsubmit = function(e){
@@ -54,6 +51,31 @@ var view = (function(){
             }
         }
         document.getElementById("close3").click();
+    }
+    document.getElementById("deleteForm").onsubmit = function(e) {
+        e.preventDefault();
+        if (document.getElementById("answer").value != 30) {
+            alert("Answer is wrong");
+            document.getElementById("deleteClose").click();
+        } else {
+            var id = location.href.substring(location.href.lastIndexOf('=')+1);
+            document.dispatchEvent(new CustomEvent("delete",{detail:id}));
+        }
+    }
+
+    document.getElementById("reportForm").onsubmit = function(e) {
+        e.preventDefault();
+        var currName;
+        for (var i=0;i < document.cookie.split(";").length; i++) {
+          if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
+              currName = document.cookie.split(";")[i].split("=")[1]
+             }
+        }
+        var data = {};
+        data.reporter = currName;
+        data.reason = document.getElementById("reason").value;
+        data.id = location.href.substring(location.href.lastIndexOf('=')+1);
+        document.dispatchEvent(new CustomEvent("report",{detail:data}));
     }
     
 

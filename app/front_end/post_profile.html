@@ -154,10 +154,10 @@
 						<a id="edit" data-toggle="modal" data-target="#post" style="display: none">Edit</a>
 					</li>
 					<li>
-						<a href="#">Report</a>
+						<a data-toggle="modal" data-target="#report">Report</a>
 					</li>
 					<li>
-						<a href="#" style="display: none" id="delete">Delete</a>
+						<a id="delete" data-toggle="modal" data-target="#deletePost" style="display: none">Delete</a>
 					</li>
 				</ul>
 
@@ -191,7 +191,7 @@
                 </select>
                 <br></br>Select image to upload:
                 <input type="file" value="fileUpload" id="uploadImage" accept="image/gif, image/jpeg, image/png">
-                <input type="submit" value="Make a post">
+                <input type="submit" value="Update this post">
               </form>
             </div>
           </div>
@@ -199,6 +199,55 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" id="deletePost" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="deleteClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          <div class="text-bold" style="color:red;">Delete this Post</div>
+          <div class="facts">
+          <p style="color:red;"><b>Waring! You are about to delete this post!</b></p>
+          <p style="color:red;">I need to confirm your Sanity. What's 5 * 6 ? Answer this below and press the Delete button to delete</p>
+            <div class="sign-up">
+              <form id="deleteForm" class="register">
+                <input placeholder="Answer" type="text" id="answer">
+
+                <input type="submit" value="Delete">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    <div class="modal fade" id="report" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="reportClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          <div class="text-bold" style="color:red;">Report</div>
+          <div class="facts">
+          <p style="color:white;"><b>Please enter the reasons!</b></p>
+            <div class="sign-up">
+              <form id="reportForm" class="register">
+                <input placeholder="Reason" type="text" id="reason">
+
+                <input type="submit" value="Report">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 		
 	</div>
 	</div>

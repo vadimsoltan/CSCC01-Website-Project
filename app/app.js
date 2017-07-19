@@ -238,6 +238,7 @@ app.post('/api/posts/', function (req, res, next) {
 // get posts by id
 
 app.get('/api/postsId/:id/',function (req, res, next) {
+    console.log("------")
     var id = req.params.id;
     posts.findOne({_id:id}, function(err,data) {
         users.findOne({username:data.username}, function(err,newData) {
@@ -304,7 +305,7 @@ app.get('/api/search/:info/',function (req, res, next) {
             if (data[i].description == null) {
                 data[i].description = "";
             }
-            if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+            if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true || data[i]._id == info) {
                 dataList.push(data[i])
             }
             if (dataList.length == 10) {
@@ -334,7 +335,7 @@ app.get('/api/posts/nextSearch/:id/:info/',function (req, res, next) {
                 if (data[i].description == null) {
                     data[i].description = "";
                 }
-                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true) {
                     dataList.push(data[i])
                 }
                 if (dataList.length == 10) {
@@ -364,7 +365,7 @@ app.get('/api/posts/previousSearch/:id/:info/',function (req, res, next) {
                 if (data[i].description == null) {
                     data[i].description = "";
                 }
-                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true ) {
+                if (data[i].title.includes(info) == true || data[i].description.includes(info) == true || data[i].author.includes(info) == true) {
                     dataList.push(data[i])
                 }
                 if (dataList.length == 10) {
@@ -376,6 +377,16 @@ app.get('/api/posts/previousSearch/:id/:info/',function (req, res, next) {
         })
     })
 })
+
+// delete post
+app.delete('/api/posts/:id/', function (req, res, next) {
+    
+    var id = req.params.id;
+    posts.remove({_id: id}, {}, function(err, numRemove) {
+        if (err) return res.status(500).send("Database error");
+        return res.json(numRemove);
+    });
+});
 
 
 
@@ -438,6 +449,11 @@ app.post('/api/contactUs/',function(req,res,next) {
     return next();
 })
 
+app.post('/api/report/',function(req,res,next) {
+    report(req.body);
+    return next();
+})
+
 
 
 function sendMail(formData) {
@@ -450,7 +466,7 @@ function sendMail(formData) {
 	var helper = require('sendgrid').mail;
 	var fromEmail = new helper.Email('vickershhh@gmail.com');
 	var toEmail = new helper.Email('haitao.zhu@mail.utoronto.ca');
-	var subject = 'Sending with SendGrid is Fun';
+	var subject = 'contactUs';
 	var content = new helper.Content('text/plain', str);
 	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
 
@@ -470,6 +486,37 @@ function sendMail(formData) {
 	  // console.log(response.body);
 	  // console.log(response.headers);
 	});
+}
+
+function report(formData) {
+
+    var reporter = formData.reporter;
+    var id = formData.id;
+    var reason = formData.reason;
+    var str = "Reporter: " + reporter + ",      " + "PostId: " + id + ",      " + "Reason: " + reason + ".";
+    var helper = require('sendgrid').mail;
+    var fromEmail = new helper.Email('vickershhh@gmail.com');
+    var toEmail = new helper.Email('haitao.zhu@mail.utoronto.ca');
+    var subject = 'Report';
+    var content = new helper.Content('text/plain', str);
+    var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+    var sg = require('sendgrid')('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');
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON()
+    });
+
+    sg.API(request, function (error, response) {
+      if (error) {
+        console.log('Error response received');
+      }
+      // console.log(response);
+      // console.log(response.statusCode);
+      // console.log(response.body);
+      // console.log(response.headers);
+    });
 }
 
 

@@ -17,5 +17,16 @@
       model.editPost(data);
     });
 
+    document.addEventListener('delete', function(e){
+      var data = e.detail;
+      model.delete(data);
+    });
+
+    document.addEventListener('report', function(e){
+      var data = e.detail;
+      model.report(data);
+    });
+
+
 
 }(model,view));
