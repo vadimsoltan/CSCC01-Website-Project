@@ -27,13 +27,16 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut'));
     }
     window.onload = function() {
+        console.log(document.cookie);
         var username;
         for (var i=0;i < document.cookie.split(";").length; i++) {
             if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
                 username = document.cookie.split(";")[i].split("=")[1]
             }
         }
-        if (username != "j%3Anull") {
+        console.log(username);
+        console.log(username != "j%3Anull");
+        if (username != "j%3Anull" && username != undefined) {
             document.dispatchEvent(new CustomEvent('stillLogin', {detail:username}));
         }
         document.dispatchEvent(new CustomEvent('createList'));
