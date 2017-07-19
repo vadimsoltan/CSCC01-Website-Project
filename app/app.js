@@ -69,7 +69,7 @@ var Post = (function(){
         this.image = postInfo.image;
         this.date = postInfo.date;
         this.author = postInfo.author;
-        this.price  = postInfo.price
+        this.price  = postInfo.price;
     }
 }());
 
