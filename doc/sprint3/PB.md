@@ -1,7 +1,11 @@
 User stories:
+
 User story|Priority|Size|
+
 priority from 1 to 10   
+
 1 is the highest priority
+
 1 story point = 2 hour
 
 10.  As Alan Yang, a buyer, I should be able to bookmark posts so that I can view them whenever I want.|10|5|
