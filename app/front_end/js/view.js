@@ -160,7 +160,7 @@ var view = (function(){
             var e;
             e = document.createElement('div');
             e.id = data[i]._id;
-            e.innerHTML = `<div href>
+            e.innerHTML = `<div>
                             <li><table width="100%" border="0" cellspacing="0" cellpadding="0" > 
                                 <tbody><tr bgcolor=${color}>
                                     <td width="14%" valign="top" height="50">
@@ -179,21 +179,15 @@ var view = (function(){
                                       <p style="color:black;">${price}</p>
                                     </td>
                                     <td width="12%" valign="top" id="contact${id}">
-                                      <p style="color:black;"> <a class="login-window" href="#login-box">Contact</a></p>
+                                      <p style="color:black;"> <a data-toggle="modal" data-target="#contactButton";>Contact</a></p>
                                     </td>
+                        
                                 </tr></tbody>
                             </table><ul class="inner-content" style="display: none;"></li>
                         </div>`
             document.getElementById("postsList").appendChild(e);
-            document.getElementById("contact" + e.id).onclick = function() {
-                if (document.getElementById("currentUser").textContent == "") {
-                    alert("You have to be logged in in order to send email.");
-                    document.getElementById("close3").click();
-                    document.getElementById("sign").click();
-                } else {
-                    document.dispatchEvent(new CustomEvent("contact",{detail:e.id}));
-                }
-            }
+            
+            
         }
     }
     document.getElementById("next").onclick = function() {

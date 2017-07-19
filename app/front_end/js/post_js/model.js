@@ -37,6 +37,8 @@ var model = (function(){
            document.getElementById("bookName").textContent = newData.title;
            document.getElementById("author").textContent = newData.author;
            document.getElementById("description").textContent = newData.description;
+           console.log(newData.username)
+           console.log(newData.username.length > 15)
            if (newData.username.length > 15) {
               document.getElementById("name").textContent = newData.name;
               document.getElementById("username").textContent = newData.username;
