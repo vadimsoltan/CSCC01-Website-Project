@@ -8,6 +8,9 @@
       model.onload(data);
     });
 
+    document.addEventListener('miniShowUserProfile', function(e){
+      model.miniShowUserProfile();
+    });
 
 
 }(model,view));

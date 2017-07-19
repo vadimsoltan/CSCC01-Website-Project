@@ -14,6 +14,13 @@
       model.login(data);
     });
 
+    document.addEventListener('stillLogin', function(e){
+      // get data from the view
+      var data = e.detail;
+      // forwards it to the model
+      model.stillLogin(data);
+    });
+
     document.addEventListener('signOut', function(e){
       // get data from the view
       model.signOut();
@@ -84,6 +91,23 @@
       var data = e.detail;
       model.search(data);
     });
+
+    document.addEventListener('nextSearch', function(e){
+      var data = e.detail;
+      model.nextSearch(data);
+    });
+
+    document.addEventListener('previousSearch', function(e){
+      var data = e.detail;
+      model.previousSearch(data);
+    });
+
+    document.addEventListener('contact', function(e){
+      var data = e.detail;
+      model.contact(data);
+    });
+
+
 
 
 

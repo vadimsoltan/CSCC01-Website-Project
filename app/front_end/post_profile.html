@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link rel="stylesheet" href="css/post_min.css">
   <link rel="stylesheet" href="css/post-theme.css">
   <link rel="stylesheet" href="css/style1.css">
   <link href="css/bootstrap.min.css" rel="stylesheet1">
+
+
   </head>
   <body>
     	<div class="navbar navbar-custom" role="navigation">
@@ -19,13 +22,40 @@
 	</div>
     <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2">
-			<img alt="Bootstrap Image Preview" src="img/team/member1.jpg" class="img-thumbnail">
-			<p id="username"></p>
+		<div class="col-md-2" data-toggle="modal" data-target="#viewUserProfile" id="poster">
+			<img alt="Bootstrap Image Preview" id="userImage" src="" class="img-thumbnail">
+			<p id="name"></p>
+			<p id= "username" style="display: none"></p>
 			<button type="button" class="btn btn-default">
 				Message
 			</button>
 		</div>
+
+	<div class="modal fade" id="viewUserProfile" role="dialog">
+	    <div class="modal-dialog" role="document">
+	      <div class="modal-content">
+	        <div class="modal-body">
+	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                          <span aria-hidden="true">&times;</span>
+	                      </button>
+	          <div class="text-bold">Profile of User</div>
+	          <div class="facts">
+	            <div class="sign-up">
+	              <form class="register">
+	                <ul>
+	                  <li><span font-weight="bold">Username: </span><span id="currUserName"></span></li>
+	                  <li><span>Name: </span><span id="currName"></span></li>
+	                  <li><span>Emai: </span><span id="currUserEmail"></span></li>
+	                  <li><span>Phone: </span><span id="currUserPhone"></span></li>
+	                  <li><span>Location: </span><span id="currUserLocation"></span></li>
+	                </ul>
+	              </form>
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	 </div>
 		<div class="col-md-8">
 			 <span class="label label-default" id="title"></span>
 			<table class="table table-striped">
@@ -93,13 +123,12 @@
 					</tr>
 					<tr class="danger">
 						<td>
-
+							Price
 						</td>
 						<td>
-							
 						</td>
 						<td>
-						
+							<p id="price"></p>
 						</td>
 						<td>
 							
@@ -121,24 +150,67 @@
 					<span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu">
-					<li class="disabled">
-						<a href="#">Edit</a>
-					</li>
-					<li class="divider">
-					</li>
 					<li>
 						<a href="#">Report</a>
 					</li>
 				</ul>
+			</div>	
+			<div class="btn-group">
+				<button id="editbtn" class="btn btn-default ">
+					Edit
+				</button>
+				<button data-toggle="dropdown" class="btn btn-default dropdown-toggle ">
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu">
+					<li>
+						<a href="#">Delete</a>
+					</li>
+				</ul>
 			</div>
 		</div>
+		
+	<div class="modal fade" id="post" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close3">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          <div class="text-bold">Edit post</div>
+          <div class="facts">
+            <div class="sign-up">
+              <form id="makePostForm" class="register">
+                <input placeholder="title" type="text" id="title">
+                <input placeholder="author" type="text" id="author">
+                <input placeholder="price" type="text" id="price">
+                <textarea rows="10" cols="60" name="description" id="description" form="makePostForm" style="background-color: black" placeholder="Enter description here..."></textarea>
+                <select id="type">
+                  <option value="None">None</option>
+                    <option value="Textbook">Textbook</option>
+                    <option value="None-textbook">None-textbook</option>
+                </select>
+                <select id="subject">
+                  <option value="None">None</option>
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
+                </select>
+                <br></br>Select image to upload:
+                <input type="file" value="fileUpload" id="uploadImage" accept="image/gif, image/jpeg, image/png">
+                <input type="submit" value="Make a post">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		
 	</div>
 	</div>
 </div>
 
-<!--     <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script> -->
 	<script src="js/post_js/model.js"></script>
 	<script src="js/post_js/view.js"></script>
 	<script src="js/post_js/controller.js"></script>

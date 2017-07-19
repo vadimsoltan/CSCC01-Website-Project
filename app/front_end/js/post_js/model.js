@@ -27,12 +27,21 @@ var model = (function(){
 
     model.onload = function(id) {
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
-           console.log(newData)
+           console.log(newData.userImage)
            document.getElementById("bookName").textContent = newData.title;
            document.getElementById("author").textContent = newData.author;
            document.getElementById("description").textContent = newData.description;
-           document.getElementById("username").textContent = newData.username;
+           if (newData.username.length > 15) {
+              document.getElementById("name").textContent = newData.name;
+              document.getElementById("username").textContent = newData.username;
+
+           } else {
+              document.getElementById("name").textContent = newData.username;
+              document.getElementById("username").textContent = newData.username;
+           }
+           document.getElementById("price").textContent = newData.price;
            document.getElementById("image").src = newData.image;
+           document.getElementById("userImage").src = newData.userImage;
            if (newData.tags[0] == "None" && newData.tags[1] == "None") {
             document.getElementById("tags").textContent = "None";
            } else if (newData.tags[0] == "None" && newData.tags[1] != "None") {
@@ -42,6 +51,17 @@ var model = (function(){
            } else {
             document.getElementById("tags").textContent = newData.tags[0] + "     ,     " + newData.tags[1]
            }
+        })
+    }
+
+    model.miniShowUserProfile = function() {
+        doAjax('GET','http://localhost:3000/api/' + document.getElementById("username").textContent+ '/',null,true, function(err,newData) {
+            console.log(newData);
+            document.getElementById("currUserName").textContent = newData.username;
+            document.getElementById("currName").textContent = newData.name;
+            document.getElementById("currUserEmail").textContent = newData.email;
+            document.getElementById("currUserPhone").textContent = newData.phone;
+            document.getElementById("currUserLocation").textContent = newData.location;
         })
     }
 

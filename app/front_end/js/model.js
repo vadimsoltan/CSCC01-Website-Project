@@ -56,6 +56,17 @@ var model = (function(){
         })
     }
 
+    model.stillLogin = function(newData) {
+        doAjax('POST','http://localhost:3000/stillLogin/' + newData + "/",null, true, function(err,newData) {
+            document.getElementById("sign").style.display = 'none';
+            document.getElementById("signOut").style.display = 'block';
+            document.getElementById("currentUser").style.display ='block';
+            document.getElementById("currentUser").textContent = "current user: " + newData;                
+            document.getElementById("currentUser1").textContent = newData;
+            document.getElementById("close1").click();
+        })
+    }
+
     model.facebookLogin = function(data) {
         doAjax('POST','http://localhost:3000/facebookLogin/',data,true, function(err,newData) {
             document.getElementById("sign").style.display = 'none';
@@ -120,7 +131,6 @@ var model = (function(){
     }
 
     model.createPost = function(data){
-        console.log(data);
         doAjax("POST", "http://localhost:3000/api/posts/", data, true, function(err, newData){
             if (newData == "Max") {
                 alert("One user can only have 10 posts at same time")
@@ -133,6 +143,8 @@ var model = (function(){
     model.createList = function() {
         doAjax("GET", "http://localhost:3000/api/posts/all/", null, true, function(err, newData){
             document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+            document.getElementById("txtBookSearch").value = "";
+            document.getElementById("status").textContent = "";
         })
 
     }
@@ -166,7 +178,44 @@ var model = (function(){
     }
 
     model.search = function(data) {
-        
+        doAjax('GET','http://localhost:3000/api/search/' + data + "/",null, true, function(err,newData) {
+            console.log(newData)
+            if (newData.length == 0) {
+                alert("Nothing found by the info")
+            } else {
+                document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+            }
+        })
+    }
+
+    model.nextSearch = function(data) {
+        doAjax('GET','http://localhost:3000/api/posts/nextSearch/' + data.lastId + "/" + data.info + "/",null, true, function(err,newData) {
+            if (newData.length == 0) {
+                alert("This is the last page");
+            } else {
+                document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+                document.getElementById("postList").click();
+            }
+            //document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+        })
+    }
+
+    model.previousSearch = function(data) {
+        doAjax('GET','http://localhost:3000/api/posts/previousSearch/' + data.firstId + "/" + data.info + "/",null, true, function(err,newData) {
+            if (newData.length == 0) {
+                alert("This is the first page");
+            } else {
+                document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+                document.getElementById("postList").click();
+            }
+            //document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
+        })
+    }
+
+    model.contact = function(id) {
+        doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
+            window.open('mailto:' + newData.email);
+        })
     }
 
 
