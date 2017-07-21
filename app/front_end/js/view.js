@@ -1,6 +1,26 @@
 var view = (function(){
 
     var view = {};
+
+    var check_username = function (userName){
+        var index;
+        var count = 0;
+        for (index = 0; index < userName.length; index++){
+            var thischar = userName.charAt(index);
+            var regex = /a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z/g;
+            if(thischar.match(regex) || thischar.toUpperCase(regex)){
+                count++;
+            }
+            else if(!isNaN(thischar)){
+                console.log("Username should only contain letters or numbers!");
+            }
+        }
+        if(count == 0){
+            console.log("Username should contain at least one letter!");
+        }
+        console.log(count)
+    }
+
     document.getElementById("loginForm").onsubmit = function(e) {
         e.preventDefault();
         var data = {};
@@ -12,8 +32,11 @@ var view = (function(){
 
     document.getElementById("registerForm").onsubmit = function(e) {
         e.preventDefault();
+        check_username(document.getElementById("registerUsername").value);
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
             alert("password not same");
+            document.getElementById("registerPassword") = "";
+            document.getElementById("confirmedPassword") = "";
         } else {
             var data = {};
             data.username = document.getElementById("registerUsername").value;
@@ -82,9 +105,9 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('showUserProfile',{detail: null}));
     }
 
-    document.getElementById("currentUser").onclick = function(e) {
-        document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
-    }
+    // document.getElementById("currentUser").onclick = function(e) {
+    //     document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
+    // }
 
     document.getElementById("myPosts").onclick = function(e) {
         if (document.getElementById("currentUser").textContent == "") {
@@ -159,7 +182,9 @@ var view = (function(){
             }
             var e;
             e = document.createElement('div');
-            e.id = data[i]._id;
+            e.id = id;
+            var contact = "contact" + id
+            var contact1 = "contact1" + id
             e.innerHTML = `<div>
                             <li><table width="100%" border="0" cellspacing="0" cellpadding="0" > 
                                 <tbody><tr bgcolor=${color}>
@@ -178,18 +203,45 @@ var view = (function(){
                                     <td width="10%" valign="top">
                                       <p style="color:black;">${price}</p>
                                     </td>
-                                    <td width="12%" valign="top" id="contact${id}">
-                                      <p style="color:black;"> <a data-toggle="modal" data-target="#contactButton";>Contact</a></p>
+                                    <td width="12%" valign="top" id="${contact}">
+                                      <p style="color:black;"> <a>Contact</a></p>
                                     </td>
+                                    <p id="testtt" data-toggle="modal" data-target="#contactButton" style="display: none"></p>
                         
                                 </tr></tbody>
                             </table><ul class="inner-content" style="display: none;"></li>
                         </div>`
             document.getElementById("postsList").appendChild(e);
+            document.getElementById(contact).onclick = function(e) {
+                var postId = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+                if (document.getElementById("currentUser").textContent == "") {
+                    alert("Please login first!");
+                    document.getElementById("close3").click();
+                    document.getElementById("sign").click();
+                } else {
+                    console.log("login");
+                    document.getElementById("testtt").click();
+                    document.dispatchEvent(new CustomEvent("setContactButtonForm",{detail:postId}));
+                }
+            }
             
             
         }
     }
+    document.getElementById("contactButtonForm").onsubmit = function(e) {
+        e.preventDefault();
+        data = {};
+        data.receiver = document.getElementById("contactButtonReceiver").textContent;
+        data.receiverEmail = document.getElementById("contactButtonReceiverEmail").textContent;
+        data.subject = document.getElementById("contactButtonSubject").value;
+        data.email = document.getElementById("contactButtonEmail").value;
+        data.message = document.getElementById("contactButtonMessage").value;
+        document.dispatchEvent(new CustomEvent("contactButtonForm",{detail:data}));
+
+    }
+
+
+
     document.getElementById("next").onclick = function() {
         var lastId = document.getElementById("postsList").lastChild.id
         if (document.getElementById("status").textContent == "") {

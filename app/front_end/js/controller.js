@@ -107,6 +107,16 @@
       model.contact(data);
     });
 
+    document.addEventListener('setContactButtonForm', function(e){
+      var data = e.detail;
+      model.setContactButtonForm(data);
+    });
+
+    document.addEventListener('contactButtonForm', function(e){
+      var data = e.detail;
+      model.contactButtonForm(data);
+    });
+
 
 
 

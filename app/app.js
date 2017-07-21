@@ -238,7 +238,6 @@ app.post('/api/posts/', function (req, res, next) {
 // get posts by id
 
 app.get('/api/postsId/:id/',function (req, res, next) {
-    console.log("------")
     var id = req.params.id;
     posts.findOne({_id:id}, function(err,data) {
         users.findOne({username:data.username}, function(err,newData) {
@@ -454,6 +453,11 @@ app.post('/api/report/',function(req,res,next) {
     return next();
 })
 
+app.post('/api/contactForm/',function(req,res,next) {
+    contactForm(req.body);
+    return next();
+})
+
 
 
 function sendMail(formData) {
@@ -516,6 +520,42 @@ function report(formData) {
       // console.log(response.statusCode);
       // console.log(response.body);
       // console.log(response.headers);
+    });
+}
+
+function contactForm(formData) {
+    console.log("-----------")
+    console.log()
+    var receiver = formData.receiver;
+    var receiverEmail = formData.receiverEmail
+    var subject = formData.subject;
+    var message = formData.message;
+    var email = formData.email;
+     console.log(receiverEmail);
+     console.log(email);
+    var str = "Hi " + receiver + "    Message :  " + message;  
+    var helper = require('sendgrid').mail;
+    var fromEmail = new helper.Email(email);
+    var toEmail = new helper.Email(receiverEmail);
+    var subject = subject;
+    var content = new helper.Content('text/plain', str);
+    var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+
+    var sg = require('sendgrid')('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');
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: mail.toJSON()
+    });
+
+    sg.API(request, function (error, response) {
+      if (error) {
+        console.log('Error response received');
+      }
+      console.log(response);
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
     });
 }
 

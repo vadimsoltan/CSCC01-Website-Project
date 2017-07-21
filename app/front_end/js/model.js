@@ -36,6 +36,7 @@ var model = (function(){
                 document.getElementById("currentUser").textContent = "current user: " + newData;
                 document.getElementById("currentUser1").textContent = newData;
                 document.getElementById("close1").click();
+                document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
             }
         })
     }
@@ -52,6 +53,7 @@ var model = (function(){
                 document.getElementById("currentUser").textContent = "current user: " + newData;
                 document.getElementById("currentUser1").textContent = newData;
                 document.getElementById("close1").click();
+                document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
             }
         })
     }
@@ -64,6 +66,7 @@ var model = (function(){
             document.getElementById("currentUser").textContent = "current user: " + newData;                
             document.getElementById("currentUser1").textContent = newData;
             document.getElementById("close1").click();
+            document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
         })
     }
 
@@ -212,13 +215,24 @@ var model = (function(){
         })
     }
 
-    model.contact = function(id) {
+
+
+    model.setContactButtonForm = function(id) {
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
-            window.open('mailto:' + newData.email);
+            document.getElementById("contactButtonReceiver").textContent = newData.username;
+            document.getElementById("contactButtonReceiverEmail").textContent = newData.email;
+            document.getElementById("contactButtonSubject").value = "Your ad   " + newData.title;
+            document.getElementById("contactButtonEmail").value = document.getElementById("currUserEmail").textContent;
         })
     }
 
-
+    model.contactButtonForm = function(newData) {
+        alert("Sent Message Successfully!")
+        document.getElementById("contactButtonClose3").click();
+        doAjax('POST','http://localhost:3000/api/contactForm/',newData,true, function(err,newData) {
+            console.log(newData);
+        })
+    }
 
 
 
