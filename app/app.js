@@ -39,6 +39,7 @@ var Users = (function(){
             this.phone = null;
             this.preferences = [];
             this.image = "https://lh3.googleusercontent.com/ZZPdzvlpK9r_Df9C3M7j1rNRi7hhHRvPhlklJ3lfi5jk86Jd1s0Y5wcQ1QgbVaAP5Q=w300"
+            this.type = "user";
         } else {
             this.username  = userInfo.username;
             var salt = crypto.randomBytes(16).toString('base64');
@@ -53,6 +54,7 @@ var Users = (function(){
             this.phone = null;
             this.preferences = [];
             this.image = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+            this.type = "user";
         }
     }
 }());
@@ -445,17 +447,17 @@ app.delete('/api/messages/:id/', function (req, res, next) {
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
 	sendMail(req.body);
-    return next();
+    return res.end();
 })
 
 app.post('/api/report/',function(req,res,next) {
     report(req.body);
-    return next();
+    return res.end();
 })
 
 app.post('/api/contactForm/',function(req,res,next) {
     contactForm(req.body);
-    return next();
+    return res.end();
 })
 
 
@@ -493,7 +495,7 @@ function sendMail(formData) {
 }
 
 function report(formData) {
-
+    console.log("api");
     var reporter = formData.reporter;
     var id = formData.id;
     var reason = formData.reason;
@@ -524,8 +526,6 @@ function report(formData) {
 }
 
 function contactForm(formData) {
-    console.log("-----------")
-    console.log()
     var receiver = formData.receiver;
     var receiverEmail = formData.receiverEmail
     var subject = formData.subject;

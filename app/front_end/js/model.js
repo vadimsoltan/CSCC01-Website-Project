@@ -109,7 +109,6 @@ var model = (function(){
 
     model.contactUs = function(newData) {
         doAjax('POST','http://localhost:3000/api/contactUs/',newData,true, function(err,newData) {
-            console.log(newData);
         })
     }
 
@@ -219,12 +218,36 @@ var model = (function(){
 
     model.setContactButtonForm = function(id) {
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
-            document.getElementById("contactButtonReceiver").textContent = newData.username;
+            if (check_username(newData.username) === "need character") {
+                document.getElementById("contactButtonReceiver").textContent = newData.name;
+            } else {
+                document.getElementById("contactButtonReceiver").textContent = newData.username;
+            }
             document.getElementById("contactButtonReceiverEmail").textContent = newData.email;
             document.getElementById("contactButtonSubject").value = "Your ad   " + newData.title;
             document.getElementById("contactButtonEmail").value = document.getElementById("currUserEmail").textContent;
         })
     }
+
+
+    var check_username = function (userName){
+        var index;
+        var count = 0;
+        for (index = 0; index < userName.length; index++){
+            var thischar = userName.charAt(index);
+            var regex = /a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z/g;
+            if(thischar.match(regex) != null || thischar.toUpperCase().match(regex) != null){
+                count++;
+            }
+            else if(!(!isNaN(parseFloat(thischar)) && isFinite(thischar))){
+                return "---";
+            }
+        }
+        if(count == 0){
+            return "need character";
+        }
+        return "good";
+    };
 
     model.contactButtonForm = function(newData) {
         alert("Sent Message Successfully!")

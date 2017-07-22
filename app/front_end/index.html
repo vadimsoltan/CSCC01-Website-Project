@@ -74,12 +74,13 @@
   </section>
 
   <!--sign in and sign up-->
-
+  <p data-toggle="modal" data-target="#userProfile" id="testUpdateUserProfile" style="display: none"></p>
+  <p data-toggle="modal" data-target="#post" id="testMakePost" style="display: none"></p>
   <div class="container">
 
     <div class="row mar-bot40">
       <div class="col-lg-4">
-        <div class="align-center" id="postImg" data-toggle="modal" data-target="#userProfile">
+        <div class="align-center" id="postImg">
           <image src="https://png.icons8.com/color/1600/upload-to-cloud" id = "test" style="width:250px;height:200px;">
 <!--            <i class=" fa fa-code fa-5x mar-bot20 "></i> -->
             <h4 type="button" class="text-bold ">Update your profile</h4>
@@ -88,11 +89,12 @@
           </div>
         </div>
 
+
         <div class="col-lg-4 " >
-          <div class="align-center ">
-            <image src="https://png.icons8.com/color/1600/upload-to-cloud " style="width:250px;height:200px"; data-toggle="modal" data-target="#post">
+          <div class="align-center " id="userMakePost">
+            <image src="https://png.icons8.com/color/1600/upload-to-cloud " style="width:250px;height:200px";>
             <!--            <i class="fa fa-terminal fa-5x mar-bot20"></i> -->
-            <h4 type="button" class="text-bold" data-toggle="modal" data-target="#post">Make a post</h4>
+            <h4 type="button" class="text-bold">Make a post</h4>
             <p>You can make your own posts by login with Integrow account.
             </p>
         </div>
@@ -209,7 +211,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="contactButtonClose3">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold">Make a post</div>
+          <div class="text-bold">Send message</div>
           <div class="facts">
             <div class="sign-up">
             <p id="contactButtonReceiverEmail" style="display: none"></p>

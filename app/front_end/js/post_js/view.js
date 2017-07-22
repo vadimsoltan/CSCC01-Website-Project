@@ -11,7 +11,18 @@ var view = (function(){
 
     document.getElementById("poster").onclick = function(e) {
         
-        document.dispatchEvent(new CustomEvent('miniShowUserProfile',{detail: null}));
+        var currName;
+        for (var i=0;i < document.cookie.split(";").length; i++) {
+            if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
+                currName = document.cookie.split(";")[i].split("=")[1]
+            }
+        }
+        if (currName == "j%3Anull" || currName == undefined) {
+            alert("Please login first");
+        } else {
+            document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
+            document.getElementById("testUserProfile").click();
+        }
     }
 
     document.getElementById("edit").onclick = function(e) {
@@ -64,6 +75,7 @@ var view = (function(){
     }
 
     document.getElementById("reportForm").onsubmit = function(e) {
+        console.log("view")
         e.preventDefault();
         var currName;
         for (var i=0;i < document.cookie.split(";").length; i++) {

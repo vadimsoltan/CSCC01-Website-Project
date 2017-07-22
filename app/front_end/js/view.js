@@ -8,18 +8,18 @@ var view = (function(){
         for (index = 0; index < userName.length; index++){
             var thischar = userName.charAt(index);
             var regex = /a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z/g;
-            if(thischar.match(regex) || thischar.toUpperCase(regex)){
+            if(thischar.match(regex) != null || thischar.toUpperCase().match(regex) != null){
                 count++;
             }
-            else if(!isNaN(thischar)){
-                console.log("Username should only contain letters or numbers!");
+            else if(!(!isNaN(parseFloat(thischar)) && isFinite(thischar))){
+                return "---";
             }
         }
         if(count == 0){
-            console.log("Username should contain at least one letter!");
+            return "need character";
         }
-        console.log(count)
-    }
+        return "good";
+    };
 
     document.getElementById("loginForm").onsubmit = function(e) {
         e.preventDefault();
@@ -32,11 +32,19 @@ var view = (function(){
 
     document.getElementById("registerForm").onsubmit = function(e) {
         e.preventDefault();
-        check_username(document.getElementById("registerUsername").value);
+
+        var status = check_username(document.getElementById("registerUsername").value);
+        console.log(status);
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
             alert("password not same");
             document.getElementById("registerPassword") = "";
             document.getElementById("confirmedPassword") = "";
+        } else if ( status == "---") {
+            alert("Username can only include lowercase character and number");
+            e.target.reset();
+        } else if (status == "need character") {
+            alert("There should be at least one character in username")
+            e.target.reset();
         } else {
             var data = {};
             data.username = document.getElementById("registerUsername").value;
@@ -66,10 +74,6 @@ var view = (function(){
 
     document.getElementById("userProfileForm").onsubmit = function(e) {
         e.preventDefault();
-        if (document.getElementById("currentUser").textContent == "") {
-            alert("Please login first!");
-            document.getElementById("close2").click();
-        } else {
             var reader = new FileReader();
             var fileURL = document.getElementById("selfie").files[0];
             if (fileURL == undefined) {
@@ -87,7 +91,6 @@ var view = (function(){
                 };
                 reader.readAsDataURL(fileURL);
             }
-        }
         document.getElementById("close2").click();
     }
 
@@ -101,17 +104,30 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('contactForm',{detail: data}));
         e.target.reset();
     }
+
     document.getElementById("postImg").onclick = function(e) {
-        document.dispatchEvent(new CustomEvent('showUserProfile',{detail: null}));
+        if (document.getElementById("currentUser").textContent == "") {
+            alert("Please login first!");
+            document.getElementById("sign").click();
+        } else {
+            document.getElementById("testUpdateUserProfile").click();
+            document.dispatchEvent(new CustomEvent('showUserProfile'));
+        }
     }
 
-    // document.getElementById("currentUser").onclick = function(e) {
-    //     document.dispatchEvent(new CustomEvent('miniShowUserProfile'));
-    // }
+    document.getElementById("userMakePost").onclick = function(e) {
+        if (document.getElementById("currentUser").textContent == "") {
+            alert("Please login first!");
+            document.getElementById("sign").click();
+        } else {
+            document.getElementById("testMakePost").click();
+        }
+    }
 
     document.getElementById("myPosts").onclick = function(e) {
         if (document.getElementById("currentUser").textContent == "") {
             alert("Please login first!");
+            document.getElementById("sign").click();
         } else {
             document.dispatchEvent(new CustomEvent('showMyPosts'));
             document.getElementById("postList").click();
