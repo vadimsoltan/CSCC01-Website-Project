@@ -145,17 +145,17 @@
     </div>
   </div>
 
-  <div class="modal fade" id="userProfile" role="dialog">
+  <div class="modal fade" style="overflow:hidden;" id="userProfile" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close2">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold">Update Profile of User</div>
+          <div class="text-bold" style="font-size: 20pt; text-align: center;">Update Profile of User</div>
           <div class="facts">
             <div class="sign-up">
-              <form id="userProfileForm" class="register">
+              <form id="userProfileForm" style="font-weight: bold;" class="register">
                 <input placeholder="Name" type="text" id="userName">
                 <input placeholder="Location" type="text" id="userLocation">
                 <input placeholder="Email" type="text" id="userEmail">
@@ -171,32 +171,33 @@
     </div>
   </div>
   <!-- the window for making a new post -->
-  <div class="modal fade" id="post" role="dialog">
+  <div class="modal fade" style="overflow:hidden;" id="post" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close3">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold">Make a post</div>
+          <div class="text-bold" style="font-size: 20pt; text-align: center;">Make a post</div>
           <div class="facts">
             <div class="sign-up">
-              <form id="makePostForm" class="register">
+              <form id="makePostForm" style="font-weight: bold;" class="register">
                 <input placeholder="title" type="text" id="title" required="">
                 <input placeholder="author" type="text" id="author" required="">
                 <input placeholder="price" type="text" id="price" required="">
-                <textarea rows="10" cols="60" name="description" id="description" form="makePostForm" style="background-color: black" placeholder="Enter description here..." required=""></textarea>
+                <textarea rows="10" cols="60" name="description" id="description" form="makePostForm" style="background-color : black; color : white; border : solid 10px black; border-radius : 5px;" placeholder="Enter description here..." required=""></textarea>
+                <br>Specify tags of your post:<br>
                 <select id="type">
                   <option value="None">None</option>
                     <option value="Textbook">Textbook</option>
-                    <option value="None-textbook">None-textbook</option>
+                    <option value="None-textbook">Non-textbook</option>
                 </select>
                 <select id="subject">
                   <option value="None">None</option>
                     <option value="New">New</option>
                     <option value="Used">Used</option>
                 </select>
-                <br></br>Select image to upload:
+                <br>Select image to upload:
                 <input type="file" value="fileUpload" id="uploadImage" accept="image/gif, image/jpeg, image/png">
                 <input type="submit" value="Make a post">
               </form>
