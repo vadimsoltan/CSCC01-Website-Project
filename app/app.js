@@ -400,24 +400,23 @@ app.delete('/api/posts/:id/', function (req, res, next) {
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
 	sendMail(req.body);
-    return next();
+    return res.json("completed");
 })
 
 app.post('/api/report/',function(req,res,next) {
     report(req.body);
-    return next();
+    return res.json("completed");
 })
 
 app.post('/api/reset/:email/',function(req,res,next) {
     reset(req.params.email);
-    return next();
+    return res.json("completed");
 })
 
 
 app.post('/api/contactForm/',function(req,res,next) {
-    console.log("api")
     contactForm(req.body);
-    return next();
+    return res.json("completed");
 })
 
 
@@ -547,7 +546,7 @@ function reset(email) {
                 email: email
               }
             ],
-            subject: 'Sending with SendGrid is Fun'
+            subject: 'Reset password'
           }
         ],
         from: {
@@ -562,11 +561,11 @@ function reset(email) {
       }
     });
 
-    // With callback
     sg.API(request, function (error, response) {
       if (error) {
         console.log('Error response received');
       }
+      console.log(response);
       console.log(response.statusCode);
       console.log(response.body);
       console.log(response.headers);

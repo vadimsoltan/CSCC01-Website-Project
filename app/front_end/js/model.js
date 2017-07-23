@@ -259,6 +259,7 @@ var model = (function(){
 
 
     model.reset = function(newData) {
+        console.log("model")
         doAjax('POST','http://localhost:3000/api/reset/' + newData + "/",null,true, function(err,newData) {
         })
     }
