@@ -28,7 +28,7 @@ var model = (function(){
     model.register = function(newData) {
         doAjax('PUT','http://localhost:3000/api/users/',newData, true, function(err,newData) {
             if(newData === null) {
-                alert("Username has already existed.");
+                alert("Username or email has already existed.");
             } else {
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';

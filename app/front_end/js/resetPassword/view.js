@@ -16,8 +16,8 @@ var view = (function(){
             var data = {};
             data.email = location.href.substring(location.href.lastIndexOf('=')+1);
             data.newPassword = document.getElementById("password1").value;
-            console.log(data.newPassword)
-            document.dispatchEvent(new CustomEvent('resetPassword'));
+            console.log(data)
+            document.dispatchEvent(new CustomEvent('resetPassword',{detail:data}));
         }
     }
 

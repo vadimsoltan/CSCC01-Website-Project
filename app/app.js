@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 var users = new Datastore({ filename: 'db/users.db', autoload: true, timestampData : true});
 var posts = new Datastore({ filename: 'db/posts.db', autoload: true, timestampData : true});
-var messages = new Datastore({ filename: 'db/messages.db', autoload: true, timestampData : true});
 app.use(session({
     secret: 'keyboard cat',
     resave: false,
@@ -75,14 +74,6 @@ var Post = (function(){
     }
 }());
 
-// Message constructor
-var Message = (function() {
-	return function Message(msgInfo) {
-		this.sender = msgInfo.sender;
-		this.receiver = msgInfo.receiver;
-		this.content = msgInfo.content;
-	}
-}());
 
 
 var checkPassword = function(user, password){
@@ -147,9 +138,9 @@ app.post('/facebookLogin/', function (req, res, next) {
 app.put('/api/users/', function (req, res, next) {
 
     var username = req.body.username;
+    var email = req.body.email;
 
-    users.findOne({username: username }, function(err, user) { 
-
+    users.findOne({$or: [{ username: username }, { email: email }]}, function(err, user) { 
         if(user == null){
             var newUser = new Users(req.body);
 
@@ -219,6 +210,7 @@ app.get('/api/posts/:username/',function (req, res, next) {
 })
 
 app.put('/api/resetPassword/',function (req, res, next) {
+    console.log(req.body)
     var email = req.body.email;
     var password = req.body.newPassword;
     console.log(password)
@@ -405,60 +397,6 @@ app.delete('/api/posts/:id/', function (req, res, next) {
 });
 
 
-
-
-
-
-
-//create message
-app.post('/api/messages/', function (req, res, next) {
-	
-	var newMsg = new Message(req.body);
-	users.findOne({username: newMsg.receiver}, function(err, user) {
-		if (user == null) return res.json("wrong receiver");
-		else {
-			messages.insert(newMsg,function(err, newMsg) {
-				if (err) return res.status(500).send("Database error");
-			});
-		}
-        res.end();
-		return next();
-	});
-});
-
-//get received messages
-app.get('/api/messagesReceiver/:receiver/', function (req, res, next) {
-	
-	var rec = req.params.receiver;
-	messages.find({"receiver": rec}, function(err, msgs) {
-		if (err) return res.status(500).send("Database error");
-		res.json(msgs);
-		return next();
-	});
-});
-
-//get send messages
-app.get('/api/messagesSender/:sender/', function (req, res, next) {
-	
-	var send = req.params.sender;
-	messages.find({"sender": send}, function(err, msgs) {
-		if (err) return res.status(500).send("Database error");
-		res.json(msgs);
-		return next();
-	});
-});
-
-//delete message
-app.delete('/api/messages/:id/', function (req, res, next) {
-	
-	var id = req.params.id;
-	messages.remove({_id: id}, {}, function(err, numRemove) {
-		if (err) return res.status(500).send("Database error");
-		res.json(null);
-		return next();
-	});
-});
-
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
 	resetPassword(req.body);
@@ -618,7 +556,7 @@ function resetPassword(formData) {
         content: [
           {
             type: 'text/html',
-            value: '<a href=http://localhost:3000/passwordReset.html?email=382515054@qq.com>Clickme</a>'
+            value: '<p>Please click the link to reset your password</p><br><br><a href=http://localhost:3000/passwordReset.html?email=382515054@qq.com>Clickme</a>'
           }
         ]
       }
