@@ -408,14 +408,15 @@ app.post('/api/report/',function(req,res,next) {
     return next();
 })
 
-app.post('/api/contactForm/',function(req,res,next) {
-    contactForm(req.body);
+app.post('/api/reset/:email/',function(req,res,next) {
+    reset(req.params.email);
     return next();
 })
 
 
-app.post('/api/reset/',function(req,res,next) {
-    resetPassword(req.body);
+app.post('/api/contactForm/',function(req,res,next) {
+    console.log("api")
+    contactForm(req.body);
     return next();
 })
 
@@ -533,7 +534,7 @@ function contactForm(formData) {
     });
 }
 
-function resetPassword(formData) {
+function reset(email) {
     var sg = require('sendgrid')("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");
     var request = sg.emptyRequest({
       method: 'POST',
@@ -543,7 +544,7 @@ function resetPassword(formData) {
           {
             to: [
               {
-                email: 'vickershhh@gmail.com'
+                email: email
               }
             ],
             subject: 'Sending with SendGrid is Fun'
@@ -555,7 +556,7 @@ function resetPassword(formData) {
         content: [
           {
             type: 'text/html',
-            value: '<p>Please click the link to reset your password</p><br><br><a href=http://localhost:3000/passwordReset.html?email=382515054@qq.com>Clickme</a>'
+            value: '<p>Please click the link to reset your password</p><br><br><a href=http://localhost:3000/passwordReset.html?email=' + email + '>Clickme</a>'
           }
         ]
       }

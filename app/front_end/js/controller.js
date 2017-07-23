@@ -82,10 +82,6 @@
       model.facebookLogin(data);
     });
 
-    // document.addEventListener("sendMessage", function(e){
-    //   var data = e.detail;
-    //   model.sendMessage(data);
-    // });
 
     document.addEventListener('search', function(e){
       var data = e.detail;
@@ -120,7 +116,7 @@
 
     document.addEventListener('resetPassword', function(e){
       var data = e.detail;
-      model.resetPassword(data);
+      model.reset(data);
     });
 
 

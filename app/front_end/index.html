@@ -260,9 +260,9 @@
               <form id="forgetPasswordSubmitForm" class="register">
                 <div class="form-group">
                   <label for="email">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="resetPasswordEmail" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <input type="email" class="form-control" name="email" id="resetPasswordEmail" placeholder="Your Email">
                 </div>
-                <input type="submit" value="Send request">
+                <input type="submit" value="Send request" onclick="document.getElementById('resetClose').click()">
               </form>
               <p class="reset-info">Don’t have an account? <a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Sign up</a></p></div><p class="reset-info"><a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Back to sign in</a></p>
             </div>
