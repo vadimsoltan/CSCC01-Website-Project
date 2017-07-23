@@ -36,14 +36,14 @@ var view = (function(){
         var status = check_username(document.getElementById("registerUsername").value);
         console.log(status);
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
-            alert("password not same");
+            alert("Provided passwords do not match.");
             document.getElementById("registerPassword") = "";
             document.getElementById("confirmedPassword") = "";
         } else if ( status == "---") {
-            alert("Username can only include lowercase character and number");
+            alert("Username can only include lowercase charactesr and numbers.");
             e.target.reset();
         } else if (status == "need character") {
-            alert("There should be at least one character in username")
+            alert("There should be at least one character in the username.")
             e.target.reset();
         } else {
             var data = {};
@@ -77,7 +77,7 @@ var view = (function(){
             var reader = new FileReader();
             var fileURL = document.getElementById("selfie").files[0];
             if (fileURL == undefined) {
-                alert("Please add image!");
+                alert("Please provide an image!");
             } else {
                 reader.onload = function(){
                     var data = {};
@@ -144,7 +144,7 @@ var view = (function(){
             var reader = new FileReader();
             var fileURL = document.getElementById("uploadImage").files[0];
             if (fileURL == undefined) {
-                alert("Please add image!");
+                alert("Please provide an image!");
             } else {
                 // get data when reader onloading
                 reader.onload = function(){
@@ -277,7 +277,7 @@ var view = (function(){
         document.getElementById("returnAll").style.display = "block";
         document.getElementById("status").textContent = info;
         if (info === "") {
-            alert("Please enter information of book");
+            alert("Please provide some information about the book you wish to search.");
         } else {
             document.dispatchEvent(new CustomEvent("search",{detail:info}));
         }
