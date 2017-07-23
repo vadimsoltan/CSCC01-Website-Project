@@ -28,7 +28,7 @@ var model = (function(){
     model.register = function(newData) {
         doAjax('PUT','http://localhost:3000/api/users/',newData, true, function(err,newData) {
             if(newData === null) {
-                alert("Username or email has already existed.");
+                alert("The provided username or e-mail are already in use..");
             } else {
                 document.getElementById("sign").style.display = 'none';
                 document.getElementById("signOut").style.display = 'block';
@@ -135,7 +135,7 @@ var model = (function(){
     model.createPost = function(data){
         doAjax("POST", "http://localhost:3000/api/posts/", data, true, function(err, newData){
             if (newData == "Max") {
-                alert("One user can only have 10 posts at same time")
+                alert("A user may only have 10 posts at a given time.")
             } else {
                 model.createList();
             }
@@ -183,7 +183,7 @@ var model = (function(){
         doAjax('GET','http://localhost:3000/api/search/' + data + "/",null, true, function(err,newData) {
             console.log(newData)
             if (newData.length == 0) {
-                alert("Nothing found by the info")
+                alert("Sorry! We were not able to find anything matching the information provided.")
             } else {
                 document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
             }
@@ -250,7 +250,7 @@ var model = (function(){
     };
 
     model.contactButtonForm = function(newData) {
-        alert("Sent Message Successfully!")
+        alert("Message sent successfully!")
         document.getElementById("contactButtonClose3").click();
         doAjax('POST','http://localhost:3000/api/contactForm/',newData,true, function(err,newData) {
             console.log(newData);
