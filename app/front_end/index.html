@@ -251,7 +251,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-body">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="contactButtonClose3">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="resetClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
           <div class="text-bold">Reset Password</div>
@@ -264,12 +264,15 @@
                 </div>
                 <input type="submit" value="Send request">
               </form>
+              <p class="reset-info">Don’t have an account? <a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Sign up</a></p></div><p class="reset-info"><a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Back to sign in</a></p>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 
   <!--the sign in and sign up window-->
   <center>
@@ -321,7 +324,7 @@
                               </fb:login-button>
                             </div>
                           </form>
-                          <h3><a class="forget-password" data-toggle="modal" data-target="#forgetPasswordForm"> Forgot Password</a></h3>
+                          <h3><a class="forget-password" data-toggle="modal" data-target="#forgetPasswordForm" onclick="document.getElementById('close1').click()"> Forgot Password</a></h3>
                         </div>
                       </div>
                     </div>

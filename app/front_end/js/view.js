@@ -94,16 +94,6 @@ var view = (function(){
         document.getElementById("close2").click();
     }
 
-    document.getElementById("contactForm").onsubmit = function(e) {
-        e.preventDefault();
-        var data = {};
-        data.name = document.getElementById("contactName").value;
-        data.email = document.getElementById("contactEmail").value;
-        data.subject = document.getElementById("contactSubject").value;
-        data.message = document.getElementById("contactMessage").value;
-        document.dispatchEvent(new CustomEvent('contactForm',{detail: data}));
-        e.target.reset();
-    }
 
     document.getElementById("postImg").onclick = function(e) {
         if (document.getElementById("currentUser").textContent == "") {
@@ -296,9 +286,21 @@ var view = (function(){
     }
 
 
-    document.getElementById("forgetPasswordSubmitForm").onsubmit = function() {
+    document.getElementById("forgetPasswordSubmitForm").onsubmit = function(e) {
+        e.preventDefault();
         var email = document.getElementById('resetPasswordEmail').value;
         document.dispatchEvent(new CustomEvent("resetPassword",{detail:email}));
+    }
+
+    document.getElementById("contactForm").onsubmit = function(e) {
+        e.preventDefault();
+        var data = {};
+        data.name = document.getElementById("contactName").value;
+        data.email = document.getElementById("contactEmail").value;
+        data.subject = document.getElementById("contactSubject").value;
+        data.message = document.getElementById("contactMessage").value;
+        document.dispatchEvent(new CustomEvent('contactForm',{detail: data}));
+        e.target.reset();
     }
 
 

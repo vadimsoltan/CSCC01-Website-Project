@@ -399,7 +399,7 @@ app.delete('/api/posts/:id/', function (req, res, next) {
 
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
-	resetPassword(req.body);
+	sendMail(req.body);
     return next();
 })
 
@@ -415,7 +415,6 @@ app.post('/api/contactForm/',function(req,res,next) {
 
 
 app.post('/api/reset/',function(req,res,next) {
-    console.log("api")
     resetPassword(req.body);
     return next();
 })
