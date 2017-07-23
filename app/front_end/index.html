@@ -114,6 +114,9 @@
 
   </div>
 
+
+
+
   <div id="myPosts"></div>
 
   <div class="modal fade" id="viewUserProfile" role="dialog">
@@ -242,6 +245,32 @@
     </div>
   </div>
 
+
+
+  <div class="modal fade" id="forgetPasswordForm" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="contactButtonClose3">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+          <div class="text-bold">Reset Password</div>
+          <div class="facts">
+            <div class="sign-up">
+              <form id="forgetPasswordSubmitForm" class="register">
+                <div class="form-group">
+                  <label for="email">Your Email</label>
+                  <input type="email" class="form-control" name="email" id="resetPasswordEmail" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                </div>
+                <input type="submit" value="Send request">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!--the sign in and sign up window-->
   <center>
     <section id="section-sign" class="section appear clearfix">
@@ -292,7 +321,7 @@
                               </fb:login-button>
                             </div>
                           </form>
-                          <h3><a href="#" class="forget-password"> Forgot Password</a></h3>
+                          <h3><a class="forget-password" data-toggle="modal" data-target="#forgetPasswordForm"> Forgot Password</a></h3>
                         </div>
                       </div>
                     </div>

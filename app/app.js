@@ -218,6 +218,21 @@ app.get('/api/posts/:username/',function (req, res, next) {
     })
 })
 
+app.put('/api/resetPassword/',function (req, res, next) {
+    var email = req.body.email;
+    var password = req.body.newPassword;
+    console.log(password)
+    var salt = crypto.randomBytes(16).toString('base64');
+    var hash = crypto.createHmac('sha512', salt);
+    hash.update(password);
+            
+    users.update({email: email},{$set : {"salt": salt, "saltedHash" : hash.digest('base64')}},{},function(err,data) {
+
+        return res.json(data);
+    })
+})
+
+
 // create new post
 app.post('/api/posts/', function (req, res, next) {
     var newPost = new Post(req.body);
@@ -446,19 +461,27 @@ app.delete('/api/messages/:id/', function (req, res, next) {
 
 //send email
 app.post('/api/contactUs/',function(req,res,next) {
-	sendMail(req.body);
-    return res.end();
+	resetPassword(req.body);
+    return next();
 })
 
 app.post('/api/report/',function(req,res,next) {
     report(req.body);
-    return res.end();
+    return next();
 })
 
 app.post('/api/contactForm/',function(req,res,next) {
     contactForm(req.body);
-    return res.end();
+    return next();
 })
+
+
+app.post('/api/reset/',function(req,res,next) {
+    console.log("api")
+    resetPassword(req.body);
+    return next();
+})
+
 
 
 
@@ -469,33 +492,47 @@ function sendMail(formData) {
 	var subject_ = formData.subject;
 	var message = formData.message;
 	var str = "Name: " + name + ",      " + "Email: " + email + ",      " + "Subject: " + subject_ + ",      " + "Comment: " + message + ".";
-	var helper = require('sendgrid').mail;
-	var fromEmail = new helper.Email('vickershhh@gmail.com');
-	var toEmail = new helper.Email('haitao.zhu@mail.utoronto.ca');
-	var subject = 'contactUs';
-	var content = new helper.Content('text/plain', str);
-	var mail = new helper.Mail(fromEmail, subject, toEmail, content);
+	 
+    var sg = require('sendgrid')("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");
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: {
+        personalizations: [
+          {
+            to: [
+              {
+                email: 'haitao.zhu@mail.utoronto.ca'
+              }
+            ],
+            subject: 'contactUs'
+          }
+        ],
+        from: {
+          email: 'vickershhh@gmail.com'
+        },
+        content: [
+          {
+            type: 'text/plain',
+            value: str
+          }
+        ]
+      }
+    });
 
-	var sg = require('sendgrid')('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');
-	var request = sg.emptyRequest({
-	  method: 'POST',
-	  path: '/v3/mail/send',
-	  body: mail.toJSON()
-	});
+    // With callback
+    sg.API(request, function (error, response) {
+      if (error) {
+        console.log('Error response received');
+      }
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+    });
 
-	sg.API(request, function (error, response) {
-	  if (error) {
-	    console.log('Error response received');
-	  }
-	  // console.log(response);
-	  // console.log(response.statusCode);
-	  // console.log(response.body);
-	  // console.log(response.headers);
-	});
 }
 
 function report(formData) {
-    console.log("api");
     var reporter = formData.reporter;
     var id = formData.id;
     var reason = formData.reason;
@@ -553,6 +590,45 @@ function contactForm(formData) {
         console.log('Error response received');
       }
       console.log(response);
+      console.log(response.statusCode);
+      console.log(response.body);
+      console.log(response.headers);
+    });
+}
+
+function resetPassword(formData) {
+    var sg = require('sendgrid')("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");
+    var request = sg.emptyRequest({
+      method: 'POST',
+      path: '/v3/mail/send',
+      body: {
+        personalizations: [
+          {
+            to: [
+              {
+                email: 'vickershhh@gmail.com'
+              }
+            ],
+            subject: 'Sending with SendGrid is Fun'
+          }
+        ],
+        from: {
+          email: 'vickershhh@gmail.com'
+        },
+        content: [
+          {
+            type: 'text/html',
+            value: '<a href=http://localhost:3000/passwordReset.html?email=382515054@qq.com>Clickme</a>'
+          }
+        ]
+      }
+    });
+
+    // With callback
+    sg.API(request, function (error, response) {
+      if (error) {
+        console.log('Error response received');
+      }
       console.log(response.statusCode);
       console.log(response.body);
       console.log(response.headers);

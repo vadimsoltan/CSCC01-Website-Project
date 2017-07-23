@@ -118,6 +118,14 @@
     });
 
 
+    document.addEventListener('resetPassword', function(e){
+      var data = e.detail;
+      model.resetPassword(data);
+    });
+
+
+
+
 
 
 

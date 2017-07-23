@@ -257,6 +257,13 @@ var model = (function(){
         })
     }
 
+    model.resetPassword = function(newData) {
+        console.log(newData)
+        doAjax('POST','http://localhost:3000/api/reset/',newData,true, function(err,newData) {
+            console.log(newData);
+        })
+    }
+
 
 
 

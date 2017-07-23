@@ -296,6 +296,11 @@ var view = (function(){
     }
 
 
+    document.getElementById("forgetPasswordSubmitForm").onsubmit = function() {
+        var email = document.getElementById('resetPasswordEmail').value;
+        document.dispatchEvent(new CustomEvent("resetPassword",{detail:email}));
+    }
+
 
     
 
