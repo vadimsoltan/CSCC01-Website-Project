@@ -88,8 +88,13 @@ a:focus {
     height:95vh;
     margin:0 auto;
 }
+.modal-title{
+	color: #ffffff;
+    background-color: #454545 ;
+}
 .modal-content{
-    background-color: rgba(0, 0, 0, 0.7);
+	color: #ffffff;
+    background-color: #454545  ;
 }
 
 /*----sap-----*/
