@@ -257,7 +257,8 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="resetClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold">Reset Password</div>
+          <center>
+          <div class="text-bold">Reset Password</div></center>
           <div class="facts">
             <div class="sign-up">
               <form id="forgetPasswordSubmitForm" class="register">
@@ -265,9 +266,14 @@
                   <label for="email">Your Email</label>
                   <input type="email" class="form-control" name="email" id="resetPasswordEmail" placeholder="Your Email">
                 </div>
+                <center>
                 <input type="submit" value="Send request" onclick="document.getElementById('resetClose').click()">
+                </center>
               </form>
-              <p class="reset-info">Don’t have an account? <a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Sign up</a></p></div><p class="reset-info"><a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Back to sign in</a></p>
+             <center>
+              <p class="reset-info">Don’t have an account? <a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Sign up</a></p></div></center>
+              <center>
+              <p class="reset-info"><a onclick="document.getElementById('resetClose').click();document.getElementById('sign').click()">Back to sign in</a></p></center>
             </div>
           </div>
         </div>
@@ -327,7 +333,7 @@
                               </fb:login-button>
                             </div>
                           </form>
-                          <h3><a class="forget-password" data-toggle="modal" data-target="#forgetPasswordForm" onclick="document.getElementById('close1').click()"> Forgot Password</a></h3>
+                          <h3><a class="forget-password" data-toggle="modal" data-target="#forgetPasswordForm" onclick="document.getElementById('close1').click()"> Forget Password</a></h3>
                         </div>
                       </div>
                     </div>
