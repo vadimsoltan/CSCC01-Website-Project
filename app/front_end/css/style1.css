@@ -93,8 +93,7 @@ a:focus {
     background-color: #454545 ;
 }
 .modal-content{
-	color: #ffffff;
-    background-color: #454545  ;
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 /*----sap-----*/

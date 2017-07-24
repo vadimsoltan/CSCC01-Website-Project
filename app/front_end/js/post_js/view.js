@@ -5,7 +5,6 @@ var view = (function(){
 	window.onload = function() {
         var id = location.href.substring(location.href.lastIndexOf('=')+1);
 		//document.dispatchEvent(new CustomEvent('getpost'));
-		console.log(id);
 		document.dispatchEvent(new CustomEvent("onload",{detail:id}));
     }
 
@@ -32,11 +31,6 @@ var view = (function(){
 	
     document.getElementById("editPostForm").onsubmit = function(e){
         e.preventDefault();
-        if (document.getElementById("currentUser").textContent == "") {
-            alert("Please login first!");
-            document.getElementById("close3").click();
-            document.getElementById("sign").click();
-        } else {
             var reader = new FileReader();
             var fileURL = document.getElementById("uploadImage").files[0];
             if (fileURL == undefined) {
@@ -46,20 +40,19 @@ var view = (function(){
                 reader.onload = function(){
                     var data = {};
                     var dataURL = reader.result;
-                    data.username = document.getElementById("currentUser1").textContent;
-                    data.author = document.getElementById("author").value;
-                    data.price = document.getElementById("price").value;
-                    data.title = document.getElementById("title").value;
-                    data.description = document.getElementById("description").value;
+                    data.id = location.href.substring(location.href.lastIndexOf('=')+1);
+                    data.author = document.getElementById("editAuthor").value;
+                    data.price = document.getElementById("editPrice").value;
+                    data.title = document.getElementById("editTitle").value;
+                    data.description = document.getElementById("editDescription").value;
                     data.tags = [document.getElementById("type").value, document.getElementById("subject").value];
                     data.image = dataURL;
-                    document.getElementById("makePostForm").reset();
-                    document.dispatchEvent(new CustomEvent('createNewPost',{detail: data}));
+                    document.getElementById("editPostForm").reset();
+                    document.dispatchEvent(new CustomEvent('editPostFormSubmit',{detail: data}));
 
                 };
                 // display the image
                 reader.readAsDataURL(fileURL);
-            }
         }
         document.getElementById("close3").click();
     }
@@ -75,7 +68,6 @@ var view = (function(){
     }
 
     document.getElementById("reportForm").onsubmit = function(e) {
-        console.log("view")
         e.preventDefault();
         var currName;
         for (var i=0;i < document.cookie.split(";").length; i++) {

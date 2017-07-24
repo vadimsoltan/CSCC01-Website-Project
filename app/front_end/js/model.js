@@ -97,9 +97,7 @@ var model = (function(){
 
     model.updateUserProfile = function(newData) {
         doAjax('PUT','http://localhost:3000/api/' + document.getElementById("currentUser1").textContent + '/profile/',newData,true, function(err,newData) {
-            console.log(newData);
             if (newData == 1) {
-                console.log("close");
                 document.getElementById("close2").click();
             } else {
                 alert("Some errors exist");
@@ -123,7 +121,6 @@ var model = (function(){
 
     model.miniShowUserProfile = function() {
         doAjax('GET','http://localhost:3000/api/' + document.getElementById("currentUser1").textContent+ '/',null,true, function(err,newData) {
-            console.log(newData);
             document.getElementById("currUserName").textContent = newData.username;
             document.getElementById("currName").textContent = newData.name;
             document.getElementById("currUserEmail").textContent = newData.email;
@@ -181,7 +178,6 @@ var model = (function(){
 
     model.search = function(data) {
         doAjax('GET','http://localhost:3000/api/search/' + data + "/",null, true, function(err,newData) {
-            console.log(newData)
             if (newData.length == 0) {
                 alert("Sorry! We were not able to find anything matching the information provided.")
             } else {
@@ -253,13 +249,11 @@ var model = (function(){
         alert("Message sent successfully!")
         document.getElementById("contactButtonClose3").click();
         doAjax('POST','http://localhost:3000/api/contactForm/',newData,true, function(err,newData) {
-            console.log(newData);
         })
     }
 
 
     model.reset = function(newData) {
-        console.log("model")
         doAjax('POST','http://localhost:3000/api/reset/' + newData + "/",null,true, function(err,newData) {
         })
     }

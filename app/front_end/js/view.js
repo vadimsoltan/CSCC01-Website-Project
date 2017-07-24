@@ -34,7 +34,6 @@ var view = (function(){
         e.preventDefault();
 
         var status = check_username(document.getElementById("registerUsername").value);
-        console.log(status);
         if (document.getElementById("registerPassword").value != document.getElementById("confirmedPassword").value) {
             alert("Provided passwords do not match.");
             document.getElementById("registerPassword") = "";
@@ -58,7 +57,6 @@ var view = (function(){
         document.dispatchEvent(new CustomEvent('signOut'));
     }
     window.onload = function() {
-        console.log(document.cookie);
         var username;
         for (var i=0;i < document.cookie.split(";").length; i++) {
             if (document.cookie.split(";")[i].split("=")[0].replace(/\s+/g, '') == "username") {
@@ -225,7 +223,6 @@ var view = (function(){
                     document.getElementById("close3").click();
                     document.getElementById("sign").click();
                 } else {
-                    console.log("login");
                     document.getElementById("testtt").click();
                     document.dispatchEvent(new CustomEvent("setContactButtonForm",{detail:postId}));
                 }

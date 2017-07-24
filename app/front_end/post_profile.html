@@ -33,33 +33,38 @@
 			</button>
 		</div>
 
-	<div class="modal fade" style="overflow:hidden;" id="viewUserProfile" role="dialog">
-	    <div class="modal-dialog" style="overflow:hidden;" role="document">
+
+
+
+
+	<div class="modal fade" id="viewUserProfile" role="dialog">
+	    <div class="modal-dialog" role="document">
 	      <div class="modal-content">
 	        <div class="modal-body">
 	          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 	                          <span aria-hidden="true">&times;</span>
 	                      </button>
-	          <div class="modal-title" style="font-size: 20pt; text-align: center;">Profile of User</div>
-	          <div class="modal-title">
-			  <div class="facts">
+	          <center class="text-bold" style="color:white;font-family:verdana;">Profile of User</center>
+	          <div class="facts">
 	            <div class="sign-up">
 	              <form class="register">
 	                <ul>
-	                  <li><span><strong>Username: </strong></span><span id="currUserName"></span></li>
-	                  <li><span><strong>Name:</strong> </span><span id="currName"></span></li>
-	                  <li><span><strong>Emai: </strong></span><span id="currUserEmail"></span></li>
-	                  <li><span><strong>Phone: </strong></span><span id="currUserPhone"></span></li>
-	                  <li><span><strong>Location: </strong></span><span id="currUserLocation"></span></li>
+	                  <li><span font-weight="bold" style="color:white;font-family:verdana;">Username: </span><span id="currUserName" style="color:white;font-family:verdana;"></span></li>
+	                  <li><span style="color:white;font-family:verdana;">Name: </span><span id="currName" style="color:white;font-family:verdana;"></span></li>
+	                  <li><span style="color:white;font-family:verdana;">Emai: </span><span id="currUserEmail" style="color:white;font-family:verdana;"></span></li>
+	                  <li><span style="color:white;font-family:verdana;">Phone: </span><span id="currUserPhone" style="color:white;font-family:verdana;"></span></li>
+	                  <li><span style="color:white;font-family:verdana;">Location: </span><span id="currUserLocation" style="color:white;font-family:verdana;"></span></li>
 	                </ul>
 	              </form>
 	            </div>
 	          </div>
 	        </div>
-			</div>
 	      </div>
 	    </div>
 	 </div>
+
+
+
 		<div class="col-md-8">
 			 <span class="label label-default" id="title"></span>
 			<table class="table table-striped">
@@ -175,14 +180,14 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="close3">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold">Update this post</div>
+          <div class="text-bold" style="font-size: 20pt; text-align: center;color:white">Update this post</div>
           <div class="facts">
             <div class="sign-up">
               <form id="editPostForm" class="register">
                 <input placeholder="title" type="text" id="editTitle" required="">
                 <input placeholder="author" type="text" id="editAuthor" required="">
                 <input placeholder="price" type="text" id="editPrice" required="">
-                <textarea rows="10" cols="70" name="description" id="editDescription" form="makePostForm" style="background-color: black" placeholder="Enter description here..." required=""></textarea>
+                <textarea rows="10" cols="70" name="description" id="editDescription" form="makePostForm" style="background-color : black; color : white; border : solid 10px black; border-radius : 5px;" placeholder="Enter description here..." required=""></textarea>
                 <select id="type">
                   <option value="None">None</option>
                     <option value="Textbook">Textbook</option>
@@ -211,7 +216,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="deleteClose">
                         <span aria-hidden="true">&times;</span>
                     </button>
-          <div class="text-bold" style="color:red;">Delete this Post</div>
+          <div class="text-bold" style="color:red;" >Delete this Post</div>
           <div class="facts">
           <p style="color:red;"><b>Waring! You are about to delete this post!</b></p>
           <p style="color:red;">I need to confirm your Sanity. What's 5 * 6 ? Answer this below and press the Delete button to delete</p>

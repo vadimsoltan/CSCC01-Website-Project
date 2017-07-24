@@ -261,6 +261,7 @@ app.get('/api/postsId/:id/',function (req, res, next) {
 
 // update a post with given id
 app.put('/api/updatePosts/:id/', function (req, res, next) {
+    console.log(req.body);
 
     var id = req.params.id;
     var title = req.body.title;
@@ -268,8 +269,11 @@ app.put('/api/updatePosts/:id/', function (req, res, next) {
     var tags = req.body.tags;
     var image = req.body.image;
     var date = req.body.date;
-    posts.update({"_id": id}, { $set: { "title":title,"description": description, "tags": tags, "image": image,"date" : date} }, {}, function (err, numReplaced) {
-		return res.json(numReplaced);
+    var price = req.body.price;
+    var author = req.body.author;
+    posts.update({"_id": id}, { $set: { "author":author,"price":price,"title":title,"description": description, "tags": tags, "image": image,"date" : date} }, {}, function (err, numReplaced) {
+		
+        return res.json(numReplaced);
 	});
 });
 

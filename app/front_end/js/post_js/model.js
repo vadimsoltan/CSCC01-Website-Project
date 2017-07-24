@@ -26,7 +26,6 @@ var model = (function(){
     };
 
     model.onload = function(id) {
-      console.log(id);
         doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
           var currName;
           for (var i=0;i < document.cookie.split(";").length; i++) {
@@ -37,8 +36,6 @@ var model = (function(){
            document.getElementById("bookName").textContent = newData.title;
            document.getElementById("author").textContent = newData.author;
            document.getElementById("description").textContent = newData.description;
-           console.log(newData.username)
-           console.log(newData.username.length > 15)
            if (check_username(newData.username) === "need character") {
               document.getElementById("name").textContent = newData.name;
               document.getElementById("username").textContent = newData.username;
@@ -59,10 +56,8 @@ var model = (function(){
            } else {
             document.getElementById("tags").textContent = newData.tags[0] + "     ,     " + newData.tags[1]
            }
-           console.log(currName)
 
           doAjax('GET','http://localhost:3000/api/' + currName + "/",null, true, function(err,currUser) {
-            console.log(currUser);
             if (currUser != null) {
               if (currName == newData.username || currUser.type == "admin") {
                 document.getElementById("edit").style.display = "block";
@@ -74,7 +69,6 @@ var model = (function(){
     }
 
     model.miniShowUserProfile = function() {
-      console.log(document.getElementById("username").textContent)
         doAjax('GET','http://localhost:3000/api/' + document.getElementById("username").textContent + '/',null,true, function(err,newData) {
                 document.getElementById("currUserName").textContent = newData.username;
                 document.getElementById("currName").textContent = newData.name;
@@ -86,7 +80,6 @@ var model = (function(){
 
     model.editPost = function (id){
       doAjax('GET','http://localhost:3000/api/postsId/' + id + "/",null, true, function(err,newData) {
-        console.log(newData);
         document.getElementById("editTitle").value = newData.title;
         document.getElementById("editAuthor").value = newData.author;
         document.getElementById("editDescription").value = newData.description;
@@ -96,7 +89,6 @@ var model = (function(){
 
     model.delete = function (id){
       doAjax('DELETE','http://localhost:3000/api/posts/' + id + "/",null, true, function(err,newData) {
-        console.log(newData);
         if (newData == 1) {
           alert("Delete successfully!");
           location.replace("./index.html");
@@ -109,7 +101,6 @@ var model = (function(){
     }
 
     model.report = function(newData) {
-      console.log("model")
         alert("Report successfully!");
         document.getElementById("reportClose").click();
         doAjax('POST','http://localhost:3000/api/report/',newData,true, function(err,newData) {
@@ -134,6 +125,15 @@ var model = (function(){
         }
         return "good";
     };
+
+    model.editPostFormSubmit = function(newData) {
+
+      doAjax('PUT','http://localhost:3000/api/updatePosts/' + newData.id ,newData,true, function(err,newData) {
+        location.reload();
+      })
+    }
+
+
 
 
     return model;
