@@ -293,11 +293,15 @@ app.get('/api/posts/previous/:id/',function (req, res, next) {
     var dataList = [];
     posts.findOne({"_id":id},function (err, date) {
         posts.find({createdAt:{$gt: date.createdAt}}).sort({createdAt:-1}).exec(function(err,data) {
-
-            for (var i = data.length -1;i > data.length -11;i--) {
-                dataList.push(data[i])
+            console.log(data)
+            if (data.length == 0) {
+                return res.json(data);
+            } else {
+                for (var i = data.length -1;i > data.length -11;i--) {
+                    dataList.push(data[i])
+                }
+                return res.json(dataList.reverse())
             }
-            return res.json(dataList.reverse())
         })
     })
 })

@@ -271,7 +271,6 @@ var view = (function(){
 
     document.getElementById("search").onclick = function() {
         var info = document.getElementById("txtBookSearch").value;
-        document.getElementById("returnAll").style.display = "block";
         document.getElementById("status").textContent = info;
         if (info === "") {
             alert("Please provide some information about the book you wish to search.");

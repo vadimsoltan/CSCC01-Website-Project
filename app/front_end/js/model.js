@@ -102,6 +102,7 @@ var model = (function(){
             } else {
                 alert("Some errors exist");
             }
+            location.reload();
         })
     }
 
@@ -167,6 +168,7 @@ var model = (function(){
 
     model.previous = function(data) {
         doAjax("GET", "http://localhost:3000/api/posts/previous/" + data + "/", null, true, function(err, newData){
+            console.log(newData.length)
             if (newData.length == 0) {
                 alert("This is the first page");
             } else {
@@ -181,6 +183,7 @@ var model = (function(){
             if (newData.length == 0) {
                 alert("Sorry! We were not able to find anything matching the information provided.")
             } else {
+                document.getElementById("returnAll").style.display = "block";
                 document.dispatchEvent(new CustomEvent('createList_',{detail: newData}));
             }
         })
