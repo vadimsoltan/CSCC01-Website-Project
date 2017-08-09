@@ -41,7 +41,7 @@ Process[10 marks]:
  0-6 marks 
  [Each element 2 marks if presented professionally, 1 mark if presented adequately, 0 otherwise]
  ==========
- Your mark:2
+ Your mark:6
  ==========
  
 Software Architecture[10 marks]:
